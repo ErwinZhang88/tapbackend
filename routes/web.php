@@ -19,4 +19,14 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/homes', 'HomeController@index')->name('home');
+Route::get('/home', 'HomeController@input')->name('home');
+Route::get('/menu', 'HomeController@menu')->name('menu');
+Route::get('/menucreate', 'HomeController@menucreate')->name('menucreate');
+Route::get('/pages', 'HomeController@pages')->name('pages');
+Route::get('/category', 'HomeController@category')->name('category');
+Route::get('/categorycreate', 'HomeController@categorycreate')->name('categorycreate');
+Route::get('/post', 'HomeController@post')->name('post');
+Route::group(['prefix' => 'laravel-filemanager'], function () {
+     \UniSharp\LaravelFilemanager\Lfm::routes();
+ });

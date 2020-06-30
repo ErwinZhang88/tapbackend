@@ -13,7 +13,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        // $this->middleware('auth');
     }
 
     /**
@@ -24,5 +24,40 @@ class HomeController extends Controller
     public function index()
     {
         return view('home');
+    }
+
+    public function input()
+    {
+        return view('admin.input');
+    }
+
+    public function menu()
+    {
+        return view('admin.menu');
+    }
+
+    public function menucreate()
+    {
+        return view('admin.menuform');
+    }
+
+    public function category()
+    {
+        return view('admin.category');
+    }
+
+    public function categorycreate()
+    {
+        return view('admin.categorycreate');
+    }
+
+    public function post()
+    {
+        return view('admin.post');
+    }
+
+    public function pages()
+    {
+        return view('admin.pages');
     }
 }
