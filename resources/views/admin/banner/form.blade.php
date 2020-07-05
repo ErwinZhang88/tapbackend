@@ -12,12 +12,12 @@
     <div class="container-fluid">
     <div class="row mb-2">
         <div class="col-sm-6">
-        <h1>Create Menu</h1>
+        <h1>Create Banner</h1>
         </div>
         <div class="col-sm-6">
         <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item active">Menu</li>
+            <li class="breadcrumb-item active">Banner</li>
         </ol>
         </div>
     </div>
@@ -30,7 +30,7 @@
     <!-- SELECT2 EXAMPLE -->
     <div class="card card-default">
         <div class="card-header">
-        <h3 class="card-title">Create Menu</h3>
+        <h3 class="card-title">Create Banner</h3>
 
         <div class="card-tools">
             <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
@@ -38,35 +38,51 @@
         </div>
         </div>
         <!-- /.card-header -->
+        <form class="forms-sample" method="POST" action="{{ $item ? route('admin.banner.update',$item->id) : route('admin.banner.store') }}" enctype="multipart/form-data">
+        {{ csrf_field() }}
+        @if ($item)
+            {{ method_field('PUT') }}
+        @endif
         <div class="card-body">
             <div class="row">
                 <div class="col-md-12">
                     <div class="form-group">
                         <label for="exampleInputEmail1">Name (ID)</label>
-                        <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+                        <input type="text" class="form-control" name="name" id="exampleInputEmail1" 
+                            value="{{ $item ? $item->name : '' }}" placeholder="Enter Name (ID)" required autocomplete="off">
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail1">Name (EN)</label>
-                        <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+                        <input type="text" class="form-control" name="nameEn" id="exampleInputEmail1"
+                            value="{{ $item ? $item->nameEn : '' }}" placeholder="Enter Name (EN)" required autocomplete="off">
                     </div>
                     <div class="form-group">
                         <label>Parent Menu</label>
-                        <select class="form-control select2" style="width: 100%;">
-                            <option selected="selected">Alabama</option>
-                            <option>Alaska</option>
-                            <option>California</option>
-                            <option>Delaware</option>
-                            <option>Tennessee</option>
-                            <option>Texas</option>
-                            <option>Washington</option>
+                        <select class="form-control select2" name="parent_id" style="width: 100%;">
+                            <option value="0" selected="selected">-- Parent Menu --</option>
+                            @foreach($menu as $row)
+                            <option value="{{ $row->id }}" {{ $item && $item->parent_id == $row->id  ?? 'selected="selected"' }}>{{ $row->name }}</option>
+                            @endforeach
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="exampleInputFile">Image</label>
+                        <label for="exampleInputFile">Image Banner</label>
                         <div class="input-group">
                         <div class="custom-file">
-                            <input type="file" class="custom-file-input" id="exampleInputFile">
+                            <input type="file" name="banner" class="custom-file-input" id="exampleInputFile">
                             <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                        </div>
+                        <div class="input-group-append">
+                            <span class="input-group-text" id="">Upload</span>
+                        </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputFile1">Image Icon</label>
+                        <div class="input-group">
+                        <div class="custom-file">
+                            <input type="file" name="icon" class="custom-file-input" id="exampleInputFile1">
+                            <label class="custom-file-label" for="exampleInputFile1">Choose file</label>
                         </div>
                         <div class="input-group-append">
                             <span class="input-group-text" id="">Upload</span>
@@ -82,9 +98,12 @@
         </div>
         <!-- /.card-body -->
         <div class="card-footer">
-        Visit <a href="https://select2.github.io/">Select2 documentation</a> for more examples and information about
-        the plugin.
+            <div style="float:right;">
+                <a href="{{ route('admin.menu.index') }}" class="btn btn-danger">Cancel</a>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
         </div>
+        </form>
     </div>
     <!-- /.card -->
 </section>
@@ -94,10 +113,13 @@
 @section('script')
 <!-- Select2 -->
 <script src="{{ asset('admins/plugins/select2/js/select2.full.min.js') }}"></script>
+<!-- bs-custom-file-input -->
+<script src="{{ asset('admins/plugins/bs-custom-file-input/bs-custom-file-input.min.js') }}"></script>
 <script>
   $(function () {
     //Initialize Select2 Elements
-    $('.select2').select2()
+    $('.select2').select2();
+    bsCustomFileInput.init();
 
   })
 </script>
