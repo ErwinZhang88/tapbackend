@@ -28,10 +28,11 @@ Route::prefix('admin')->middleware('auth:web')->group(function () {
     //add Content
     Route::get('/content/{eventid}', 'ContentController@index')->name('admin.content');
     Route::get('/content/create/{eventid}', 'ContentController@create')->name('admin.content.create');
-    Route::get('/content/edit/{id}', 'ContentController@edit')->name('admin.content.edit');
-    Route::put('/content/update/{id}', 'ContentController@update')->name('admin.content.update');
-    Route::post('/content/save/{eventid}', 'ContentController@store')->name('admin.content.save');
-    Route::delete('/content/{id}', 'ContentController@delete')->name('contentDelete');
+    Route::get('/content/edit/{eventid}/{id}', 'ContentController@edit')->name('admin.content.edit');
+    Route::put('/content/update/{eventid}/{id}', 'ContentController@update')->name('admin.content.update');
+    Route::post('/content/store/{eventid}', 'ContentController@store')->name('admin.content.store');
+    Route::delete('/content/{eventid}/{id}', 'ContentController@delete')->name('contentDelete');
+    Route::post('/content/upload', 'ContentController@upload')->name('admin.content.upload');
     //end content
 
 });

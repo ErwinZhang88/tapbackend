@@ -12,12 +12,12 @@
     <div class="container-fluid">
     <div class="row mb-2">
         <div class="col-sm-6">
-        <h1>List Banner</h1>
+        <h1>List Content</h1>
         </div>
         <div class="col-sm-6">
         <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item active">Banner</li>
+            <li class="breadcrumb-item active">Content</li>
         </ol>
         </div>
     </div>
@@ -30,10 +30,10 @@
     <!-- SELECT2 EXAMPLE -->
     <div class="card card-default">
         <div class="card-header">
-        <h3 class="card-title">List Banner</h3>
+        <h3 class="card-title">List Content</h3>
 
         <div class="card-tools">
-          <a href="{{ route('admin.content.create',['eventid' => 1]) }}" class="btn btn-block bg-gradient-primary">Add Banner</a>
+          <a href="{{ route('admin.content.create',['eventid' => $id]) }}" class="btn btn-block bg-gradient-primary">Add Content</a>
         </div>
         </div>
         <!-- /.card-header -->
@@ -41,10 +41,9 @@
                 <table id="example2" class="table table-bordered table-hover">
                   <thead>
                   <tr>
-                    <th>Name (ID)</th>
-                    <th>Name (EN)</th>
+                    <th>Title (ID)</th>
+                    <th>Category</th>
                     <th>Menu</th>
-                    <th>Type</th>
                     <th>Action</th>
                   </tr>
                   </thead>
@@ -52,12 +51,11 @@
                   @foreach($menu as $row)
                   <tr>
                     <td>{{ $row->name }}</td>
-                    <td>{{ $row->nameEn }}</td>
-                    <td>{{ $row->nameEn }}</td>
-                    <td>{{ $row->types }}</td>
+                    <td>{{ $row->category }}</td>
+                    <td>{{ $row->menu_name }}</td>
                     <td>
-                      <a href="{{ route('admin.category.edit',[$row->id]) }}" class="btn btn-block bg-gradient-success">Edit</a>
-                      <a href="{{ route('admin.category.edit',[$row->id]) }}" class="btn btn-block bg-gradient-danger">Delete</a>
+                      <a href="{{ route('admin.content.edit',['eventid' => $id,'id' => $row->id]) }}" class="btn btn-block bg-gradient-success">Edit</a>
+                      <a href="{{ route('admin.content.edit',['eventid' => $id,'id' => $row->id]) }}" class="btn btn-block bg-gradient-danger">Delete</a>
                     </td>
                   </tr>
                   @endforeach

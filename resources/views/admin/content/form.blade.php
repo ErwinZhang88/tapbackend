@@ -38,53 +38,73 @@
         </div>
         </div>
         <!-- /.card-header -->
+        <form class="forms-sample" method="POST" action="{{ $item ? route('admin.content.update',['eventid' => $id,'id' => $item['content']->id]) : route('admin.content.store',['eventid' => $id]) }}" enctype="multipart/form-data">
+        {{ csrf_field() }}
+        @if ($item)
+            {{ method_field('PUT') }}
+        @endif
         <div class="card-body">
-
+            <div class="form-group">
+                <label>Type</label>
+                <select class="form-control select2" name="type" id="type" style="width: 100%;" onchange="checkType()">
+                    <option value="1" {{ $item && $item['content']->type == 1 ? 'selected="selected"' : '' }}>Title + Description + Image</option>
+                    <option value="2" {{ $item && $item['content']->type == 2 ? 'selected="selected"' : '' }}>Title + Description</option>
+                    <option value="3" {{ $item && $item['content']->type == 3 ? 'selected="selected"' : '' }}>Image</option>
+                </select>
+            </div>
             <div class="form-group">
                 <label>Category</label>
                 <select class="form-control select2" name="category_id" style="width: 100%;">
                     @foreach($category as $row)
-                    <option>{{ $row->name }}</option>
+                    <option value="{{ $row->id }}" {{ $item && $item['content']->category_id == $row->id ? 'selected="selected"' : '' }}>{{ $row->name }}</option>
                     @endforeach
                 </select>
             </div>
-            <div class="row">
+            <div class="row" id="titledesc">
                 <div class="col-md-12">
-            <ul class="nav nav-tabs" id="custom-content-above-tab" role="tablist">
-              <li class="nav-item">
-                <a class="nav-link active" id="custom-content-above-home-tab" data-toggle="pill" href="#custom-content-above-home" role="tab" aria-controls="custom-content-above-home" aria-selected="true">ID</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" id="custom-content-above-profile-tab" data-toggle="pill" href="#custom-content-above-profile" role="tab" aria-controls="custom-content-above-profile" aria-selected="false">EN</a>
-              </li>
-            </ul>
-            <div class="tab-custom-content">
-              <p class="lead mb-0">Custom Content goes here</p>
+                    <ul class="nav nav-tabs" id="custom-content-above-tab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="custom-content-above-home-tab" data-toggle="pill" href="#custom-content-above-home" role="tab" aria-controls="custom-content-above-home" aria-selected="true">ID</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="custom-content-above-profile-tab" data-toggle="pill" href="#custom-content-above-profile" role="tab" aria-controls="custom-content-above-profile" aria-selected="false">EN</a>
+                        </li>
+                    </ul>
+                    <div class="tab-custom-content">
+                        <p class="lead mb-0">Custom Content goes here</p>
+                    </div>
+                    <div class="tab-content" id="custom-content-above-tabContent">
+                        <div class="tab-pane fade show active" id="custom-content-above-home" role="tabpanel" aria-labelledby="custom-content-above-home-tab">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Judul (ID)</label>
+                                <input type="text" class="form-control" name="title" id="exampleInputEmail1"
+                                    value="{{ $item ? $item['translations']->name : '' }}" placeholder="Masukkan Judul">
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Deskripsi (ID)</label>
+                                <textarea name="desc" class="form-control">
+                                    {{ $item ? $item['translations']->description : '' }}
+                                </textarea>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="custom-content-above-profile" role="tabpanel" aria-labelledby="custom-content-above-profile-tab">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Title (EN)</label>
+                                <input type="text" class="form-control" name="titleEn" id="exampleInputEmail1"
+                                    value="{{ $item ? $item['translations_en']->name : '' }}" placeholder="Enter Title">
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Description (EN)</label>
+                                <textarea name="descEn" class="form-control">
+                                    {{ $item ? $item['translations_en']->description : '' }}
+                                </textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.col -->
             </div>
-            <div class="tab-content" id="custom-content-above-tabContent">
-              <div class="tab-pane fade show active" id="custom-content-above-home" role="tabpanel" aria-labelledby="custom-content-above-home-tab">
-                
-                <div class="form-group">
-                    <label for="exampleInputEmail1">Judul (ID)</label>
-                    <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
-                </div>
-                <div class="form-group">
-                    <label for="exampleInputEmail1">Deskripsi (ID)</label>
-                    <textarea name="tm" class="form-control"></textarea>
-                </div>
-              </div>
-              <div class="tab-pane fade" id="custom-content-above-profile" role="tabpanel" aria-labelledby="custom-content-above-profile-tab">
-                <div class="form-group">
-                    <label for="exampleInputEmail1">Title (EN)</label>
-                    <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
-                </div>
-                <div class="form-group">
-                    <label for="exampleInputEmail1">Description (EN)</label>
-                    <textarea name="tm" class="form-control"></textarea>
-                </div>
-              </div>
-            </div>
-            <div class="form-group">
+            <div class="form-group" id="img">
                 <label>Image</label>
                 <div class="input-group">
                     <span class="input-group-btn">
@@ -94,10 +114,6 @@
                     </span>
                     <input id="thumbnail" class="form-control" type="text" name="filepath">
                 </div>
-            </div>
-                <!-- /.form-group -->
-                </div>
-                <!-- /.col -->
             </div>
         <!-- /.row -->
         </div>
@@ -118,94 +134,103 @@
 @section('script')
 <!-- Select2 -->
 <script src="{{ asset('admins/plugins/select2/js/select2.full.min.js') }}"></script>
-
-  <!-- TinyMCE init -->
-  <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
-  <script>
+<!-- TinyMCE init -->
+<script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
+<script>
     var editor_config = {
-      path_absolute : "",
-      selector: "textarea[name=tm]",
-      plugins: [
+        directionality: document.dir,
+        path_absolute: "{{ url('/') }}"+"/",
+        selector: "textarea[name=desc]",
+        plugins: [
         "link image"
-      ],
-      relative_urls: false,
-      height: 129,
-      file_browser_callback : function(field_name, url, type, win) {
+        ],
+        relative_urls: false,
+        height: 300,
+        file_browser_callback : function(field_name, url, type, win) {
         var x = window.innerWidth || document.documentElement.clientWidth || document.getElementsByTagName('body')[0].clientWidth;
         var y = window.innerHeight|| document.documentElement.clientHeight|| document.getElementsByTagName('body')[0].clientHeight;
 
-        var cmsURL = editor_config.path_absolute + route_prefix + '?field_name=' + field_name;
+        var cmsURL = editor_config.path_absolute + 'laravel-filemanager?field_name=' + field_name;
         if (type == 'image') {
-          cmsURL = cmsURL + "&type=Images";
+            cmsURL = cmsURL + "&type=Images";
         } else {
-          cmsURL = cmsURL + "&type=Files";
+            cmsURL = cmsURL + "&type=Files";
         }
 
         tinyMCE.activeEditor.windowManager.open({
-          file : cmsURL,
-          title : 'Filemanager',
-          width : x * 0.8,
-          height : y * 0.8,
-          resizable : "yes",
-          close_previous : "no"
+            file : cmsURL,
+            title : 'Filemanager',
+            width : x * 0.8,
+            height : y * 0.8,
+            resizable : "yes",
+            close_previous : "no"
         });
-      }
+        }
     };
 
     tinymce.init(editor_config);
-  </script>
 
-  <script>
-    {!! \File::get(base_path('vendor/unisharp/laravel-filemanager/public/js/stand-alone-button.js')) !!}
-  </script>
-  <script>
-    $('#lfm').filemanager('image', {prefix: route_prefix});
-    // $('#lfm').filemanager('file', {prefix: route_prefix});
-  </script>
+    var editor_configEn = {
+        directionality: document.dir,
+        path_absolute: "{{ url('/') }}"+"/",
+        selector: "textarea[name=descEn]",
+        plugins: [
+        "link image"
+        ],
+        relative_urls: false,
+        height: 300,
+        file_browser_callback : function(field_name, url, type, win) {
+        var x = window.innerWidth || document.documentElement.clientWidth || document.getElementsByTagName('body')[0].clientWidth;
+        var y = window.innerHeight|| document.documentElement.clientHeight|| document.getElementsByTagName('body')[0].clientHeight;
 
-  <script>
-    var lfm = function(id, type, options) {
-      let button = document.getElementById(id);
+        var cmsURL = editor_config.path_absolute + 'laravel-filemanager?field_name=' + field_name;
+        if (type == 'image') {
+            cmsURL = cmsURL + "&type=Images";
+        } else {
+            cmsURL = cmsURL + "&type=Files";
+        }
 
-      button.addEventListener('click', function () {
-        var route_prefix = (options && options.prefix) ? options.prefix : '/filemanager';
-        var target_input = document.getElementById(button.getAttribute('data-input'));
-        var target_preview = document.getElementById(button.getAttribute('data-preview'));
-
-        window.open(route_prefix + '?type=' + options.type || 'file', 'FileManager', 'width=900,height=600');
-        window.SetUrl = function (items) {
-          var file_path = items.map(function (item) {
-            return item.url;
-          }).join(',');
-
-          // set the value of the desired input to image url
-          target_input.value = file_path;
-          target_input.dispatchEvent(new Event('change'));
-
-          // clear previous preview
-          target_preview.innerHtml = '';
-
-          // set or change the preview image src
-          items.forEach(function (item) {
-            let img = document.createElement('img')
-            img.setAttribute('style', 'height: 5rem')
-            img.setAttribute('src', item.thumb_url)
-            target_preview.appendChild(img);
-          });
-
-          // trigger change event
-          target_preview.dispatchEvent(new Event('change'));
-        };
-      });
+        tinyMCE.activeEditor.windowManager.open({
+            file : cmsURL,
+            title : 'Filemanager',
+            width : x * 0.8,
+            height : y * 0.8,
+            resizable : "yes",
+            close_previous : "no"
+        });
+        }
     };
 
-    lfm('lfm2', 'file', {prefix: route_prefix});
-  </script>
-<script>
-  $(function () {
-    //Initialize Select2 Elements
-    $('.select2').select2()
-
-  })
+    tinymce.init(editor_configEn);
+    {!! \File::get(base_path('vendor/unisharp/laravel-filemanager/public/js/stand-alone-button.js')) !!}
+    $('#lfm').filemanager('image', {prefix: "{{ url('/') }}"+"/laravel-filemanager"});
+    $(function () {
+        //Initialize Select2 Elements
+        $('.select2').select2();
+        var types = "{{ $item && $item['content']->type ? $item['content']->type : 1 }}";
+        if(types == 1){
+            $("#titledesc").show();
+            $("#img").show();
+        }else if(types == 2){
+            $("#titledesc").show();
+            $("#img").hide();
+        }else{
+            $("#titledesc").hide();
+            $("#img").show();
+        }
+    })
+    function checkType() {
+        var x = document.getElementById("type").value;
+        if(x == 1){
+            $("#titledesc").show();
+            $("#img").show();
+        }else if(x == 2){
+            $("#titledesc").show();
+            $("#img").hide();
+        }else{
+            $("#titledesc").hide();
+            $("#img").show();
+        }
+    }
 </script>
 @endsection

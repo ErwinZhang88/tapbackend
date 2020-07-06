@@ -43,18 +43,12 @@
             </p>
         </a>
         </li>
-        <li class="nav-item">
-        <a href="{{ route('post') }}" class="nav-link">
+        <li class="nav-item {{ isset($page) && $page == 'operasional' ? 'menu-open' : ''}}">
+        <a href="{{ route('admin.content',['eventid' => 2]) }}" class="nav-link">
             <i class="nav-icon fas fa-th"></i>
             <p>
-            Kepimpinan
+            Operasional
             </p>
-        </a>
-        </li>
-        <li class="nav-item">
-        <a href="#" class="nav-link">
-            <i class="nav-icon far fa-circle text-info"></i>
-            <p>Informational</p>
         </a>
         </li>
         <li class="nav-item">

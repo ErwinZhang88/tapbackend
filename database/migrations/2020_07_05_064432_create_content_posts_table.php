@@ -15,7 +15,12 @@ class CreateContentPostsTable extends Migration
     {
         Schema::create('content_posts', function (Blueprint $table) {
             $table->id();
+            $table->tinyInteger('category_id')->default(0);
+            $table->tinyInteger('type')->default(0);
+            $table->string('images')->nullable();
+            $table->tinyInteger('status')->default(0);
             $table->timestamps();
+			$table->softDeletes();
         });
     }
 
