@@ -17,3 +17,6 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::get('/menu', 'API\MenuController@index')->name('menu');
+Route::post('/content', 'API\MenuController@content')->name('content');

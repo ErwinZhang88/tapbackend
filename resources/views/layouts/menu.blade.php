@@ -35,19 +35,23 @@
             </p>
         </a>
         </li>
-        <li class="nav-item {{ isset($page) && $page == 'tentangkami' ? 'menu-open' : ''}}">
-        <a href="{{ route('admin.content',['eventid' => 1]) }}" class="nav-link">
+        
+        @foreach(\App\Menu::orderBy('id', 'asc')
+        ->where('parent_id', 0)->get() as $menu)
+        <li class="nav-item {{ isset($page) && $page == $menu->nicename ? 'menu-open' : ''}}">
+        <a href="{{ route('admin.content',['eventid' => $menu->id ]) }}" class="nav-link">
             <i class="nav-icon fas fa-th"></i>
             <p>
-            Tentang Kami
+            {{ $menu->name }}
             </p>
         </a>
         </li>
-        <li class="nav-item {{ isset($page) && $page == 'operasional' ? 'menu-open' : ''}}">
+        @endforeach
+        <li class="nav-item {{ isset($page) && $page == 'operasionals' ? 'menu-open' : ''}}">
         <a href="{{ route('admin.content',['eventid' => 2]) }}" class="nav-link">
             <i class="nav-icon fas fa-th"></i>
             <p>
-            Operasional
+            Setting
             </p>
         </a>
         </li>

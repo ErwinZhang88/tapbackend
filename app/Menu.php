@@ -12,10 +12,10 @@ class Menu extends Model
 	protected $dates = ['deleted_at'];
 
     protected $fillable = [
-        'parent_id','name','nameEn','nicename','nicenameEn','banner','icon','status'
+        'parent_id','name','nameEn','nicename','nicenameEn','banner','icon','status','type'
     ];
 
-    protected $appends = ['banner_url', 'icon_url','submenu'];
+    protected $appends = ['banner_url', 'icon_url'];
 
     public function category()
     {
@@ -28,14 +28,5 @@ class Menu extends Model
 
     public function getIconUrlAttribute(){
       return url('menu/'.$this->icon);
-    }
-
-    public function getSubmenuAttribute(){
-        $submenu = '';
-        if($this->parent_id != 0){
-            $datamenu = Menu::select('name')->find($this->parent_id);
-            $submenu = $datamenu->name;
-        }
-        return $submenu;
     }
 }

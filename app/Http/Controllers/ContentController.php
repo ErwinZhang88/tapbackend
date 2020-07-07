@@ -20,6 +20,7 @@ class ContentController extends Controller
     public function __construct()
     {
         // $this->middleware('auth');
+        // View::share('total_credit', $total - $total_class);
         $this->page = 'tentangkami';
         View::share('page', $this->page);
     }
@@ -31,15 +32,18 @@ class ContentController extends Controller
      */
     public function index($id)
     {
+        // echo $id;die;
+        $menu = Menu::select('nicename')->find($id);
+        $page = $menu->nicename;
         $subpage = 'list';
         $menu = ContentPost::join('categories','categories.id','=','content_posts.category_id')
             ->join('menus','menus.id','=','categories.menu_id')
-            ->join('content_post_translations','content_post_translations.content_post_id','=','content_posts.id')
-            ->where('locale','id')->where(function($q) use($id) {
+            ->leftjoin('content_post_translations','content_post_translations.content_post_id','=','content_posts.id')
+            ->where(function($q) use($id) {
                 $q->where('menus.parent_id', $id)
                 ->orWhere('menus.id', $id);
             })->select('content_posts.*','content_post_translations.name','categories.name as category','menus.name as menu_name')->get();
-        return view('admin.content.index',compact('subpage','menu','id'));
+        return view('admin.content.index',compact('subpage','menu','id','page'));
     }
 
     public function create($id)
@@ -94,34 +98,35 @@ class ContentController extends Controller
         $item->category_id = $request->category_id;
         $item->type = $request->type;
         $item->status = 1;
-        if($request->file('banner')){
-            $item->banner = time().'.'.$request->banner->extension();
-            $request->banner->move(public_path('menu'), $item->banner);
+        if(isset($request->filepath)){
+            $item->images = $request->filepath;
         }
         $item->save();
-
-        $item_content_en = ContentPostTranslation::where('content_post_id',$item->id)->where('locale','en')->first();
-        if(!$item_content_en){
-            $item_content_en = new ContentPostTranslation;
-            $item_content_en->locale = 'en';
-            $item_content_en->content_post_id = $item->id;
+        if(isset($request->titleEn)){
+            $item_content_en = ContentPostTranslation::where('content_post_id',$item->id)->where('locale','en')->first();
+            if(!$item_content_en){
+                $item_content_en = new ContentPostTranslation;
+                $item_content_en->locale = 'en';
+                $item_content_en->content_post_id = $item->id;
+            }
+            $item_content_en->name = $request->titleEn;
+            $item_content_en->nicename = $this->generateSlug('nicename',$request->titleEn);
+            $item_content_en->description = $request->descEn;
+            $item_content_en->save();
         }
-        $item_content_en->name = $request->titleEn;
-        $item_content_en->nicename = $this->generateSlug('nicename',$request->titleEn);
-        $item_content_en->description = $request->descEn;
-        $item_content_en->save();
 
-        $item_content_id = ContentPostTranslation::where('content_post_id',$item->id)->where('locale','id')->first();
-        if(!$item_content_id){
-            $item_content_id = new ContentPostTranslation;
-            $item_content_id->locale = 'id';
-            $item_content_id->content_post_id = $item->id;
+        if(isset($request->title)){
+            $item_content_id = ContentPostTranslation::where('content_post_id',$item->id)->where('locale','id')->first();
+            if(!$item_content_id){
+                $item_content_id = new ContentPostTranslation;
+                $item_content_id->locale = 'id';
+                $item_content_id->content_post_id = $item->id;
+            }
+            $item_content_id->name = $request->title;
+            $item_content_id->nicename = $this->generateSlug('nicename',$request->title);
+            $item_content_id->description = $request->desc;
+            $item_content_id->save();
         }
-        $item_content_id->name = $request->title;
-        $item_content_id->nicename = $this->generateSlug('nicename',$request->title);
-        $item_content_id->description = $request->desc;
-        $item_content_id->save();
-
         return redirect()->route('admin.content',['eventid' => $eventid]);
 
     }
