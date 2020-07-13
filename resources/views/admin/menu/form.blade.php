@@ -65,29 +65,29 @@
                             @endforeach
                         </select>
                     </div>
-                    <div class="form-group">
-                        <label for="exampleInputFile">Image Banner</label>
+                    <div class="form-group" id="img">
+                        <label>Image Banner</label>
                         <div class="input-group">
-                        <div class="custom-file">
-                            <input type="file" name="banner" class="custom-file-input" id="exampleInputFile">
-                            <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                            <span class="input-group-btn">
+                                <a id="lfm" data-input="thumbnail" data-preview="holder" class="btn btn-primary text-white">
+                                <i class="fa fa-picture-o"></i> Choose
+                                </a>
+                            </span>
+                            <input id="thumbnail" class="form-control" type="text" name="banner">
                         </div>
-                        <div class="input-group-append">
-                            <span class="input-group-text" id="">Upload</span>
-                        </div>
-                        </div>
+                        <div id="holder" style="margin-top:15px;max-height:100px;"></div>
                     </div>
-                    <div class="form-group">
-                        <label for="exampleInputFile1">Image Icon</label>
+                    <div class="form-group" id="img">
+                        <label>Image Icon</label>
                         <div class="input-group">
-                        <div class="custom-file">
-                            <input type="file" name="icon" class="custom-file-input" id="exampleInputFile1">
-                            <label class="custom-file-label" for="exampleInputFile1">Choose file</label>
+                            <span class="input-group-btn">
+                                <a id="lfm2" data-input="thumbnail2" data-preview="holder2" class="btn btn-primary text-white">
+                                <i class="fa fa-picture-o"></i> Choose
+                                </a>
+                            </span>
+                            <input id="thumbnail2" class="form-control" type="text" name="icon">
                         </div>
-                        <div class="input-group-append">
-                            <span class="input-group-text" id="">Upload</span>
-                        </div>
-                        </div>
+                        <div id="holder2" style="margin-top:15px;max-height:100px;"></div>
                     </div>
 
                 <!-- /.form-group -->
@@ -116,6 +116,46 @@
 <!-- bs-custom-file-input -->
 <script src="{{ asset('admins/plugins/bs-custom-file-input/bs-custom-file-input.min.js') }}"></script>
 <script>
+   var route_prefix = "{{ url('/filemanager') }}";
+    {!! \File::get(base_path('vendor/unisharp/laravel-filemanager/public/js/stand-alone-button.js')) !!}
+    $('#lfm').filemanager('image', {prefix: "{{ url('/') }}"+"/laravel-filemanager"});
+
+    var lfm = function(id, type, options) {
+      let button = document.getElementById(id);
+
+      button.addEventListener('click', function () {
+        var route_prefix = (options && options.prefix) ? options.prefix : '/filemanager';
+        var target_input = document.getElementById(button.getAttribute('data-input'));
+        var target_preview = document.getElementById(button.getAttribute('data-preview'));
+
+        window.open(route_prefix + '?type=image', 'FileManager', 'width=900,height=600');
+        window.SetUrl = function (items) {
+          var file_path = items.map(function (item) {
+            return item.url;
+          }).join(',');
+
+          // set the value of the desired input to image url
+          target_input.value = file_path;
+          target_input.dispatchEvent(new Event('change'));
+
+          // clear previous preview
+          target_preview.innerHtml = '';
+
+          // set or change the preview image src
+          items.forEach(function (item) {
+            let img = document.createElement('img')
+            img.setAttribute('style', 'height: 5rem')
+            img.setAttribute('src', item.thumb_url)
+            target_preview.appendChild(img);
+          });
+
+          // trigger change event
+          target_preview.dispatchEvent(new Event('change'));
+        };
+      });
+    };
+
+    lfm('lfm2', 'file', {prefix: route_prefix});
   $(function () {
     //Initialize Select2 Elements
     $('.select2').select2();

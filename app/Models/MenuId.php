@@ -16,19 +16,11 @@ class MenuId extends Model
         'parent_id','name','nicename','banner','icon','status','type'
     ];
 
-    protected $appends = ['banner_url', 'icon_url','sub_menu_left','sub_menu_center','sub_menu_right'];
+    protected $appends = ['sub_menu_left','sub_menu_center','sub_menu_right'];
 
     public function category()
     {
         return $this->hasMany('App\Category');
-    }
-
-    public function getBannerUrlAttribute(){
-      return url('menu/'.$this->banner);
-    }
-
-    public function getIconUrlAttribute(){
-      return url('menu/'.$this->icon);
     }
 
     public function getSubMenuLeftAttribute(){

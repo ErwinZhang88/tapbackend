@@ -55,8 +55,8 @@
                     <td>{{ $row->name }}</td>
                     <td>{{ $row->nameEn }}</td>
                     <td>{{ $row->submenu }}</td>
-                    <td><img src="{{ $row->banner_url }}" style="width:20%;"></td>
-                    <td><img src="{{ $row->icon_url }}" style="width:20px;height:10px;"></td>
+                    <td><img src="{{ $row->banner }}" style="width:50%;"></td>
+                    <td><img src="{{ $row->icon }}" style="width:50%;"></td>
                     <td>
                       <a href="{{ route('admin.menu.edit',[$row->id]) }}" class="btn btn-block bg-gradient-success">Edit</a>
                       <a href="{{ route('admin.menu.edit',[$row->id]) }}" class="btn btn-block bg-gradient-danger">Delete</a>

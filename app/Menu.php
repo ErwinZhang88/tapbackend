@@ -15,18 +15,8 @@ class Menu extends Model
         'parent_id','name','nameEn','nicename','nicenameEn','banner','icon','status','type','comp_name','path'
     ];
 
-    protected $appends = ['banner_url', 'icon_url'];
-
     public function category()
     {
         return $this->hasMany('App\Category');
-    }
-
-    public function getBannerUrlAttribute(){
-      return url('menu/'.$this->banner);
-    }
-
-    public function getIconUrlAttribute(){
-      return url('menu/'.$this->icon);
     }
 }

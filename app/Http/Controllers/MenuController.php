@@ -64,18 +64,14 @@ class MenuController extends Controller
         }
         $item->parent_id = $request->parent_id;
         $item->name = $request->name;
-        $item->nicename =  $this->generateSlug('nicename',$request->name);
         $item->nameEn = $request->nameEn;
-        $item->nicenameEn =  $this->generateSlug('nicenameEn',$request->nameEn);
+        if($id == 0){
+            $item->nicename =  $this->generateSlug('nicename',$request->name);
+            $item->nicenameEn =  $this->generateSlug('nicenameEn',$request->nameEn);
+        }
+        $item->banner = $request->banner;
+        $item->icon = $request->icon;
         $item->status = 1;
-        if($request->file('banner')){
-            $item->banner = time().'.'.$request->banner->extension();
-            $request->banner->move(public_path('menu'), $item->banner);
-        }
-        if($request->file('icon')){
-            $item->icon = time().'.'.$request->icon->extension();
-            $request->icon->move(public_path('menu'), $item->icon);
-        }
         $item->save();
         return redirect()->route('admin.menu.index');
 
