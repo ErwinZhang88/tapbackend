@@ -52,7 +52,15 @@ class MenuEn extends Model
     public function getSubMenuRightAttribute(){
         $submenu = array();
         if($this->parent_id == 0 && $this->type == 2){
-            $datamenu = MenuEn::select('nameEn as name','nicenameEn as nicename')->where('parent_id',$this->id)->get();
+            $datamenu = MenuId::select('id','name','nicename','status')->where('parent_id',$this->id)->get();
+            if($datamenu){
+                foreach($datamenu as $row){
+                    if($row->status == 2){
+                        $datamenu_child = MenuId::select('name','nicename')->where('parent_id',$row->id)->get();
+                        $row->item = $datamenu_child;
+                    }
+                }
+            }
             $submenu = $datamenu;
         }
         return $submenu;
