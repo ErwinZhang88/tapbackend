@@ -33,7 +33,7 @@ class MenuId extends Model
 
     public function getSubMenuLeftAttribute(){
         $submenu = array();
-        if($this->parent_id == 0 && ($this->type == 1 || $this->type == 4)){
+        if($this->parent_id == 0 && ($this->type == 1 || $this->type == 4 || $this->type == 5)){
             $datamenu = MenuId::select('name','nicename','comp_name','path')->where('parent_id',$this->id)->get();
             $submenu = $datamenu;
         }
@@ -42,8 +42,8 @@ class MenuId extends Model
 
     public function getSubMenuCenterAttribute(){
         $submenu = array();
-        if($this->parent_id == 0 && $this->type == 3){
-            $datamenu = MenuId::select('name','nicename','comp_name','path')->where('parent_id',$this->id)->get();
+        if($this->parent_id == 0 && ($this->type == 3 || $this->type == 5)){
+            $datamenu = MenuId::select('name','nicename','comp_name','path')->where('type',0)->where('parent_id',$this->id)->get();
             $submenu = $datamenu;
         }
         return $submenu;
