@@ -52,11 +52,16 @@ class MenuId extends Model
     public function getSubMenuRightAttribute(){
         $submenu = array();
         if($this->parent_id == 0 && ($this->type == 2 || $this->type == 4)){
-            $datamenu = MenuId::select('id','name','nicename','status','comp_name','path')->where('parent_id',$this->id)->get();
+            if($this->id == 22){
+                $datamenu = MenuId::select('id','name','nicename','status','comp_name','path')->where('parent_id',$this->id)->limit(1)->get();
+            }else{
+                $datamenu = MenuId::select('id','name','nicename','status','comp_name','path')->where('parent_id',$this->id)->get();
+            }
             if($datamenu){
                 foreach($datamenu as $row){
                     if($row->status == 2){
-                        $datamenu_child = MenuId::select('name','nicename','comp_name','path')->where('parent_id',$row->id)->get();
+                        $parent_id = $row->id == 23 ? 22 : $row->id;
+                        $datamenu_child = MenuId::select('name','nicename','comp_name','path')->where('parent_id',$parent_id)->get();
                         $row->item = $datamenu_child;
                     }
                 }
