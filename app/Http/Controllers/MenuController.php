@@ -16,7 +16,7 @@ class MenuController extends Controller
      */
     public function __construct()
     {
-        // $this->middleware('auth');
+        $this->middleware('auth');
         $this->page = 'menu';
         View::share('page', $this->page);
     }

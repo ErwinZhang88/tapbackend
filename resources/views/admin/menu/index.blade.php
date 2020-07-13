@@ -32,9 +32,9 @@
         <div class="card-header">
         <h3 class="card-title">List Menu</h3>
 
-        <div class="card-tools">
+        <!-- <div class="card-tools">
           <a href="{{ route('admin.menu.create') }}" class="btn btn-block bg-gradient-primary">Add Menu</a>
-        </div>
+        </div> -->
         </div>
         <!-- /.card-header -->
               <div class="card-body">
