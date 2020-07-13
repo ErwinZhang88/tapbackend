@@ -58,36 +58,24 @@
                     </div>
                     <div class="form-group">
                         <label>Parent Menu</label>
-                        <select class="form-control select2" name="parent_id" style="width: 100%;">
+                        <select class="form-control select2" name="type" style="width: 100%;">
                             <option value="0" selected="selected">-- Parent Menu --</option>
                             @foreach($menu as $row)
                             <option value="{{ $row->id }}" {{ $item && $item->parent_id == $row->id  ?? 'selected="selected"' }}>{{ $row->name }}</option>
                             @endforeach
                         </select>
                     </div>
-                    <div class="form-group">
-                        <label for="exampleInputFile">Image Banner</label>
+                    <div class="form-group" id="img">
+                        <label>Image</label>
                         <div class="input-group">
-                        <div class="custom-file">
-                            <input type="file" name="banner" class="custom-file-input" id="exampleInputFile">
-                            <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                            <span class="input-group-btn">
+                                <a id="lfm" data-input="thumbnail" data-preview="holder" class="btn btn-primary text-white">
+                                <i class="fa fa-picture-o"></i> Choose
+                                </a>
+                            </span>
+                            <input id="thumbnail" class="form-control" type="text" name="banner">
                         </div>
-                        <div class="input-group-append">
-                            <span class="input-group-text" id="">Upload</span>
-                        </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputFile1">Image Icon</label>
-                        <div class="input-group">
-                        <div class="custom-file">
-                            <input type="file" name="icon" class="custom-file-input" id="exampleInputFile1">
-                            <label class="custom-file-label" for="exampleInputFile1">Choose file</label>
-                        </div>
-                        <div class="input-group-append">
-                            <span class="input-group-text" id="">Upload</span>
-                        </div>
-                        </div>
+                        <div id="holder" style="margin-top:15px;max-height:100px;"></div>
                     </div>
 
                 <!-- /.form-group -->
@@ -116,11 +104,12 @@
 <!-- bs-custom-file-input -->
 <script src="{{ asset('admins/plugins/bs-custom-file-input/bs-custom-file-input.min.js') }}"></script>
 <script>
-  $(function () {
-    //Initialize Select2 Elements
-    $('.select2').select2();
-    bsCustomFileInput.init();
-
-  })
+    {!! \File::get(base_path('vendor/unisharp/laravel-filemanager/public/js/stand-alone-button.js')) !!}
+    $('#lfm').filemanager('image', {prefix: "{{ url('/') }}"+"/laravel-filemanager"});
+    $(function () {
+        //Initialize Select2 Elements
+        $('.select2').select2();
+        bsCustomFileInput.init();
+    })
 </script>
 @endsection

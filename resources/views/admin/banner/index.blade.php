@@ -43,8 +43,8 @@
                   <tr>
                     <th>Name (ID)</th>
                     <th>Name (EN)</th>
-                    <th>Menu</th>
-                    <th>Type</th>
+                    <th>Image</th>
+                    <th>Order</th>
                     <th>Action</th>
                   </tr>
                   </thead>
@@ -53,11 +53,11 @@
                   <tr>
                     <td>{{ $row->name }}</td>
                     <td>{{ $row->nameEn }}</td>
-                    <td>{{ $row->menu->name }} - ({{ $row->menu->parent_id != 0 ? 'SubMenu' : 'Menu' }})</td>
-                    <td>{{ $row->types }}</td>
+                    <td><img src="{{ $row->banner }}" style="width:50%;"></td>
+                    <td>{{ $row->order }}</td>
                     <td>
-                      <a href="{{ route('admin.category.edit',[$row->id]) }}" class="btn btn-block bg-gradient-success">Edit</a>
-                      <a href="{{ route('admin.category.edit',[$row->id]) }}" class="btn btn-block bg-gradient-danger">Delete</a>
+                      <a href="{{ route('admin.banner.edit',[$row->id]) }}" class="btn btn-block bg-gradient-success">Edit</a>
+                      <a href="{{ route('admin.banner.edit',[$row->id]) }}" class="btn btn-block bg-gradient-danger">Delete</a>
                     </td>
                   </tr>
                   @endforeach

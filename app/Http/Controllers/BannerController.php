@@ -40,7 +40,7 @@ class BannerController extends Controller
         $subpage = 'create';
         $menu = Menu::select('id','name','parent_id')->get();
         $item = array();
-        return view('admin.category.form',compact('subpage','menu','item'));
+        return view('admin.banner.form',compact('subpage','menu','item'));
     }
 
     public function store(Request $request){
@@ -50,8 +50,8 @@ class BannerController extends Controller
     public function edit($id){
         $subpage = 'create';
         $menu = Menu::select('id','name','parent_id')->get();
-        $item = Category::find($id);
-        return view('admin.category.form',compact('subpage','menu','item'));
+        $item = Banner::find($id);
+        return view('admin.banner.form',compact('subpage','menu','item'));
     }
 
     public function update($id,Request $request){
@@ -60,19 +60,19 @@ class BannerController extends Controller
 
     public function save($id, Request $request){
         if($id != 0){
-            $item = Category::find($id);
+            $item = Banner::find($id);
         }else{
-            $item = new Category;
+            $item = new Banner;
         }
-        $item->menu_id = $request->menu_id;
-        $item->type = $request->type;
         $item->name = $request->name;
         $item->nicename =  $this->generateSlug('nicename',$request->name);
         $item->nameEn = $request->nameEn;
         $item->nicenameEn =  $this->generateSlug('nicenameEn',$request->nameEn);
-        $item->status = 1;
+        $item->banner = $request->banner;
+        $item->type = $request->type;
+        $item->order = 1;
         $item->save();
-        return redirect()->route('admin.category.index');
+        return redirect()->route('admin.banner.index');
 
     }
 
@@ -80,7 +80,7 @@ class BannerController extends Controller
 		$index = 0;
 		do {
 			$current_slug = Str::slug($name) . ($index !== 0 ? "-$index" : '');
-			if (Category::where($type, $current_slug)->first() !== null) {
+			if (Banner::where($type, $current_slug)->first() !== null) {
 				$found = true;
 				$index++;
 			} else {
