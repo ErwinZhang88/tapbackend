@@ -66,9 +66,11 @@ class CategoryController extends Controller
         $item->menu_id = $request->menu_id;
         $item->type = $request->type;
         $item->name = $request->name;
-        $item->nicename =  $this->generateSlug('nicename',$request->name);
         $item->nameEn = $request->nameEn;
-        $item->nicenameEn =  $this->generateSlug('nicenameEn',$request->nameEn);
+        if($id == 0){
+            $item->nicename =  $this->generateSlug('nicename',$request->name);
+            $item->nicenameEn =  $this->generateSlug('nicenameEn',$request->nameEn);
+        }
         $item->status = 1;
         $item->save();
         return redirect()->route('admin.category.index');
