@@ -38,9 +38,10 @@ class MenuController extends BaseController
             $lang = $request->header('lang');
         }
         if($lang == 'en'){
-            $menus = MenuEn::select('id')->where('nicenameEn',$nicename)->first();
+            $menus = MenuEn::select('id','name','banner')->where('nicenameEn',$nicename)->first();
+            $category = Category::select('id','name','nicename','type')->where('menu_id',$menus->id)->get();
         }else{
-            $menus = MenuId::select('id','banner')->where('nicename',$nicename)->first();
+            $menus = MenuId::select('id','name','banner')->where('nicename',$nicename)->first();
             $category = Category::select('id','name','nicename','type')->where('menu_id',$menus->id)->get();
         }
         // dd($category);
@@ -54,6 +55,7 @@ class MenuController extends BaseController
                 $row['content'] = array(
                     'id' => $content->id,
                     'type' => $content->type,
+                    'title' => $content->name,
                     'image' => $content->images,
                     'title' => $contentData ? $contentData->name : '',
                     'nicename' => $contentData ? $contentData->nicename : '',
