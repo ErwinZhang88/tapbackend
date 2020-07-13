@@ -33,8 +33,9 @@ class MenuId extends Model
 
     public function getSubMenuLeftAttribute(){
         $submenu = array();
-        if($this->parent_id == 0 && ($this->type == 1 || $this->type == 4)){
-            $datamenu = MenuId::select('name','nicename','comp_name','path')->where('parent_id',$this->id)->get();
+        if($this->parent_id == 0 && ($this->type == 1 || $this->type == 4 )){
+            $parent_id = $this->status > 10 ? $this->status : $this->id;
+            $datamenu = MenuId::select('name','nicename','comp_name','path')->where('parent_id',$parent_id)->get();
             $submenu = $datamenu;
         }
         return $submenu;
@@ -43,7 +44,7 @@ class MenuId extends Model
     public function getSubMenuCenterAttribute(){
         $submenu = array();
         if($this->parent_id == 0 && ($this->type == 3 || $this->type == 5)){
-            $datamenu = MenuId::select('name','nicename','comp_name','path')->where('type',0)->where('parent_id',$this->id)->get();
+            $datamenu = MenuId::select('name','nicename','comp_name','path')->where('type',0)->where('parent_id',$this->status)->get();
             $submenu = $datamenu;
         }
         return $submenu;
@@ -52,16 +53,11 @@ class MenuId extends Model
     public function getSubMenuRightAttribute(){
         $submenu = array();
         if($this->parent_id == 0 && ($this->type == 2 || $this->type == 4 || $this->type == 5)){
-            if($this->id == 22){
-                $datamenu = MenuId::select('id','name','nicename','status','comp_name','path')->where('parent_id',$this->id)->limit(1)->get();
-            }else{
-                $datamenu = MenuId::select('id','name','nicename','status','comp_name','path')->where('parent_id',$this->id)->get();
-            }
+            $datamenu = MenuId::select('id','name','nicename','status','comp_name','path')->where('parent_id',$this->id)->get();
             if($datamenu){
                 foreach($datamenu as $row){
                     if($row->status == 2){
-                        $parent_id = $row->id == 23 ? 22 : $row->id;
-                        $datamenu_child = MenuId::select('name','nicename','comp_name','path')->where('parent_id',$parent_id)->get();
+                        $datamenu_child = MenuId::select('name','nicename','comp_name','path')->where('parent_id',$row->id)->get();
                         $row->item = $datamenu_child;
                     }
                 }
