@@ -34,7 +34,7 @@ class MenuId extends Model
     public function getSubMenuLeftAttribute(){
         $submenu = array();
         if($this->parent_id == 0 && $this->type == 1){
-            $datamenu = MenuId::select('name','nicename')->where('parent_id',$this->id)->get();
+            $datamenu = MenuId::select('name','nicename','comp_name','path')->where('parent_id',$this->id)->get();
             $submenu = $datamenu;
         }
         return $submenu;
@@ -43,7 +43,7 @@ class MenuId extends Model
     public function getSubMenuCenterAttribute(){
         $submenu = array();
         if($this->parent_id == 0 && $this->type == 3){
-            $datamenu = MenuId::select('name','nicename')->where('parent_id',$this->id)->get();
+            $datamenu = MenuId::select('name','nicename','comp_name','path')->where('parent_id',$this->id)->get();
             $submenu = $datamenu;
         }
         return $submenu;
@@ -52,11 +52,11 @@ class MenuId extends Model
     public function getSubMenuRightAttribute(){
         $submenu = array();
         if($this->parent_id == 0 && $this->type == 2){
-            $datamenu = MenuId::select('id','name','nicename','status')->where('parent_id',$this->id)->get();
+            $datamenu = MenuId::select('id','name','nicename','status','comp_name','path')->where('parent_id',$this->id)->get();
             if($datamenu){
                 foreach($datamenu as $row){
                     if($row->status == 2){
-                        $datamenu_child = MenuId::select('name','nicename')->where('parent_id',$row->id)->get();
+                        $datamenu_child = MenuId::select('name','nicename','comp_name','path')->where('parent_id',$row->id)->get();
                         $row->item = $datamenu_child;
                     }
                 }
