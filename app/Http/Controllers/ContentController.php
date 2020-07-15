@@ -41,7 +41,7 @@ class ContentController extends Controller
             ->leftjoin('content_post_translations','content_post_translations.content_post_id','=','content_posts.id')
             ->where(function($q) use($id) {
                 $q->where('menus.parent_id', $id)
-                ->orWhere('menus.id', $id);
+                ->orWhere('menus.id', $id)->OrWhere('menus.parent_menu_id',$id);
             })->select('content_posts.*','content_post_translations.name','categories.name as category','menus.name as menu_name')->get();
         return view('admin.content.index',compact('subpage','menu','id','page'));
     }
@@ -53,7 +53,7 @@ class ContentController extends Controller
         $category = Category::join('menus','menus.id','=','categories.menu_id')
             ->where(function($q) use($id) {
                 $q->where('menus.parent_id', $id)
-                ->orWhere('menus.id', $id);
+                ->orWhere('menus.id', $id)->OrWhere('menus.parent_menu_id',$id);
             })->select('categories.id','categories.name')->get();
         // dd($category);
         $item = array();
@@ -70,7 +70,7 @@ class ContentController extends Controller
         $category = Category::join('menus','menus.id','=','categories.menu_id')
             ->where(function($q) use($eventid) {
                 $q->where('menus.parent_id', $eventid)
-                ->orWhere('menus.id', $eventid);
+                ->orWhere('menus.id', $eventid)->OrWhere('menus.parent_menu_id',$eventid);
             })->select('categories.id','categories.name')->get();
         // dd($category);
         $content = ContentPost::find($id);
