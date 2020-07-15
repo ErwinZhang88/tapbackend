@@ -68,9 +68,9 @@ class ContentController extends Controller
         $subpage = 'create';
         $menu = Menu::select('id','name')->where('parent_id',0)->get();
         $category = Category::join('menus','menus.id','=','categories.menu_id')
-            ->where(function($q) use($id) {
-                $q->where('menus.parent_id', $id)
-                ->orWhere('menus.id', $id);
+            ->where(function($q) use($eventid) {
+                $q->where('menus.parent_id', $eventid)
+                ->orWhere('menus.id', $eventid);
             })->select('categories.id','categories.name')->get();
         // dd($category);
         $content = ContentPost::find($id);
@@ -81,6 +81,7 @@ class ContentController extends Controller
             'translations_en' => $content_translation_en,
             'translations' => $content_translation
         );
+        $id = $eventid;
         return view('admin.content.form',compact('subpage','menu','item','id','category'));
     }
 

@@ -34,43 +34,51 @@ class MenuController extends BaseController
     public function content(Request $request){
         $nicename = $request->input('nicename');
         $lang = 'id';
+        $content_category = array();
         if($request->header('lang') != ''){
             $lang = $request->header('lang');
         }
+        // echo $nicename;die;
         if($lang == 'en'){
             $menus = MenuEn::select('id','name','banner')->where('nicenameEn',$nicename)->first();
-            $category = Category::select('id','name','nicename','type')->where('menu_id',$menus->id)->get();
         }else{
             $menus = MenuId::select('id','name','banner')->where('nicename',$nicename)->first();
+        }
+        if($menus){
             $category = Category::select('id','name','nicename','type')->where('menu_id',$menus->id)->get();
-        }
-        // dd($category);
-        $content_category = array();
-        foreach($category as $row){
-            $row['content'] = array();
-            $content = ContentPost::select('id')->where('category_id',$row->id)->first();
-            if($content){
-                $contentData = ContentPostTranslation::where('locale',$lang)->where('content_post_id',$content->id)->first();
-                // dd($contentData);
-                $row['content'] = array(
-                    'id' => $content->id,
-                    'type' => $content->type,
-                    'title' => $content->name,
-                    'image' => $content->images,
-                    'title' => $contentData ? $contentData->name : '',
-                    'nicename' => $contentData ? $contentData->nicename : '',
-                    'desc' => $contentData ? $contentData->description : ''
+            if($category){
+                foreach($category as $row){
+                    $row['content'] = array();
+                    $content = ContentPost::select('id')->where('category_id',$row->id)->first();
+                    if($content){
+                        $contentData = ContentPostTranslation::where('locale',$lang)->where('content_post_id',$content->id)->first();
+                        // dd($contentData);
+                        $row['content'] = array(
+                            'id' => $content->id,
+                            'type' => $content->type,
+                            'title' => $content->name,
+                            'image' => $content->images,
+                            'title' => $contentData ? $contentData->name : '',
+                            'nicename' => $contentData ? $contentData->nicename : '',
+                            'desc' => $contentData ? $contentData->description : ''
+                        );
+                    }
+                    $content_category[] = $row;
+                }
+            
+                $data = array(
+                     'banner' => $menus->banner,
+                     'title' => $menus->name,
+                     'category' => $content_category,   
                 );
+                
+                return $this->sendResponse($data, 'Data successfully.');
+            }else{
+                return $this->sendError('Data not found.',$content_category,200);
             }
-            $content_category[] = $row;
+        }else{
+            return $this->sendError('Data not found.',$content_category,200);
         }
-        
-        $data = array(
-             'banner' => $menus->banner,
-             'category' => $content_category,   
-        );
-        
-        return $this->sendResponse($data, 'Data successfully.');
     }
 
 
