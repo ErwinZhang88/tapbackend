@@ -49,19 +49,23 @@ class MenuController extends BaseController
             if($category){
                 foreach($category as $row){
                     $row['content'] = array();
-                    $content = ContentPost::select('id')->where('category_id',$row->id)->first();
+                    $content = ContentPost::where('category_id',$row->id)->get();
                     if($content){
-                        $contentData = ContentPostTranslation::where('locale',$lang)->where('content_post_id',$content->id)->first();
-                        // dd($contentData);
-                        $row['content'] = array(
-                            'id' => $content->id,
-                            'type' => $content->type,
-                            'title' => $content->name,
-                            'image' => $content->images,
-                            'title' => $contentData ? $contentData->name : '',
-                            'nicename' => $contentData ? $contentData->nicename : '',
-                            'desc' => $contentData ? $contentData->description : ''
-                        );
+                        $contentrow = array();
+                        foreach($content as $rowcontent){
+                            $contentData = ContentPostTranslation::where('locale',$lang)->where('content_post_id',$rowcontent->id)->first();
+                            // dd($contentData);
+                            $contentrow[] = array(
+                                'id' => $rowcontent->id,
+                                'type' => $rowcontent->type,
+                                'title' => $rowcontent->name,
+                                'image' => $rowcontent->images,
+                                'title' => $contentData ? $contentData->name : '',
+                                'nicename' => $contentData ? $contentData->nicename : '',
+                                'desc' => $contentData ? $contentData->description : ''
+                            );
+                        }
+                        $row['content'] = $contentrow;
                     }
                     $content_category[] = $row;
                 }
