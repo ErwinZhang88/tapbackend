@@ -30,14 +30,14 @@ class MenuController extends Controller
     public function index()
     {
         $subpage = 'list';
-        $menu = Menu::get();
+        $menu = Menu::withTrashed()->get();
         return view('admin.menu.index',compact('subpage','menu'));
     }
 
     public function create()
     {
         $subpage = 'create';
-        $menu = Menu::select('id','name')->where('parent_id',0)->get();
+        $menu = Menu::withTrashed()->select('id','name')->where('parent_id',0)->get();
         $item = array();
         return view('admin.menu.form',compact('subpage','menu','item'));
     }
@@ -48,8 +48,8 @@ class MenuController extends Controller
 
     public function edit($id){
         $subpage = 'create';
-        $menu = Menu::select('id','name')->where('parent_id',0)->get();
-        $item = Menu::find($id);
+        $menu = Menu::withTrashed()->select('id','name')->where('parent_id',0)->get();
+        $item = Menu::withTrashed()->find($id);
         return view('admin.menu.form',compact('subpage','menu','item'));
     }
 
@@ -59,7 +59,7 @@ class MenuController extends Controller
 
     public function save($id, Request $request){
         if($id != 0){
-            $item = Menu::find($id);
+            $item = Menu::withTrashed()->find($id);
         }else{
             $item = new Menu;
         }
@@ -80,6 +80,22 @@ class MenuController extends Controller
         $item->save();
         return redirect()->route('admin.menu.index');
 
+    }
+
+    public function destroy($id){
+        $menu = Menu::onlyTrashed()->find($id);
+        if (!is_null($menu)) {
+            $menu->restore();
+        }else{
+            Menu::destroy($id);
+        }
+		$response = [
+			'success' => true,
+			'data' => array(),
+			'message' => 'berhasil',
+		];
+
+		return response()->json($response, 200);
     }
 
 	function generateSlug($type,$name) {

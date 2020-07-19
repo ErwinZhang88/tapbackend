@@ -59,7 +59,11 @@
                     <td><img src="{{ $row->icon }}" style="width:50%;"></td>
                     <td>
                       <a href="{{ route('admin.menu.edit',[$row->id]) }}" class="btn btn-block bg-gradient-success">Edit</a>
-                      <a href="{{ route('admin.menu.edit',[$row->id]) }}" class="btn btn-block bg-gradient-danger">Delete</a>
+                      @if($row->deleted_at != '')
+                        <a id="myLink" href="#" data-value="{{ $row->name }}" data-id="{{ $row->id }}" class="btn btn-block bg-gradient-warning unhide_item">Unhide</a>
+                      @else
+                        <a id="myLink" href="#" data-value="{{ $row->name }}" data-id="{{ $row->id }}" class="btn btn-block bg-gradient-danger delete_item">Hide</a>
+                      @endif
                     </td>
                   </tr>
                   @endforeach
@@ -70,6 +74,7 @@
     <!-- /.card -->
 </section>
 <!-- /.content -->
+<meta name="_token" content="{!! csrf_token() !!}" />
 @endsection
 
 @section('script')
@@ -78,6 +83,9 @@
 <script src="{{ asset('admins/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
 <script src="{{ asset('admins/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
 <script src="{{ asset('admins/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
+<!-- SweetAlert2 -->
+<script src="{{ asset('admins/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 <!-- page script -->
 <script>
   $(function () {
@@ -90,5 +98,86 @@
       "responsive": true,
     });
   });
+  //display modal form for review
+  $(document).on('click', '.unhide_item', function() {
+      var dataValue = $(this).attr('data-value');
+      var dataId = $(this).attr('data-id');
+      var url = '{{ route("admin.menu.destroy", ":slug") }}';
+      url = url.replace(':slug', dataId);
+      console.log(dataValue);
+      let message = "You won't be unhide "+dataValue+" ?";
+      let icon = 'warning';
+      let hide = 'Yes, unhide it!'
+      DeleteItem(message,url,hide,icon);
+  });
+  $(document).on('click', '.delete_item', function() {
+      var dataValue = $(this).attr('data-value');
+      var dataId = $(this).attr('data-id');
+      var url = '{{ route("admin.menu.destroy", ":slug") }}';
+      url = url.replace(':slug', dataId);
+      console.log(dataValue);
+      let message = "You won't be hide "+dataValue+" ?";
+      let icon = 'error';
+      let hide = 'Yes, hide it!'
+      DeleteItem(message,url,hide,icon);
+  });
+
+  function DeleteItem(message,url,hide,icon){
+    Swal.fire({
+        title: 'Are you sure?',
+        text: message,
+        icon: icon,
+        reverseButtons: true,
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: hide
+      }).then((result) => {
+        if (result.value) {
+
+          $.ajaxSetup({
+              headers: {
+                  'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+              }
+          })
+          $.ajax({
+              type: "DELETE",
+              url: url,
+              success: function(data) {
+                  console.log(data);
+                  if(data.success){
+                    Swal.fire({
+                      title: 'Done',
+                      text: "You proccess already done!",
+                      icon: 'success',
+                      showCancelButton: false,
+                      confirmButtonColor: '#3085d6',
+                      confirmButtonText: 'OK!'
+                    }).then((result) => {
+                      if (result.value) {
+                        location.reload();
+                      }
+                    })
+                  }else{
+                      console.log('Error:', data);
+                      Swal.fire(
+                        'Sorry!!',
+                        'Something wrong this proccess',
+                        'error'
+                      )
+                  }
+              },
+              error: function(data) {
+                  console.log('Error:', data);
+                  Swal.fire(
+                    'Sorry!!',
+                    'Something wrong this proccess',
+                    'error'
+                  )
+              }
+          });
+        }
+      })
+  }
 </script>
 @endsection
