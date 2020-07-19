@@ -43,6 +43,14 @@
             </p>
         </a>
         </li>
+        <li class="nav-item {{ isset($page) && $page == 'complaint' ? 'menu-open' : ''}}">
+        <a href="{{ route('admin.complaint.index') }}" class="nav-link">
+            <i class="nav-icon fas fa-th"></i>
+            <p>
+            Keluhan User
+            </p>
+        </a>
+        </li>
         
         @foreach(\App\Menu::orderBy('id', 'asc')
         ->where('parent_id', 0)->get() as $menu)
