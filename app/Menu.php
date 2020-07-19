@@ -15,8 +15,22 @@ class Menu extends Model
         'parent_id','name','nameEn','nicename','nicenameEn','banner','icon','status','type','comp_name','path'
     ];
 
+
+    protected $appends = ['sub_menu'];
+
     public function category()
     {
         return $this->hasMany('App\Category');
+    }
+
+    public function getSubMenuAttribute(){
+        $submenu = '';
+        if($this->parent_id != 0){
+            $datamenu = Menu::select('name')->find($this->parent_id);
+            if($datamenu){
+                $submenu = $datamenu->name;
+            }
+        }
+        return $submenu;
     }
 }

@@ -54,7 +54,7 @@
                   <tr>
                     <td>{{ $row->name }}</td>
                     <td>{{ $row->nameEn }}</td>
-                    <td>{{ $row->submenu }}</td>
+                    <td>{{ $row->sub_menu }}</td>
                     <td><img src="{{ $row->banner }}" style="width:50%;"></td>
                     <td><img src="{{ $row->icon }}" style="width:50%;"></td>
                     <td>

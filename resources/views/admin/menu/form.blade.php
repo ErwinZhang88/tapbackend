@@ -12,7 +12,7 @@
     <div class="container-fluid">
     <div class="row mb-2">
         <div class="col-sm-6">
-        <h1>Create Menu</h1>
+        <h1>Edit Menu</h1>
         </div>
         <div class="col-sm-6">
         <ol class="breadcrumb float-sm-right">
@@ -30,7 +30,7 @@
     <!-- SELECT2 EXAMPLE -->
     <div class="card card-default">
         <div class="card-header">
-        <h3 class="card-title">Create Menu</h3>
+        <h3 class="card-title">Edit Menu</h3>
 
         <div class="card-tools">
             <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
@@ -56,15 +56,29 @@
                         <input type="text" class="form-control" name="nameEn" id="exampleInputEmail1"
                             value="{{ $item ? $item->nameEn : '' }}" placeholder="Enter Name (EN)" required autocomplete="off">
                     </div>
+                    @if(Auth::user()->id == 1)
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Path</label>
+                        <input type="text" class="form-control" name="path" id="exampleInputEmail1"
+                            value="{{ $item ? $item->path : '' }}" placeholder="Enter Path" required autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Comp Name</label>
+                        <input type="text" class="form-control" name="comp_name" id="exampleInputEmail1"
+                            value="{{ $item ? $item->comp_name : '' }}" placeholder="Enter Comp Name" required autocomplete="off">
+                    </div>
+                    @endif
+                    @if(!$item)
                     <div class="form-group">
                         <label>Parent Menu</label>
                         <select class="form-control select2" name="parent_id" style="width: 100%;">
                             <option value="0" selected="selected">-- Parent Menu --</option>
                             @foreach($menu as $row)
-                            <option value="{{ $row->id }}" {{ $item && $item->parent_id == $row->id  ?? 'selected="selected"' }}>{{ $row->name }}</option>
+                            <option value="{{ $row->id }}">{{ $row->name}}</option>
                             @endforeach
                         </select>
                     </div>
+                    @endif
                     <div class="form-group" id="img">
                         <label>Image Banner</label>
                         <div class="input-group">

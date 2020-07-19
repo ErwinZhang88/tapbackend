@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Menu;
 use View;
 use Illuminate\Support\Str;
+use Auth;
 
 class MenuController extends Controller
 {
@@ -62,12 +63,16 @@ class MenuController extends Controller
         }else{
             $item = new Menu;
         }
-        $item->parent_id = $request->parent_id;
+        // $item->parent_id = $request->parent_id;
         $item->name = $request->name;
         $item->nameEn = $request->nameEn;
         if($id == 0){
             $item->nicename =  $this->generateSlug('nicename',$request->name);
             $item->nicenameEn =  $this->generateSlug('nicenameEn',$request->nameEn);
+        }
+        if(Auth::user()->id == 1){
+            $item->path = $request->path;
+            $item->comp_name = $request->comp_name;
         }
         $item->banner = $request->banner;
         $item->icon = $request->icon;
