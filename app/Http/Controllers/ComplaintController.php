@@ -63,20 +63,34 @@ class ComplaintController extends Controller
         }
         // $item->parent_id = $request->parent_id;
         $item->name = $request->name;
-        $item->nameEn = $request->nameEn;
         if($id == 0){
             $item->nicename =  $this->generateSlug('nicename',$request->name);
-            $item->nicenameEn =  $this->generateSlug('nicenameEn',$request->nameEn);
         }
         if(Auth::user()->id == 1){
             $item->path = $request->path;
             $item->comp_name = $request->comp_name;
         }
-        $item->banner = $request->banner;
-        $item->icon = $request->icon;
-        $item->status = 1;
+        $item->group = $request->group;
+        $item->country = $request->country;
+        $item->address = $request->address;
+        $item->phone = $request->phone;
+        $item->email = $request->email;
+        $item->fax = $request->fax;
+        $item->keluhan_kepada = $request->keluhan_kepada;
+        $item->nama_responden = $request->nama_responden;
+        $item->lokasi_keluhan = $request->lokasi_keluhan;
+        $item->informasi_keluhan = $request->informasi_keluhan;
+        $item->hal_kebijakan = $request->hal_kebijakan;
+        if($request->bukti != ''){
+            $item->bukti = $request->bukti;
+        }
+        $item->tindakan = $request->tindakan == 1 ? true : false;
+        $item->langkah_kebijakan = $request->langkah_kebijakan;
+        $item->metode_masalah = $request->metode_masalah;
+        $item->hasil_keluhan = $request->hasil_keluhan;
+        $item->status = $request->status;
         $item->save();
-        return redirect()->route('admin.menu.index');
+        return redirect()->route('admin.complaint.index');
 
     }
 

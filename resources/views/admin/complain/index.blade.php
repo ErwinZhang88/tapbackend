@@ -56,14 +56,10 @@
                     <td>{{ $row->phone }}</td>
                     <td>{{ $row->email }}</td>
                     <td>{{ $row->informasi_keluhan }}</td>
-                    <td>{{ $row->status }}</td>
+                    <td>{{ $row->status_complain }}</td>
                     <td>
                       <a href="{{ route('admin.complaint.edit',[$row->id]) }}" class="btn btn-block bg-gradient-success">Edit</a>
-                      @if($row->deleted_at != '')
-                        <a id="myLink" href="#" data-value="{{ $row->name }}" data-id="{{ $row->id }}" class="btn btn-block bg-gradient-warning unhide_item">Unhide</a>
-                      @else
-                        <a id="myLink" href="#" data-value="{{ $row->name }}" data-id="{{ $row->id }}" class="btn btn-block bg-gradient-danger delete_item">Hide</a>
-                      @endif
+                        <a id="myLink" href="#" data-value="{{ $row->name }}" data-id="{{ $row->id }}" class="btn btn-block bg-gradient-danger delete_item">Delete</a>
                     </td>
                   </tr>
                   @endforeach
