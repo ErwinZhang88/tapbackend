@@ -35,8 +35,8 @@
             </p>
         </a>
         </li>
-        <li class="nav-item {{ isset($page) && $page == 'listfile' ? 'menu-open' : ''}}">
-        <a href="{{ route('admin.banner.index') }}" class="nav-link">
+        <li class="nav-item {{ isset($page) && $page == 'filelist' ? 'menu-open' : ''}}">
+        <a href="{{ route('admin.filelist.index') }}" class="nav-link">
             <i class="nav-icon fas fa-th"></i>
             <p>
             List File

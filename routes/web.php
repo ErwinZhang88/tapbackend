@@ -25,6 +25,7 @@ Route::prefix('admin')->middleware('auth:web')->group(function () {
     Route::resource('menu', 'MenuController', ['as' => 'admin']);
     Route::resource('category', 'CategoryController', ['as' => 'admin']);
     Route::resource('banner', 'BannerController', ['as' => 'admin']);
+    Route::resource('filelist', 'FileListController', ['as' => 'admin']);
     //add Content
     Route::get('/content/{eventid}', 'ContentController@index')->name('admin.content');
     Route::get('/content/create/{eventid}', 'ContentController@create')->name('admin.content.create');
