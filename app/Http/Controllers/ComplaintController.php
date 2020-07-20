@@ -61,14 +61,9 @@ class ComplaintController extends Controller
         }else{
             $item = new Complain;
         }
-        // $item->parent_id = $request->parent_id;
         $item->name = $request->name;
         if($id == 0){
             $item->nicename =  $this->generateSlug('nicename',$request->name);
-        }
-        if(Auth::user()->id == 1){
-            $item->path = $request->path;
-            $item->comp_name = $request->comp_name;
         }
         $item->group = $request->group;
         $item->country = $request->country;
