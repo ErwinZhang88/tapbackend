@@ -12,7 +12,7 @@ class Menu extends Model
 	protected $dates = ['deleted_at'];
 
     protected $fillable = [
-        'parent_id','name','nameEn','nicename','nicenameEn','banner','icon','status','type','comp_name','path'
+        'parent_id','name','nameEn','nicename','nicenameEn','banner','icon','status','type','comp_name','path','banner_mobile'
     ];
 
 

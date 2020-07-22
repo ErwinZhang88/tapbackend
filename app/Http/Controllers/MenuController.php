@@ -75,6 +75,7 @@ class MenuController extends Controller
             $item->comp_name = $request->comp_name;
         }
         $item->banner = $request->banner;
+        $item->banner_mobile = $request->banner_mobile;
         $item->icon = $request->icon;
         $item->status = 1;
         $item->save();
