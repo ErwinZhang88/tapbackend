@@ -24,9 +24,11 @@ class MenuController extends BaseController
             $lang = $request->header('lang');
         }
         if($lang == 'en'){
-            $menus = MenuEn::where('parent_id',0)->select('id','nameEn as name','nicenameEn as nicename','banner','icon','parent_id','type','status','comp_name','path')->get();
+            $menus = MenuEn::where('parent_id',0)->select('id','nameEn as name','nicenameEn as nicename','banner',
+                'icon','parent_id','type','status','comp_name','path','left','right','center')->get();
         }else{
-            $menus = MenuId::where('parent_id',0)->select('id','name','nicename','banner','icon','parent_id','type','status','comp_name','path')->get();
+            $menus = MenuId::where('parent_id',0)->select('id','name','nicename','banner','icon',
+                'parent_id','type','status','comp_name','path','left','right','center')->get();
         }
         return $this->sendResponse($menus, 'Data successfully.');
     }
