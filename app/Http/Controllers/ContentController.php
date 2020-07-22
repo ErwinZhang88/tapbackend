@@ -102,6 +102,9 @@ class ContentController extends Controller
         if(isset($request->filepath)){
             $item->images = $request->filepath;
         }
+        if(isset($request->video)){
+            $item->video = $request->video;
+        }
         $item->save();
         if(isset($request->titleEn)){
             $item_content_en = ContentPostTranslation::where('content_post_id',$item->id)->where('locale','en')->first();

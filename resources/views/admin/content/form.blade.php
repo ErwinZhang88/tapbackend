@@ -49,7 +49,8 @@
                 <select class="form-control select2" name="type" id="type" style="width: 100%;" onchange="checkType()">
                     <option value="1" {{ $item && $item['content']->type == 1 ? 'selected="selected"' : '' }}>Title + Description + Image</option>
                     <option value="2" {{ $item && $item['content']->type == 2 ? 'selected="selected"' : '' }}>Title + Description</option>
-                    <option value="3" {{ $item && $item['content']->type == 3 ? 'selected="selected"' : '' }}>Image</option>
+                    <option value="3" {{ $item && $item['content']->type == 3 ? 'selected="selected"' : '' }}>Title + Image</option>
+                    <option value="4" {{ $item && $item['content']->type == 4 ? 'selected="selected"' : '' }}>Title + Youtube + Icon</option>
                 </select>
             </div>
             <div class="form-group">
@@ -114,6 +115,11 @@
                     </span>
                     <input id="thumbnail" class="form-control" type="text" name="filepath">
                 </div>
+            </div>
+            <div class="form-group">
+                <label for="exampleInputEmail1">Link Video</label>
+                <input type="text" class="form-control" name="video" id="exampleInputEmail1" 
+                    value="{{ $item ? $item->video : '' }}" placeholder="Enter Name Video" required autocomplete="off">
             </div>
         <!-- /.row -->
         </div>
