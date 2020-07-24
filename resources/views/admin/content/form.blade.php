@@ -172,7 +172,7 @@
             <div class="form-group">
                 <label for="exampleInputEmail1">Link Video</label>
                 <input type="text" class="form-control" name="video" id="exampleInputEmail1" 
-                    value="{{ $item ? $item->video : '' }}" placeholder="Enter Name Video" required autocomplete="off">
+                    value="{{ $item ? $item['content']->video : '' }}" placeholder="Enter Name Video" required autocomplete="off">
             </div>
         <!-- /.row -->
         </div>
