@@ -42,9 +42,9 @@ class MenuController extends BaseController
         }
         // echo $nicename;die;
         if($lang == 'en'){
-            $menus = MenuEn::select('id','name','banner','video','format','icon','bg_color','button')->where('nicenameEn',$nicename)->first();
+            $menus = MenuEn::select('id','name','banner')->where('nicenameEn',$nicename)->first();
         }else{
-            $menus = MenuId::select('id','name','banner','video','format','icon','bg_color','button')->where('nicename',$nicename)->first();
+            $menus = MenuId::select('id','name','banner')->where('nicename',$nicename)->first();
         }
         if($menus){
             $category = Category::select('id','name','nicename','type')->where('menu_id',$menus->id)->get();
@@ -60,8 +60,12 @@ class MenuController extends BaseController
                             $contentrow[] = array(
                                 'id' => $rowcontent->id,
                                 'type' => $rowcontent->type,
+                                'format' => $rowcontent->format,
+                                'bg_color' => $rowcontent->bg_color,
+                                'button' => $rowcontent->button,
                                 'title' => $rowcontent->name,
                                 'image' => $rowcontent->images,
+                                'icon' => $rowcontent->icon,
                                 'title' => $contentData ? $contentData->name : '',
                                 'nicename' => $contentData ? $contentData->nicename : '',
                                 'desc' => $contentData ? $contentData->description : ''
