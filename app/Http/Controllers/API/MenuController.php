@@ -47,7 +47,7 @@ class MenuController extends BaseController
             $menus = MenuId::select('id','name','banner')->where('nicename',$nicename)->first();
         }
         if($menus){
-            $category = Category::select('id','name','nicename','type')->where('menu_id',$menus->id)->get();
+            $category = Category::select('id','name','nicename','type','show_name')->where('menu_id',$menus->id)->get();
             if($category){
                 foreach($category as $row){
                     $row['content'] = array();
@@ -64,6 +64,7 @@ class MenuController extends BaseController
                                 'bg_color' => $rowcontent->bg_color,
                                 'button' => $rowcontent->button,
                                 'title' => $rowcontent->name,
+                                'show_title' => $rowcontent->show_title,
                                 'image' => $rowcontent->images,
                                 'icon' => $rowcontent->icon,
                                 'title' => $contentData ? $contentData->name : '',
