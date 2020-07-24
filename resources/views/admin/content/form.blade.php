@@ -87,10 +87,17 @@
                 </select>
             </div>
             <div class="form-group">
-                <label>Button (Load More)</label>
+                <label>Button (Details)</label>
                 <select class="form-control select2" name="button" id="button" style="width: 100%;">
-                    <option value="false" {{ $item && $item['content']->button == 0 ? 'selected="selected"' : '' }}>No</option>
-                    <option value="true" {{ $item && $item['content']->button == 1 ? 'selected="selected"' : '' }}>Yes</option>
+                    <option value="0" {{ $item && $item['content']->button == 0 ? 'selected="selected"' : '' }}>No</option>
+                    <option value="1" {{ $item && $item['content']->button == 1 ? 'selected="selected"' : '' }}>Yes</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Show Title</label>
+                <select class="form-control select2" name="show_title" id="show_title" style="width: 100%;">
+                    <option value="0" {{ $item && $item['content']->show_title == 0 ? 'selected="selected"' : '' }}>No</option>
+                    <option value="1" {{ $item && $item['content']->show_title == 1 ? 'selected="selected"' : '' }}>Yes</option>
                 </select>
             </div>
             <div class="form-group">
@@ -172,7 +179,7 @@
             <div class="form-group">
                 <label for="exampleInputEmail1">Link Video</label>
                 <input type="text" class="form-control" name="video" id="exampleInputEmail1" 
-                    value="{{ $item ? $item['content']->video : '' }}" placeholder="Enter Name Video" required autocomplete="off">
+                    value="{{ $item ? $item['content']->video : '' }}" placeholder="Enter Name Video" autocomplete="off">
             </div>
         <!-- /.row -->
         </div>

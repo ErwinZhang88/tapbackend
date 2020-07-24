@@ -67,6 +67,7 @@ class CategoryController extends Controller
         $item->type = $request->type;
         $item->name = $request->name;
         $item->nameEn = $request->nameEn;
+        $item->show_name = $request->show_name;
         if($id == 0){
             $item->nicename =  $this->generateSlug('nicename',$request->name);
             $item->nicenameEn =  $this->generateSlug('nicenameEn',$request->nameEn);

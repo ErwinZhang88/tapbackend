@@ -56,6 +56,13 @@
                             value="{{ $item ? $item->nameEn : '' }}" placeholder="Enter Name (EN)" required autocomplete="off">
                     </div>
                     <div class="form-group">
+                        <label>Show Title</label>
+                        <select class="form-control select2" name="show_name" id="show_title" style="width: 100%;">
+                            <option value="0" {{ $item && $item->show_name == 0 ? 'selected="selected"' : '' }}>No</option>
+                            <option value="1" {{ $item && $item->show_name == 1 ? 'selected="selected"' : '' }}>Yes</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
                         <label>Menu</label>
                         <select class="form-control select2" name="menu_id" style="width: 100%;">
                             @foreach($menu as $row)

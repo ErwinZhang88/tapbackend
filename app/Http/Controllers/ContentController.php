@@ -101,6 +101,7 @@ class ContentController extends Controller
         $item->format = $request->format;
         $item->bg_color = $request->bg_color;
         $item->button = $request->button;
+        $item->show_title = $request->show_title;
         $item->status = 1;
         if(isset($request->filepath)){
             $item->images = $request->filepath;

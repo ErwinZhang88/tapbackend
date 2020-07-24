@@ -12,6 +12,6 @@ class ContentPost extends Model
     protected $dates = ['deleted_at'];
 
     protected $fillable = [
-        'category_id','type','images','status','video','format','icon','bg_color','button'
+        'category_id','type','images','status','video','format','icon','bg_color','button','show_title'
     ];
 }
