@@ -98,9 +98,15 @@ class ContentController extends Controller
         
         $item->category_id = $request->category_id;
         $item->type = $request->type;
+        $item->format = $request->format;
+        $item->bg_color = $request->bg_color;
+        $item->button = $request->button;
         $item->status = 1;
         if(isset($request->filepath)){
             $item->images = $request->filepath;
+        }
+        if(isset($request->icon)){
+            $item->icon = $request->icon;
         }
         if(isset($request->video)){
             $item->video = $request->video;

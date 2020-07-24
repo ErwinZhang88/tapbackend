@@ -65,6 +65,35 @@
                 </div>
             </div>
             <div class="form-group">
+                <label>Background Color</label>
+                <select class="form-control select2" name="bg_color" id="bg_color" style="width: 100%;">
+                    <option value="#FFFFFF" {{ $item && $item['content']->bg_color == '#FFFFFF' ? 'selected="selected"' : '' }}>#FFFFFF</option>
+                    <option value="#000000" {{ $item && $item['content']->bg_color == '#000000' ? 'selected="selected"' : '' }}>#000000</option>
+                    <option value="#057249" {{ $item && $item['content']->bg_color == '#057249' ? 'selected="selected"' : '' }}>#057249</option>
+                    <option value="#19AE4F" {{ $item && $item['content']->bg_color == '#19AE4F' ? 'selected="selected"' : '' }}>#19AE4F</option>
+                    <option value="#649743" {{ $item && $item['content']->bg_color == '#649743' ? 'selected="selected"' : '' }}>#649743</option>
+                    <option value="#6CCB3D" {{ $item && $item['content']->bg_color == '#6CCB3D' ? 'selected="selected"' : '' }}>#6CCB3D</option>
+                    <option value="#929292" {{ $item && $item['content']->bg_color == '#929292' ? 'selected="selected"' : '' }}>#929292</option>
+                    <option value="#AEAEAE" {{ $item && $item['content']->bg_color == '#AEAEAE' ? 'selected="selected"' : '' }}>#AEAEAE</option>
+                    <option value="#C8D4B8" {{ $item && $item['content']->bg_color == '#C8D4B8' ? 'selected="selected"' : '' }}>#C8D4B8</option>
+                    <option value="#D9DED2" {{ $item && $item['content']->bg_color == '#D9DED2' ? 'selected="selected"' : '' }}>#D9DED2</option>
+                    <option value="#F0EDDC" {{ $item && $item['content']->bg_color == '#F0EDDC' ? 'selected="selected"' : '' }}>#F0EDDC</option>
+                    <option value="#E9ECE5" {{ $item && $item['content']->bg_color == '#E9ECE5' ? 'selected="selected"' : '' }}>#E9ECE5</option>
+                    <option value="#727272" {{ $item && $item['content']->bg_color == '#727272' ? 'selected="selected"' : '' }}>#727272</option>
+                    <option value="#989898" {{ $item && $item['content']->bg_color == '#989898' ? 'selected="selected"' : '' }}>#989898</option>
+                    <option value="#5A5A5A" {{ $item && $item['content']->bg_color == '#5A5A5A' ? 'selected="selected"' : '' }}>#5A5A5A</option>
+                    <option value="#CB9F49" {{ $item && $item['content']->bg_color == '#CB9F49' ? 'selected="selected"' : '' }}>#CB9F49</option>
+                    <option value="#CB4949" {{ $item && $item['content']->bg_color == '#CB4949' ? 'selected="selected"' : '' }}>#CB4949</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Button (Load More)</label>
+                <select class="form-control select2" name="button" id="button" style="width: 100%;">
+                    <option value="false" {{ $item && $item['content']->button == 0 ? 'selected="selected"' : '' }}>No</option>
+                    <option value="true" {{ $item && $item['content']->button == 1 ? 'selected="selected"' : '' }}>Yes</option>
+                </select>
+            </div>
+            <div class="form-group">
                 <label>Category</label>
                 <select class="form-control select2" name="category_id" style="width: 100%;">
                     @foreach($category as $row)
@@ -72,7 +101,7 @@
                     @endforeach
                 </select>
             </div>
-            <div class="row" id="titledesc">
+            <div class="row">
                 <div class="col-md-12">
                     <ul class="nav nav-tabs" id="custom-content-above-tab" role="tablist">
                         <li class="nav-item">
@@ -87,12 +116,12 @@
                     </div>
                     <div class="tab-content" id="custom-content-above-tabContent">
                         <div class="tab-pane fade show active" id="custom-content-above-home" role="tabpanel" aria-labelledby="custom-content-above-home-tab">
-                            <div class="form-group">
+                            <div class="form-group" id="title">
                                 <label for="exampleInputEmail1">Judul (ID)</label>
                                 <input type="text" class="form-control" name="title" id="exampleInputEmail1"
                                     value="{{ $item ? $item['translations']->name : '' }}" placeholder="Masukkan Judul">
                             </div>
-                            <div class="form-group">
+                            <div class="form-group" id="desc">
                                 <label for="exampleInputEmail1">Deskripsi (ID)</label>
                                 <textarea name="desc" class="form-control">
                                     {{ $item ? $item['translations']->description : '' }}
@@ -100,12 +129,12 @@
                             </div>
                         </div>
                         <div class="tab-pane fade" id="custom-content-above-profile" role="tabpanel" aria-labelledby="custom-content-above-profile-tab">
-                            <div class="form-group">
+                            <div class="form-group" id="title">
                                 <label for="exampleInputEmail1">Title (EN)</label>
                                 <input type="text" class="form-control" name="titleEn" id="exampleInputEmail1"
                                     value="{{ $item ? $item['translations_en']->name : '' }}" placeholder="Enter Title">
                             </div>
-                            <div class="form-group">
+                            <div class="form-group" id="desc">
                                 <label for="exampleInputEmail1">Description (EN)</label>
                                 <textarea name="descEn" class="form-control">
                                     {{ $item ? $item['translations_en']->description : '' }}
@@ -277,13 +306,16 @@
         $('.select2').select2();
         var types = "{{ $item && $item['content']->type ? $item['content']->type : 1 }}";
         if(types == 1){
-            $("#titledesc").show();
+            $("#title").show();
+            $("#desc").show();
             $("#img").show();
         }else if(types == 2){
-            $("#titledesc").show();
+            $("#title").show();
+            $("#desc").show();
             $("#img").hide();
         }else{
-            $("#titledesc").hide();
+            $("#title").show();
+            $("#desc").hide();
             $("#img").show();
         }
         $("#format").change(function(){
@@ -294,13 +326,16 @@
     function checkType() {
         var x = document.getElementById("type").value;
         if(x == 1){
-            $("#titledesc").show();
+            $("#title").show();
+            $("#desc").show();
             $("#img").show();
         }else if(x == 2){
-            $("#titledesc").show();
+            $("#title").show();
+            $("#desc").show();
             $("#img").hide();
         }else{
-            $("#titledesc").hide();
+            $("#title").show();
+            $("#hide").show();
             $("#img").show();
         }
     }
