@@ -203,7 +203,7 @@
         path_absolute: "{{ url('/') }}"+"/",
         selector: "textarea[name=desc]",
         plugins: [
-        "link image"
+        "link image code"
         ],
         relative_urls: false,
         height: 300,
@@ -236,7 +236,7 @@
         path_absolute: "{{ url('/') }}"+"/",
         selector: "textarea[name=descEn]",
         plugins: [
-        "link image"
+        "link image code"
         ],
         relative_urls: false,
         height: 300,
