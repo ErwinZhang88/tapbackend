@@ -12,6 +12,7 @@ use App\ContentPost;
 use App\ContentPostTranslation;
 use View;
 use Illuminate\Support\Str;
+use Carbon\Carbon;
 
 class MenuController extends BaseController
 {
@@ -57,6 +58,7 @@ class MenuController extends BaseController
                         foreach($content as $rowcontent){
                             $contentData = ContentPostTranslation::where('locale',$lang)->where('content_post_id',$rowcontent->id)->first();
                             // dd($contentData);
+                            $createdAt = Carbon::parse($rowcontent->created_at);
                             $contentrow[] = array(
                                 'id' => $rowcontent->id,
                                 'type' => $rowcontent->type,
@@ -67,6 +69,8 @@ class MenuController extends BaseController
                                 'show_title' => $rowcontent->show_title,
                                 'image' => $rowcontent->images,
                                 'icon' => $rowcontent->icon,
+                                'files' => $rowcontent->files,
+                                'created_at' => $createdAt->format('d F Y'),
                                 'title' => $contentData ? $contentData->name : '',
                                 'nicename' => $contentData ? $contentData->nicename : '',
                                 'desc' => $contentData ? $contentData->description : ''
@@ -100,6 +104,7 @@ class MenuController extends BaseController
             $lang = $request->header('lang');
         }
         if($content){
+            $createdAt = Carbon::parse($content->created_at);
             $contentData = ContentPostTranslation::where('locale',$lang)->where('content_post_id',$content->id)->first();
             $data = array(
                 'id' => $content->id,
@@ -111,6 +116,8 @@ class MenuController extends BaseController
                 'show_title' => $content->show_title,
                 'image' => $content->images,
                 'icon' => $content->icon,
+                'files' => $content->files,
+                'created_at' => $createdAt->format('d F Y'),
                 'title' => $contentData ? $contentData->name : '',
                 'nicename' => $contentData ? $contentData->nicename : '',
                 'desc' => $contentData ? $contentData->description : ''

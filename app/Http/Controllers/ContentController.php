@@ -74,8 +74,12 @@ class ContentController extends Controller
             })->select('categories.id','categories.name')->get();
         // dd($category);
         $content = ContentPost::find($id);
-        $content_translation_en = ContentPostTranslation::where('content_post_id',$content->id)->where('locale','en')->first();
-        $content_translation = ContentPostTranslation::where('content_post_id',$content->id)->where('locale','id')->first();
+        $content_translation_en = array();
+        $content_translation = array();
+        if($content){
+            $content_translation_en = ContentPostTranslation::where('content_post_id',$content->id)->where('locale','en')->first();
+            $content_translation = ContentPostTranslation::where('content_post_id',$content->id)->where('locale','id')->first();
+        }
         $item = array(
             'content' => $content,
             'translations_en' => $content_translation_en,
@@ -111,6 +115,9 @@ class ContentController extends Controller
         }
         if(isset($request->video)){
             $item->video = $request->video;
+        }
+        if(isset($request->files)){
+            $item->files = $request->files;
         }
         $item->save();
         if(isset($request->titleEn)){
