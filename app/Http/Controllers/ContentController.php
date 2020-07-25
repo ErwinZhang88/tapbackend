@@ -99,7 +99,6 @@ class ContentController extends Controller
         }else{
             $item = new ContentPost;
         }
-        
         $item->category_id = $request->category_id;
         $item->type = $request->type;
         $item->format = $request->format;
@@ -116,8 +115,8 @@ class ContentController extends Controller
         if(isset($request->video)){
             $item->video = $request->video;
         }
-        if(isset($request->files)){
-            $item->files = $request->files;
+        if(isset($request->filedownload)){
+            $item->files = $request->filedownload;
         }
         $item->save();
         if(isset($request->titleEn)){
@@ -128,7 +127,8 @@ class ContentController extends Controller
                 $item_content_en->content_post_id = $item->id;
             }
             $item_content_en->name = $request->titleEn;
-            $item_content_en->nicename = $this->generateSlug('nicename',$request->titleEn);
+            $item_content_en->nicename = $request->titleEn;
+            // $item_content_en->nicename = $this->generateSlug('nicename',$request->titleEn);
             $item_content_en->description = $request->descEn;
             $item_content_en->save();
         }
@@ -141,7 +141,8 @@ class ContentController extends Controller
                 $item_content_id->content_post_id = $item->id;
             }
             $item_content_id->name = $request->title;
-            $item_content_id->nicename = $this->generateSlug('nicename',$request->title);
+            $item_content_id->nicename = $request->title;
+            // $item_content_id->nicename = $this->generateSlug('nicename',$request->title);
             $item_content_id->description = $request->desc;
             $item_content_id->save();
         }
@@ -153,7 +154,7 @@ class ContentController extends Controller
         
     }
 
-	function generateSlug($type,$name) {
+	function generateSlug123($type,$name) {
 		$index = 0;
 		do {
 			$current_slug = Str::slug($name) . ($index !== 0 ? "-$index" : '');

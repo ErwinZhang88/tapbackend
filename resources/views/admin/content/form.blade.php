@@ -56,7 +56,7 @@
             <div class="form-group">
                 <label>Format</label>
                 <select class="form-control select2" name="format" id="format" style="width: 100%;">
-                    @for($i=1;$i<=10;$i++)
+                    @for($i=1;$i<=13;$i++)
                     <option value="{{ $i }}" {{ $item && $item['content']->format == $i ? 'selected="selected"' : '' }}>Format - {{ $i }}</option>
                     @endfor
                 </select>
@@ -189,7 +189,7 @@
                         <i class="fa fa-picture-o"></i> Choose
                         </a>
                     </span>
-                    <input id="thumbnail3" class="form-control" type="text" name="files">
+                    <input id="thumbnail3" class="form-control" type="text" name="filedownload">
                 </div>
             </div>
         <!-- /.row -->
