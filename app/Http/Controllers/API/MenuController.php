@@ -71,6 +71,7 @@ class MenuController extends BaseController
                                 'icon' => $rowcontent->icon,
                                 'files' => $rowcontent->files,
                                 'created_at' => $createdAt->format('d F Y'),
+                                'createdAt' => $createdAt->format('Y F'),
                                 'title' => $contentData ? $contentData->name : '',
                                 'nicename' => $contentData ? $contentData->nicename : '',
                                 'desc' => $contentData ? $contentData->description : ''
@@ -118,6 +119,7 @@ class MenuController extends BaseController
                 'icon' => $content->icon,
                 'files' => $content->files,
                 'created_at' => $createdAt->format('d F Y'),
+                'createdAt' => $createdAt->format('Y F'),
                 'title' => $contentData ? $contentData->name : '',
                 'nicename' => $contentData ? $contentData->nicename : '',
                 'desc' => $contentData ? $contentData->description : ''
