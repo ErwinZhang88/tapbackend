@@ -126,12 +126,12 @@
                             <div class="form-group" id="title">
                                 <label for="exampleInputEmail1">Judul (ID)</label>
                                 <input type="text" class="form-control" name="title" id="exampleInputEmail1"
-                                    value="{{ $item ? $item['translations']->name : '' }}" placeholder="Masukkan Judul">
+                                    value="{{ ($item && $item['translations']) ? $item['translations']->name : '' }}" placeholder="Masukkan Judul">
                             </div>
                             <div class="form-group" id="desc">
                                 <label for="exampleInputEmail1">Deskripsi (ID)</label>
                                 <textarea name="desc" class="form-control">
-                                    {{ $item ? $item['translations']->description : '' }}
+                                    {{ ($item && $item['translations']) ? $item['translations']->description : '' }}
                                 </textarea>
                             </div>
                         </div>
@@ -139,12 +139,12 @@
                             <div class="form-group" id="title">
                                 <label for="exampleInputEmail1">Title (EN)</label>
                                 <input type="text" class="form-control" name="titleEn" id="exampleInputEmail1"
-                                    value="{{ $item ? $item['translations_en']->name : '' }}" placeholder="Enter Title">
+                                    value="{{ ($item && $item['translations_en']) ? $item['translations_en']->name : '' }}" placeholder="Enter Title">
                             </div>
                             <div class="form-group" id="desc">
                                 <label for="exampleInputEmail1">Description (EN)</label>
                                 <textarea name="descEn" class="form-control">
-                                    {{ $item ? $item['translations_en']->description : '' }}
+                                    {{ ($item && $item['translations_en'])  ? $item['translations_en']->description : '' }}
                                 </textarea>
                             </div>
                         </div>
