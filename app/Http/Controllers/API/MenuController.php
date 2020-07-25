@@ -92,5 +92,33 @@ class MenuController extends BaseController
         }
     }
 
+    public function detail(Request $request){
+        $content = ContentPost::where('id',$request->id)->first();
+        $lang = 'id';
+        // echo $lang;die;
+        if($request->header('lang') != ''){
+            $lang = $request->header('lang');
+        }
+        if($content){
+            $contentData = ContentPostTranslation::where('locale',$lang)->where('content_post_id',$content->id)->first();
+            $data = array(
+                'id' => $content->id,
+                'type' => $content->type,
+                'format' => $content->format,
+                'bg_color' => $content->bg_color,
+                'button' => $content->button,
+                'title' => $content->name,
+                'show_title' => $content->show_title,
+                'image' => $content->images,
+                'icon' => $content->icon,
+                'title' => $contentData ? $contentData->name : '',
+                'nicename' => $contentData ? $contentData->nicename : '',
+                'desc' => $contentData ? $contentData->description : ''
+            );
+            return $this->sendResponse($data, 'Data successfully.');
+        }else{
+            return $this->sendError('Data not found.',$content,200);
+        }
+    }
 
 }
