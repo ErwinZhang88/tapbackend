@@ -106,9 +106,18 @@ class MenuController extends BaseController
             $lang = $request->header('lang');
         }
         if($content){
+            $category = Category::select('id','name','nicename','type','show_name','menu_id')->where('id',$content->id)->first();
+            if($lang == 'en'){
+                $menus = MenuEn::select('id','name','banner')->where('id',$category->menu_id)->first();
+            }else{
+                $menus = MenuId::select('id','name','banner')->where('id',$category->menu_id)->first();
+            }
+
             $createdAt = Carbon::parse($content->created_at);
             $contentData = ContentPostTranslation::where('locale',$lang)->where('content_post_id',$content->id)->first();
             $data = array(
+                'category' => $category,
+                'menu' => $menus,
                 'id' => $content->id,
                 'type' => $content->type,
                 'format' => $content->format,
@@ -124,7 +133,8 @@ class MenuController extends BaseController
                 'createdAt' => $createdAt->format('Y F'),
                 'title' => $contentData ? $contentData->name : '',
                 'nicename' => $contentData ? $contentData->nicename : '',
-                'desc' => $contentData ? $contentData->description : ''
+                'desc' => $contentData ? $contentData->description : '',
+                'short_desc' => $contentData ? $contentData->description : ''
             );
             return $this->sendResponse($data, 'Data successfully.');
         }else{
