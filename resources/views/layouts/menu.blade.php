@@ -63,11 +63,19 @@
         </a>
         </li>
         @endforeach
-        <li class="nav-item {{ isset($page) && $page == 'operasionals' ? 'menu-open' : ''}}">
-        <a href="{{ route('admin.content',['eventid' => 2]) }}" class="nav-link">
+        <li class="nav-item {{ isset($page) && $page == 'setting' ? 'menu-open' : ''}}">
+        <a href="{{ route('admin.setting.index') }}" class="nav-link">
             <i class="nav-icon fas fa-th"></i>
             <p>
             Setting
+            </p>
+        </a>
+        </li>
+        <li class="nav-item {{ isset($page) && $page == 'sosmed' ? 'menu-open' : ''}}">
+        <a href="{{ route('admin.sosmed.index') }}" class="nav-link">
+            <i class="nav-icon fas fa-th"></i>
+            <p>
+            Social Media
             </p>
         </a>
         </li>

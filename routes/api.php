@@ -18,6 +18,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::get('/home', 'API\HomeController@index')->name('home');
+Route::get('/footer', 'API\HomeController@footer')->name('footer');
 Route::get('/menu', 'API\MenuController@index')->name('menu');
 Route::post('/content', 'API\MenuController@content')->name('content');
 Route::post('/keluhankami', 'API\ComplainController@index')->name('keluhankami');

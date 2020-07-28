@@ -63,7 +63,6 @@ class ComplainController extends BaseController
             $item->save();
             return $this->sendResponse($item, 'Data successfully.');
         } catch (\Throwable $th) {
-            dd($th);
             return $this->sendError('error', 'terjadi kesalahan pada sistem',400);
         }
     }
