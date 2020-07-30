@@ -152,6 +152,22 @@ class ContentController extends Controller
         
     }
 
+    public function destroy($id){
+        $menu = ContentPost::onlyTrashed()->find($id);
+        if (!is_null($menu)) {
+            $menu->restore();
+        }else{
+            ContentPost::destroy($id);
+        }
+		$response = [
+			'success' => true,
+			'data' => array(),
+			'message' => 'berhasil',
+		];
+
+		return response()->json($response, 200);
+    }
+
 	function generateSlug($type,$name) {
 		$index = 0;
 		do {

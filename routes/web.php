@@ -35,7 +35,7 @@ Route::prefix('admin')->middleware('auth:web')->group(function () {
     Route::get('/content/edit/{eventid}/{id}', 'ContentController@edit')->name('admin.content.edit');
     Route::put('/content/update/{eventid}/{id}', 'ContentController@update')->name('admin.content.update');
     Route::post('/content/store/{eventid}', 'ContentController@store')->name('admin.content.store');
-    Route::delete('/content/{eventid}/{id}', 'ContentController@delete')->name('contentDelete');
+    Route::delete('/content/destroy/{id}', 'ContentController@destroy')->name('admin.content.destroy');
     Route::post('/content/upload', 'ContentController@upload')->name('admin.content.upload');
     //end content
 
