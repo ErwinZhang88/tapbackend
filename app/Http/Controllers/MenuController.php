@@ -77,7 +77,7 @@ class MenuController extends Controller
         $item->banner = $request->banner;
         $item->banner_mobile = $request->banner_mobile;
         $item->icon = $request->icon;
-        $item->status = 1;
+        // $item->status = 1;
         $item->save();
         return redirect()->route('admin.menu.index');
 
