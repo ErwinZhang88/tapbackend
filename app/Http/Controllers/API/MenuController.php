@@ -25,10 +25,10 @@ class MenuController extends BaseController
             $lang = $request->header('lang');
         }
         if($lang == 'en'){
-            $menus = MenuEn::where('parent_id',0)->select('id','nameEn as name','nicenameEn as nicename','banner',
+            $menus = MenuEn::where('parent_id',0)->select('id','nameEn as name','nicenameEn as nicename','banner','banner_mobile',
                 'icon','parent_id','type','status','comp_name','path','left','right','center')->get();
         }else{
-            $menus = MenuId::where('parent_id',0)->select('id','name','nicename','banner','icon',
+            $menus = MenuId::where('parent_id',0)->select('id','name','nicename','banner','icon','banner_mobile',
                 'parent_id','type','status','comp_name','path','left','right','center')->get();
         }
         return $this->sendResponse($menus, 'Data successfully.');
@@ -43,9 +43,9 @@ class MenuController extends BaseController
         }
         // echo $nicename;die;
         if($lang == 'en'){
-            $menus = MenuEn::select('id','name','banner')->where('nicenameEn',$nicename)->first();
+            $menus = MenuEn::select('id','name','banner','banner_mobile')->where('nicenameEn',$nicename)->first();
         }else{
-            $menus = MenuId::select('id','name','banner')->where('nicename',$nicename)->first();
+            $menus = MenuId::select('id','name','banner','banner_mobile')->where('nicename',$nicename)->first();
         }
         if($menus){
             $category = Category::select('id','name','nicename','type','show_name')->where('menu_id',$menus->id)->get();
@@ -85,6 +85,7 @@ class MenuController extends BaseController
             
                 $data = array(
                      'banner' => $menus->banner,
+                     'banner_mobile' => $menus->banner_mobile,
                      'title' => $menus->name,
                      'category' => $content_category,   
                 );
@@ -108,9 +109,9 @@ class MenuController extends BaseController
         if($content){
             $category = Category::select('id','name','nicename','type','show_name','menu_id')->where('id',$content->id)->first();
             if($lang == 'en'){
-                $menus = MenuEn::select('id','name','banner')->where('id',$category->menu_id)->first();
+                $menus = MenuEn::select('id','name','banner','banner_mobile')->where('id',$category->menu_id)->first();
             }else{
-                $menus = MenuId::select('id','name','banner')->where('id',$category->menu_id)->first();
+                $menus = MenuId::select('id','name','banner','banner_mobile')->where('id',$category->menu_id)->first();
             }
 
             $createdAt = Carbon::parse($content->created_at);

@@ -6,6 +6,7 @@ use App\Http\Controllers\API\BaseController as BaseController;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\ContentPost;
+use App\ContentPostTranslation;
 use App\Menu;
 use App\Banner;
 use App\Setting;
@@ -19,11 +20,16 @@ class HomeController extends BaseController
 
     public function index(Request $request){
         $errorMessages = array();
+        $lang = 'id';
+        if($request->header('lang') != ''){
+            $lang = $request->header('lang');
+        }
         $error = '';
         try {
             $item = array(
                 'banner' => Banner::get(),
-                'press' => ContentPost::where('category_id',32)->limit(3)->get(),
+                'press' => ContentPostTranslation::join('content_posts','content_posts.id','=','content_post_translations.content_post_id')
+                    ->where('content_posts.category_id',32)->where('content_post_translations.locale',$lang)->select('content_post_translations.*')->limit(3)->get(),
                 'menu' => Menu::where('id','>',2)->where('parent_id',0)->limit(4)->get(),
                 'video' => ContentPost::where('category_id',34)->OrderBy('id','desc')->first(),
                 'kontak_kami' => array(
@@ -33,6 +39,7 @@ class HomeController extends BaseController
             );
             return $this->sendResponse($item, 'Data successfully.');
         } catch (\Throwable $th) {
+            dd($th);
             return $this->sendError('error', 'terjadi kesalahan pada sistem',400);
         }
     }
