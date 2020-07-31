@@ -68,8 +68,14 @@ class BannerController extends Controller
         $item->nicename =  $this->generateSlug('nicename',$request->name);
         $item->nameEn = $request->nameEn;
         $item->nicenameEn =  $this->generateSlug('nicenameEn',$request->nameEn);
-        $item->banner = $request->banner;
+        if($request->banner != ''){
+            $item->banner = $request->banner;
+        }
+        if($request->banner_mobile != ''){
+            $item->banner_mobile = $request->banner_mobile;
+        }
         $item->type = $request->type;
+        $item->link = $request->link;
         $item->order = 1;
         $item->save();
         return redirect()->route('admin.banner.index');

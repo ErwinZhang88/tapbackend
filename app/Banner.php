@@ -12,6 +12,6 @@ class Banner extends Model
 	protected $dates = ['deleted_at'];
 
     protected $fillable = [
-        'menu_id','name','nameEn','nicename','status','banner','type','type_id','order'
+        'menu_id','name','nameEn','nicename','status','banner','banner_mobile','type','type_id','order','link'
     ];
 }
