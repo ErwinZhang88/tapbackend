@@ -74,9 +74,15 @@ class MenuController extends Controller
             $item->path = $request->path;
             $item->comp_name = $request->comp_name;
         }
-        $item->banner = $request->banner;
-        $item->banner_mobile = $request->banner_mobile;
-        $item->icon = $request->icon;
+        if($request->banner != ''){
+            $item->banner = $request->banner;
+        }
+        if($request->banner_mobile != ''){
+            $item->banner_mobile = $request->banner_mobile;
+        }
+        if($request->icon != ''){
+            $item->icon = $request->icon;
+        }
         // $item->status = 1;
         $item->save();
         return redirect()->route('admin.menu.index');
