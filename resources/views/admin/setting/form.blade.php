@@ -70,8 +70,16 @@
                         </div>
                         <div id="holder" style="margin-top:15px;max-height:100px;"></div>
                     </div>
-                    @elseif($item->type == 'text_area')
+                    @if($item && $item->value != '')
                     <div class="form-group">
+                        <label>Value Existing</label>
+                        <div>
+                            <img src="{{ $item->value }}" style="width:40px;">
+                        </div>
+                    </div>
+                    @endif
+                    @elseif($item->type == 'text_area')
+                    <div class="form-group" id="desc">
                         <label for="exampleInputEmail1">Value</label>
                         <textarea class="form-control" rows="3" placeholder="Enter ..."name="value">{{ $item ? $item->value : '' }}</textarea>
                     </div>
@@ -102,6 +110,8 @@
 <script src="{{ asset('admins/plugins/select2/js/select2.full.min.js') }}"></script>
 <!-- bs-custom-file-input -->
 <script src="{{ asset('admins/plugins/bs-custom-file-input/bs-custom-file-input.min.js') }}"></script>
+<!-- TinyMCE init -->
+<script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
 <script>
     {!! \File::get(base_path('vendor/unisharp/laravel-filemanager/public/js/stand-alone-button.js')) !!}
     $('#lfm').filemanager('image', {prefix: "{{ url('/') }}"+"/laravel-filemanager"});
@@ -110,5 +120,41 @@
         $('.select2').select2();
         bsCustomFileInput.init();
     })
+    @if($item->type == 'text_area')
+    var editor_config = {
+        directionality: document.dir,
+        path_absolute: "{{ url('/') }}"+"/",
+        selector: "textarea[name=value]",
+        plugins: [
+        "link image code"
+        ],
+        relative_urls: false,
+        remove_script_host : false,
+        convert_urls : true,
+        height: 300,
+        file_browser_callback : function(field_name, url, type, win) {
+        var x = window.innerWidth || document.documentElement.clientWidth || document.getElementsByTagName('body')[0].clientWidth;
+        var y = window.innerHeight|| document.documentElement.clientHeight|| document.getElementsByTagName('body')[0].clientHeight;
+
+        var cmsURL = editor_config.path_absolute + 'laravel-filemanager?field_name=' + field_name;
+        if (type == 'image') {
+            cmsURL = cmsURL + "&type=Images";
+        } else {
+            cmsURL = cmsURL + "&type=Files";
+        }
+        
+        tinyMCE.activeEditor.windowManager.open({
+            file : cmsURL,
+            title : 'Filemanager',
+            width : x * 0.8,
+            height : y * 0.8,
+            resizable : "yes",
+            close_previous : "no",
+        });
+        }
+    };
+    @endif
+
+    tinymce.init(editor_config);
 </script>
 @endsection

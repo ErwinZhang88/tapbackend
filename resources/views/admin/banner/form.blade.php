@@ -82,6 +82,14 @@
                         </div>
                         <div id="holder" style="margin-top:15px;max-height:100px;"></div>
                     </div>
+                    @if($item && $item->banner != '')
+                    <div class="form-group">
+                        <label>Image Existing</label>
+                        <div>
+                            <img src="{{ $item->banner }}" style="width:120px;">
+                        </div>
+                    </div>
+                    @endif
                     <div class="form-group" id="img">
                         <label>Image Banner Mobile</label>
                         <div class="input-group">
@@ -95,6 +103,14 @@
                         <div id="holder2" style="margin-top:15px;max-height:100px;"></div>
                     </div>
 
+                    @if($item && $item->banner_mobile != '')
+                    <div class="form-group">
+                        <label>Image Mobile Existing</label>
+                        <div>
+                            <img src="{{ $item->banner_mobile }}" style="width:120px;">
+                        </div>
+                    </div>
+                    @endif
                 <!-- /.form-group -->
                 </div>
                 <!-- /.col -->

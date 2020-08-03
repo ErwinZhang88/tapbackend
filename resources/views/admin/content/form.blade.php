@@ -164,6 +164,14 @@
                 </div>
                 <div id="holder" style="margin-top:15px;max-height:100px;"></div>
             </div>
+            @if($item && $item['content']->images != '')
+            <div class="form-group">
+                <label>Image Existing</label>
+                <div>
+                    <img src="{{ $item['content']->images }}" style="width:120px;">
+                </div>
+            </div>
+            @endif
             <div class="form-group" id="img">
                 <label>Image Icon</label>
                 <div class="input-group">
@@ -176,6 +184,14 @@
                 </div>
                 <div id="holder2" style="margin-top:15px;max-height:100px;"></div>
             </div>
+            @if($item && $item['content']->icon != '')
+            <div class="form-group">
+                <label>Icon Existing</label>
+                <div>
+                    <img src="{{ $item['content']->icon }}" style="width:120px;">
+                </div>
+            </div>
+            @endif
             <div class="form-group">
                 <label for="exampleInputEmail1">Link Video</label>
                 <input type="text" class="form-control" name="video" id="exampleInputEmail1" 
@@ -189,7 +205,7 @@
                         <i class="fa fa-picture-o"></i> Choose
                         </a>
                     </span>
-                    <input id="thumbnail3" class="form-control" type="text" name="filedownload">
+                    <input id="thumbnail3" class="form-control" type="text" name="filedownload" {{ $item ? $item['content']->files : '' }}>
                 </div>
             </div>
         <!-- /.row -->

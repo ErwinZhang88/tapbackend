@@ -68,6 +68,14 @@
                         </div>
                         <div id="holder" style="margin-top:15px;max-height:100px;"></div>
                     </div>
+                    @if($item && $item->value != '')
+                    <div class="form-group">
+                        <label>Value Existing</label>
+                        <div>
+                            <img src="{{ $item->value }}" style="width:40px;">
+                        </div>
+                    </div>
+                    @endif
                     <div class="form-group">
                         <label for="exampleInputEmail1">Urutan</label>
                         <input type="number" class="form-control" name="order" id="exampleInputEmail1"
