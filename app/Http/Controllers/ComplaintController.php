@@ -48,7 +48,7 @@ class ComplaintController extends Controller
     public function edit($id){
         $subpage = 'create';
         $item = Complain::find($id);
-        return view('admin.complain.form',compact('subpage','menu','item'));
+        return view('admin.complain.form',compact('subpage','item'));
     }
 
     public function update($id,Request $request){
@@ -84,6 +84,9 @@ class ComplaintController extends Controller
         $item->metode_masalah = $request->metode_masalah;
         $item->hasil_keluhan = $request->hasil_keluhan;
         $item->status = $request->status;
+        if($item->status != 0){
+            $item->date_closed = date('Y-m-d H:i:s');
+        }
         $item->save();
         return redirect()->route('admin.complaint.index');
 

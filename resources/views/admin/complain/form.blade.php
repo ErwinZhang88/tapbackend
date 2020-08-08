@@ -49,17 +49,17 @@
                     <div class="form-group">
                         <label for="exampleInputEmail1">Name</label>
                         <input type="text" class="form-control" name="name" id="exampleInputEmail1" 
-                            value="{{ $item ? $item->name : '' }}" placeholder="Enter Name" required autocomplete="off">
+                            value="{{ $item ? $item->name : '' }}" placeholder="Enter Name" autocomplete="off">
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail1">Nama Grup / Organisasi Anda (Jika Ada)</label>
                         <input type="text" class="form-control" name="group" id="exampleInputEmail1"
-                            value="{{ $item ? $item->group : '' }}" placeholder="Enter Nama Group" required autocomplete="off">
+                            value="{{ $item ? $item->group : '' }}" placeholder="Enter Nama Group" autocomplete="off">
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail1">Negara</label>
                         <input type="text" class="form-control" name="country" id="exampleInputEmail1"
-                            value="{{ $item ? $item->country : '' }}" placeholder="Enter Negara" required autocomplete="off">
+                            value="{{ $item ? $item->country : '' }}" placeholder="Enter Negara" autocomplete="off">
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail1">Alamat</label>
@@ -70,27 +70,27 @@
                     <div class="form-group">
                         <label for="exampleInputEmail1">Phone</label>
                         <input type="text" class="form-control" name="phone" id="exampleInputEmail1"
-                            value="{{ $item ? $item->phone : '' }}" placeholder="Enter Phone" required autocomplete="off">
+                            value="{{ $item ? $item->phone : '' }}" placeholder="Enter Phone" autocomplete="off">
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail1">Email</label>
                         <input type="text" class="form-control" name="email" id="exampleInputEmail1"
-                            value="{{ $item ? $item->email : '' }}" placeholder="Enter Email" required autocomplete="off">
+                            value="{{ $item ? $item->email : '' }}" placeholder="Enter Email" autocomplete="off">
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail1">Fax</label>
                         <input type="text" class="form-control" name="fax" id="exampleInputEmail1"
-                            value="{{ $item ? $item->fax : '' }}" placeholder="Enter Fax" required autocomplete="off">
+                            value="{{ $item ? $item->fax : '' }}" placeholder="Enter Fax" autocomplete="off">
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail1">Keluhan ditujukan Kepada</label>
                         <input type="text" class="form-control" name="keluhan_kepada" id="exampleInputEmail1"
-                            value="{{ $item ? $item->keluhan_kepada : '' }}" placeholder="Enter ..." required autocomplete="off">
+                            value="{{ $item ? $item->keluhan_kepada : '' }}" placeholder="Enter ..." autocomplete="off">
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail1">Nama Responden</label>
                         <input type="text" class="form-control" name="nama_responden" id="exampleInputEmail1"
-                            value="{{ $item ? $item->nama_responden : '' }}" placeholder="Enter ..." required autocomplete="off">
+                            value="{{ $item ? $item->nama_responden : '' }}" placeholder="Enter ..." autocomplete="off">
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail1">Lokasi Keluhan</label>
@@ -100,14 +100,12 @@
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail1">Informasi Keluhan</label>
-                        <textarea class="form-control" rows="2" name="informasi_keluhan" placeholder="Enter ...">
-                            {{ $item ? $item->informasi_keluhan : '' }}
+                        <textarea class="form-control" rows="2" name="informasi_keluhan" placeholder="Enter ...">{{ $item ? $item->informasi_keluhan : '' }}
                         </textarea>
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail1">Apakah hal tersebut melanggar kebijakan keberlanjutan Triputra atau P&C RSPO?</label>
-                        <textarea class="form-control" rows="3" name="hal_kebijakan" placeholder="Enter ...">
-                            {{ $item ? $item->hal_kebijakan : '' }}
+                        <textarea class="form-control" rows="3" name="hal_kebijakan" placeholder="Enter ...">{{ $item ? $item->hal_kebijakan : '' }}
                         </textarea>
                     </div>
                     <div class="form-group" id="img">
@@ -131,21 +129,17 @@
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail1">Langkah sementara apakah yang anda ingin untuk PT Triputra Agro Persada lakukan?</label>
-                        <textarea class="form-control" rows="3" name="langkah_kebijakan" placeholder="Enter ...">
-                            {{ $item ? $item->langkah_kebijakan : '' }}
+                        <textarea class="form-control" rows="3" name="langkah_kebijakan" placeholder="Enter ...">{{ $item ? $item->langkah_kebijakan : '' }}
                         </textarea>
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail1">Menurut anda metode apakah yang cocok untuk mengatasi masalah ini?</label>
-                        <textarea class="form-control" rows="3" name="metode_masalah" placeholder="Enter ...">
-                            {{ $item ? $item->metode_masalah : '' }}
+                        <textarea class="form-control" rows="3" name="metode_masalah" placeholder="Enter ...">{{ $item ? $item->metode_masalah : '' }}
                         </textarea>
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail1">Hasil seperti apa yang anda inginkan dari keluhan ini?</label>
-                        <textarea class="form-control" rows="3" name="hasil_keluhan" placeholder="Enter ...">
-                            {{ $item ? $item->hasil_keluhan : '' }}
-                        </textarea>
+                        <textarea class="form-control" rows="3" name="hasil_keluhan" placeholder="Enter ...">{{ $item ? $item->hasil_keluhan : '' }}</textarea>
                     </div>
                     <div class="form-group">
                         <label>Status</label>

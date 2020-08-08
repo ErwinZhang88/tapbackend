@@ -130,8 +130,7 @@
                             </div>
                             <div class="form-group" id="desc">
                                 <label for="exampleInputEmail1">Deskripsi (ID)</label>
-                                <textarea name="desc" class="form-control">
-                                    {{ ($item && $item['translations']) ? $item['translations']->description : '' }}
+                                <textarea name="desc" class="form-control">{{ ($item && $item['translations']) ? $item['translations']->description : '' }}
                                 </textarea>
                             </div>
                         </div>
@@ -143,8 +142,7 @@
                             </div>
                             <div class="form-group" id="desc">
                                 <label for="exampleInputEmail1">Description (EN)</label>
-                                <textarea name="descEn" class="form-control">
-                                    {{ ($item && $item['translations_en'])  ? $item['translations_en']->description : '' }}
+                                <textarea name="descEn" class="form-control">{{ ($item && $item['translations_en'])  ? $item['translations_en']->description : '' }}
                                 </textarea>
                             </div>
                         </div>

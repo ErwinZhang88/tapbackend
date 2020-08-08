@@ -89,6 +89,12 @@ class ComplainController extends BaseController
         return $this->sendResponse($item, 'Data successfully.');
     }
     
+    public function listkeluhan(){
+        $item = array();
+        $item = Complain::where('status',3)->get();
+        return $this->sendResponse($item, 'Data successfully.');
+    }
+
 	function generateSlug($type,$name) {
 		$index = 0;
 		do {
