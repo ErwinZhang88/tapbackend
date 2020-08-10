@@ -7,6 +7,8 @@ use App\Complain;
 use View;
 use Illuminate\Support\Str;
 use Auth;
+use App\Exports\ComplainExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ComplaintController extends Controller
 {
@@ -87,6 +89,9 @@ class ComplaintController extends Controller
         if($item->status != 0){
             $item->date_closed = date('Y-m-d H:i:s');
         }
+        if($item->file_download != 0){
+            $item->file_download = $request->file_download;
+        }
         $item->save();
         return redirect()->route('admin.complaint.index');
 
@@ -121,5 +126,9 @@ class ComplaintController extends Controller
 		} while ($found);
 
 		return $current_slug;
-	}
+    }
+    
+    public function export(){
+        return Excel::download(new ComplainExport, 'complain.xlsx');
+    }
 }

@@ -92,7 +92,7 @@ class ComplainController extends BaseController
     
     public function listkeluhan(){
         $item = array();
-        $item = Complain::where('status',3)->get();
+        $item = Complain::whereIn('status', [1, 2])->get();
         return $this->sendResponse($item, 'Data successfully.');
     }
 
