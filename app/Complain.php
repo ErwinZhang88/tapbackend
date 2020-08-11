@@ -41,15 +41,12 @@ class Complain extends Model
         $submenu = '';
         switch ($this->status) {
             case 1:
-                $submenu = 'Diterima';
+                $submenu = 'Diproses';
                 break;
             case 2:
-                $submenu = 'Proses';
-                break;
-            case 3:
                 $submenu = 'Selesai';
                 break;
-            case 4:
+            case 3:
                 $submenu = 'Ditolak';
                 break;
             default:
