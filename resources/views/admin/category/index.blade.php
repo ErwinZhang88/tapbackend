@@ -53,7 +53,11 @@
                   <tr>
                     <td>{{ $row->name }}</td>
                     <td>{{ $row->nameEn }}</td>
+                    @if($row->menu)
                     <td>{{ $row->menu->name }} - ({{ $row->menu->parent_id != 0 ? 'SubMenu' : 'Menu' }})</td>
+                    @else
+                    <td></td>
+                    @endif
                     <td>{{ $row->types }}</td>
                     <td>
                       <a href="{{ route('admin.category.edit',[$row->id]) }}" class="btn btn-block bg-gradient-success">Edit</a>
