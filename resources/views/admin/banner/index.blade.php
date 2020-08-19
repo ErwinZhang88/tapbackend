@@ -57,7 +57,7 @@
                     <td>{{ $row->order }}</td>
                     <td>
                       <a href="{{ route('admin.banner.edit',[$row->id]) }}" class="btn btn-block bg-gradient-success">Edit</a>
-                      <a href="{{ route('admin.banner.edit',[$row->id]) }}" class="btn btn-block bg-gradient-danger">Delete</a>
+                      <a id="myLink" href="#" data-value="{{ $row->name }}" data-id="{{ $row->id }}" class="btn btn-block bg-gradient-danger delete_item">Delete</a>
                     </td>
                   </tr>
                   @endforeach
@@ -68,6 +68,7 @@
     <!-- /.card -->
 </section>
 <!-- /.content -->
+<meta name="_token" content="{!! csrf_token() !!}" />
 @endsection
 
 @section('script')
@@ -77,6 +78,8 @@
 <script src="{{ asset('admins/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
 <script src="{{ asset('admins/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
 <!-- page script -->
+<!-- SweetAlert2 -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 <script>
   $(function () {
     $('#example2').DataTable({
@@ -88,5 +91,74 @@
       "responsive": true,
     });
   });
+  $(document).on('click', '.delete_item', function() {
+      var dataValue = $(this).attr('data-value');
+      var dataId = $(this).attr('data-id');
+      var url = '{{ route("admin.banner.destroy", ":slug") }}';
+      url = url.replace(':slug', dataId);
+      console.log(dataValue);
+      let message = "You won't be delete "+dataValue+" ?";
+      let icon = 'error';
+      let hide = 'Yes, delete it!'
+      DeleteItem(message,url,hide,icon);
+  });
+
+  function DeleteItem(message,url,hide,icon){
+    Swal.fire({
+        title: 'Are you sure?',
+        text: message,
+        icon: icon,
+        reverseButtons: true,
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: hide
+      }).then((result) => {
+        if (result.value) {
+
+          $.ajaxSetup({
+              headers: {
+                  'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+              }
+          })
+          $.ajax({
+              type: "DELETE",
+              url: url,
+              success: function(data) {
+                  console.log(data);
+                  if(data.success){
+                    Swal.fire({
+                      title: 'Done',
+                      text: "You proccess already done!",
+                      icon: 'success',
+                      showCancelButton: false,
+                      confirmButtonColor: '#3085d6',
+                      confirmButtonText: 'OK!'
+                    }).then((result) => {
+                      if (result.value) {
+                        location.reload();
+                      }
+                    })
+                  }else{
+                      console.log('Error:', data);
+                      Swal.fire(
+                        'Sorry!!',
+                        'Something wrong this proccess',
+                        'error'
+                      )
+                  }
+              },
+              error: function(data) {
+                  console.log('Error:', data);
+                  Swal.fire(
+                    'Sorry!!',
+                    'Something wrong this proccess',
+                    'error'
+                  )
+              }
+          });
+        }
+      })
+  }
 </script>
 @endsection

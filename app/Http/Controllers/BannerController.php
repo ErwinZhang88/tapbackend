@@ -96,4 +96,20 @@ class BannerController extends Controller
 
 		return $current_slug;
 	}
+
+    public function destroy($id){
+        $menu = Banner::onlyTrashed()->find($id);
+        if (!is_null($menu)) {
+            $menu->restore();
+        }else{
+            Banner::destroy($id);
+        }
+		$response = [
+			'success' => true,
+			'data' => array(),
+			'message' => 'berhasil',
+		];
+
+		return response()->json($response, 200);
+    }
 }
