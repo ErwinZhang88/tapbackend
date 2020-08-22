@@ -107,7 +107,7 @@ class MenuController extends BaseController
             $lang = $request->header('lang');
         }
         if($content){
-            $category = Category::select('id','name','nicename','type','show_name','menu_id')->where('id',$content->id)->first();
+            $category = Category::select('id','name','nicename','type','show_name','menu_id')->where('id',$content->category_id)->first();
             if($lang == 'en'){
                 $menus = MenuEn::select('id','name','banner','banner_mobile')->where('id',$category->menu_id)->first();
             }else{
