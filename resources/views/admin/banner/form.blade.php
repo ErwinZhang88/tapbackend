@@ -59,7 +59,7 @@
                     <div class="form-group">
                         <label for="exampleInputEmail1">Link URL</label>
                         <input type="text" class="form-control" name="link" id="exampleInputEmail1"
-                            value="{{ $item ? $item->link : '' }}" placeholder="Enter Link URL" required autocomplete="off">
+                            value="{{ $item ? $item->link : '' }}" placeholder="Enter Link URL" autocomplete="off">
                     </div>
                     <div class="form-group">
                         <label>Parent Menu</label>
