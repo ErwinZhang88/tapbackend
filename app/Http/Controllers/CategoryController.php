@@ -68,6 +68,10 @@ class CategoryController extends Controller
         $item->name = $request->name;
         $item->nameEn = $request->nameEn;
         $item->show_name = $request->show_name;
+        $item->pagination = $request->pagination;
+        if(isset($request->limitpage)){
+            $item->limitpage = $request->limitpage;
+        }
         if($id == 0){
             $item->nicename =  $this->generateSlug('nicename',$request->name);
             $item->nicenameEn =  $this->generateSlug('nicenameEn',$request->nameEn);

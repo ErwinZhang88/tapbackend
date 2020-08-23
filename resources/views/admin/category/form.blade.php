@@ -80,6 +80,18 @@
                             <option value="3" {{ $item && $item->type == 3 ? 'selected="selected"' : '' }}>List</option>
                         </select>
                     </div>
+                    <div class="form-group">
+                        <label>Pagination</label>
+                        <select class="form-control select2" name="pagination" id="pagination" style="width: 100%;">
+                            <option value="0" {{ $item && $item->pagination == 0 ? 'selected="selected"' : '' }}>No</option>
+                            <option value="1" {{ $item && $item->pagination == 1 ? 'selected="selected"' : '' }}>Yes</option>
+                        </select>
+                    </div>
+                    <div class="form-group" id="limitpage">
+                        <label for="exampleInputEmail1">Limit Per Page</label>
+                        <input type="number" class="form-control" name="limitpage" id="limitpage"
+                            value="{{ $item ? $item->limitpage : '' }}" placeholder="Enter Limit Page" required autocomplete="off">
+                    </div>
 
                 <!-- /.form-group -->
                 </div>
@@ -105,11 +117,24 @@
 <!-- Select2 -->
 <script src="{{ asset('admins/plugins/select2/js/select2.full.min.js') }}"></script>
 <script>
+var pagination = "{{ $item && $item->pagination ? $item->pagination : 0 }}";
   $(function () {
     //Initialize Select2 Elements
     $('.select2').select2();
-    bsCustomFileInput.init();
+    $("#limitpage").hide();
 
+    if(pagination == 1){
+        $("#limitpage").show();
+    }
+
+    $("#pagination").change(function(){
+        console.log('valbutton->',$(this).val());
+        if($(this).val() == 1){
+            $("#limitpage").show();
+        }else{
+            $("#limitpage").hide();
+        }
+    });
   })
 </script>
 @endsection

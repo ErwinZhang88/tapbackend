@@ -12,7 +12,7 @@ class Category extends Model
 	protected $dates = ['deleted_at'];
 
     protected $fillable = [
-        'menu_id','name','nameEn','nicename','status','type','show_name'
+        'menu_id','name','nameEn','nicename','status','type','show_name','pagination','limitpage'
     ];
 
     protected $appends = ['menus','types'];
