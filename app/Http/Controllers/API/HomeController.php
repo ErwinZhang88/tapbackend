@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use App\ContentPost;
 use App\ContentPostTranslation;
 use App\Menu;
+use App\Models\MenuId;
+use App\Models\MenuEn;
 use App\Banner;
 use App\Setting;
 use App\SettingHome;
@@ -29,15 +31,22 @@ class HomeController extends BaseController
         try {
             if($lang == 'id'){
                 $kontak = SettingHome::where('type',3)->where('key','kontak.id')->first();
+                $menus = SettingHome::leftJoin('menus','menus.id','=','setting_homes.menu_id')
+                ->select('menus.id','menus.nameEn as name','menus.nicenameEn as nicename','menus.banner','menus.banner_mobile',
+                'menus.icon','menus.parent_id','menus.type','menus.status','menus.comp_name','menus.path','menus.left','menus.right','menus.center')
+                ->where('setting_homes.type',1)->get();
             }else{
                 $kontak = SettingHome::where('type',3)->where('key','kontak.en')->first();
+                $menus = SettingHome::leftJoin('menus','menus.id','=','setting_homes.menu_id')
+                ->select('menus.id','menus.name','menus.nicename','menus.banner','menus.banner_mobile',
+                'menus.icon','menus.parent_id','menus.type','menus.status','menus.comp_name','menus.path','menus.left','menus.right','menus.center')
+                ->where('setting_homes.type',1)->get();
             }
             $item = array(
                 'banner' => Banner::get(),
                 'press' => ContentPostTranslation::join('content_posts','content_posts.id','=','content_post_translations.content_post_id')
                     ->where('content_posts.category_id',32)->where('content_post_translations.locale',$lang)->select('content_post_translations.*')->limit(3)->get(),
-                'menu' => SettingHome::leftJoin('menus','menus.id','=','setting_homes.menu_id')
-                ->select('menus.*')->where('setting_homes.type',1)->get(),
+                'menu' => $menus,
                 'video' => SettingHome::where('type',2)->first(),
                 'kontak_kami' => array(
                     'text' => $kontak->value,
