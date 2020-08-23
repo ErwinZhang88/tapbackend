@@ -61,7 +61,11 @@
                     @endfor
                 </select>
                 <div id="imgshow" style="margin-top:15px;max-height:100px;">
+                    @if($item && $item['content']->format)
+                    <img src="{{ url('/format/format_'.$item['content']->format.'.png') }}" name="image-swap" style="width:10%;">
+                    @else
                     <img src="{{ url('/format/format_1.png') }}" name="image-swap" style="width:10%;">
+                    @endif
                 </div>
             </div>
             <div class="form-group">
