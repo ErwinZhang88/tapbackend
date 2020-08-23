@@ -206,22 +206,24 @@ class ContentController extends Controller
         }else{
             $item = new SettingHome;
         }
+        
+        $item->display_name = $request->display_name;
         if($request->type == 3){
-            $item->display_name = $request->display_name;
             $item->value = $request->value;
             if(isset($request->image)){
                 $item->image = $request->image;
             }
         }
         if($request->type == 2){
-            $item->display_name = $request->display_name;
             if(isset($request->image)){
                 $item->image = $request->image;
             }
         }
         if($request->type == 1){
-            $item->display_name = $request->display_name;
             $item->menu_id = $request->menu_id;
+        }
+        if($request->type == 4){
+            $item->value = $request->display_name;
         }
         $item->save();
         $eventid = 1;

@@ -32,18 +32,24 @@ class HomeController extends BaseController
             if($lang == 'id'){
                 $kontak = SettingHome::where('type',3)->where('key','kontak.id')->first();
                 $menus = SettingHome::leftJoin('menus','menus.id','=','setting_homes.menu_id')
-                ->select('menus.id','menus.name','menus.nicename','menus.banner','menus.banner_mobile',
-                'menus.icon','menus.parent_id','menus.type','menus.status','menus.comp_name','menus.path','menus.left','menus.right','menus.center')
-                ->where('setting_homes.type',1)->get();
+                    ->select('menus.id','menus.name','menus.nicename','menus.banner','menus.banner_mobile',
+                    'menus.icon','menus.parent_id','menus.type','menus.status','menus.comp_name','menus.path','menus.left','menus.right','menus.center')
+                    ->where('setting_homes.type',1)->get();
+                $banner = Banner::select('id','name','nicename','banner','banner_mobile',
+                    'link','type','order')->get();
+                $detailpress = SettingHome::where('type',4)->where('key','kontak.id')->first();
             }else{
                 $kontak = SettingHome::where('type',3)->where('key','kontak.en')->first();
                 $menus = SettingHome::leftJoin('menus','menus.id','=','setting_homes.menu_id')
-                ->select('menus.id','menus.nameEn as name','menus.nicenameEn as nicename','menus.banner','menus.banner_mobile',
-                'menus.icon','menus.parent_id','menus.type','menus.status','menus.comp_name','menus.path','menus.left','menus.right','menus.center')
-                ->where('setting_homes.type',1)->get();
+                    ->select('menus.id','menus.nameEn as name','menus.nicenameEn as nicename','menus.banner','menus.banner_mobile',
+                    'menus.icon','menus.parent_id','menus.type','menus.status','menus.comp_name','menus.path','menus.left','menus.right','menus.center')
+                    ->where('setting_homes.type',1)->get();
+                $banner = Banner::select('id','nameEn as name','nicenameEn as nicename','banner','banner_mobile',
+                    'link','type','order')->get();
+                $detailpress = SettingHome::where('type',4)->where('key','kontak.en')->first();
             }
             $item = array(
-                'banner' => Banner::get(),
+                'banner' => $banner,
                 'press' => ContentPostTranslation::join('content_posts','content_posts.id','=','content_post_translations.content_post_id')
                     ->where('content_posts.category_id',32)->where('content_post_translations.locale',$lang)->select('content_post_translations.*')->limit(3)->get(),
                 'menu' => $menus,
@@ -52,6 +58,9 @@ class HomeController extends BaseController
                     'text' => $kontak->value,
                     'button' => $kontak->display_name,
                     'image' => $kontak->image
+                ),
+                'detailpress' => array(
+                    'button' => $detailpress->display_name
                 )
             );
             return $this->sendResponse($item, 'Data successfully.');
