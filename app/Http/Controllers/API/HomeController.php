@@ -10,6 +10,7 @@ use App\ContentPostTranslation;
 use App\Menu;
 use App\Banner;
 use App\Setting;
+use App\SettingHome;
 use Illuminate\Support\Str;
 use Mail;
 
@@ -26,15 +27,21 @@ class HomeController extends BaseController
         }
         $error = '';
         try {
+            if($lang == 'id'){
+                $kontak = SettingHome::where('type',3)->where('key','kontak.id')->first();
+            }else{
+                $kontak = SettingHome::where('type',3)->where('key','kontak.en')->first();
+            }
             $item = array(
                 'banner' => Banner::get(),
                 'press' => ContentPostTranslation::join('content_posts','content_posts.id','=','content_post_translations.content_post_id')
                     ->where('content_posts.category_id',32)->where('content_post_translations.locale',$lang)->select('content_post_translations.*')->limit(3)->get(),
-                'menu' => Menu::where('id','>',2)->where('parent_id',0)->limit(4)->get(),
-                'video' => ContentPost::where('category_id',34)->OrderBy('id','desc')->first(),
+                'menu' => SettingHome::leftJoin('menus','menus.id','=','setting_homes.menu_id')
+                ->select('menus.*')->where('setting_homes.type',1)->get(),
+                'video' => SettingHome::where('type',2)->first(),
                 'kontak_kami' => array(
-                    'text' => 'Hubungi kami untuk informasi lebih lanjut',
-                    'button' => 'Kontak Kami'
+                    'text' => $kontak->value,
+                    'button' => $kontak->display_name
                 )
             );
             return $this->sendResponse($item, 'Data successfully.');
