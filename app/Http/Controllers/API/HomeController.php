@@ -41,7 +41,8 @@ class HomeController extends BaseController
                 'video' => SettingHome::where('type',2)->first(),
                 'kontak_kami' => array(
                     'text' => $kontak->value,
-                    'button' => $kontak->display_name
+                    'button' => $kontak->display_name,
+                    'image' => $kontak->image
                 )
             );
             return $this->sendResponse($item, 'Data successfully.');
