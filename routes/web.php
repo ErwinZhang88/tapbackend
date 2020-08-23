@@ -41,6 +41,10 @@ Route::prefix('admin')->middleware('auth:web')->group(function () {
     Route::delete('/content/destroy/{id}', 'ContentController@destroy')->name('admin.content.destroy');
     Route::post('/content/upload', 'ContentController@upload')->name('admin.content.upload');
     //end content
+    //edit konten home
+    Route::get('/home/edit/{id}', 'ContentController@edithome')->name('admin.home.edit');
+    Route::put('/home/update/{eventid}/{id}', 'ContentController@updatehome')->name('admin.home.update');
+    //end
 
 });
 Route::group(['prefix' => 'laravel-filemanager'], function () {

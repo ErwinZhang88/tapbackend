@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Menu;
 use App\Category;
+use App\SettingHome;
 use App\ContentPost;
 use App\ContentPostTranslation;
 use View;
@@ -32,18 +33,23 @@ class ContentController extends Controller
      */
     public function index($id)
     {
-        // echo $id;die;
         $menu = Menu::select('nicename')->find($id);
         $page = $menu->nicename;
         $subpage = 'list';
-        $menu = ContentPost::join('categories','categories.id','=','content_posts.category_id')
-            ->join('menus','menus.id','=','categories.menu_id')
-            ->leftjoin('content_post_translations','content_post_translations.content_post_id','=','content_posts.id')
-            ->where(function($q) use($id) {
-                $q->where('menus.parent_id', $id)
-                ->orWhere('menus.id', $id)->OrWhere('menus.parent_menu_id',$id);
-            })->select('content_posts.*','content_post_translations.name','categories.name as category','menus.name as menu_name')->get();
-        return view('admin.content.index',compact('subpage','menu','id','page'));
+        if($id != 1){
+            $menu = ContentPost::join('categories','categories.id','=','content_posts.category_id')
+                ->join('menus','menus.id','=','categories.menu_id')
+                ->leftjoin('content_post_translations','content_post_translations.content_post_id','=','content_posts.id')
+                ->where(function($q) use($id) {
+                    $q->where('menus.parent_id', $id)
+                    ->orWhere('menus.id', $id)->OrWhere('menus.parent_menu_id',$id);
+                })->select('content_posts.*','content_post_translations.name','categories.name as category','menus.name as menu_name')->get();
+            return view('admin.content.index',compact('subpage','menu','id','page'));
+        }else{
+            $menu = SettingHome::leftJoin('menus','menus.id','=','setting_homes.menu_id')
+                ->select('setting_homes.*','menus.name')->get();
+            return view('admin.content.home',compact('subpage','menu','id','page'));
+        }
     }
 
     public function create($id)
@@ -181,5 +187,43 @@ class ContentController extends Controller
 		} while ($found);
 
 		return $current_slug;
-	}
+    }
+    
+    public function edithome($id){
+        $subpage = 'create';
+        $menu = Menu::select('id','name')->where('parent_id',0)->get();
+        $item = SettingHome::find($id);
+        $eventid = 1;
+        return view('admin.content.homeedit',compact('subpage','menu','item','id','eventid'));
+
+    }
+
+    public function updatehome($eventid, $id, Request $request){
+        if($id != 0){
+            $item = SettingHome::find($id);
+        }else{
+            $item = new SettingHome;
+        }
+        if($request->type == 3){
+            $item->display_name = $request->display_name;
+            $item->value = $request->value;
+            if(isset($request->image)){
+                $item->image = $request->image;
+            }
+        }
+        if($request->type == 2){
+            $item->display_name = $request->display_name;
+            if(isset($request->image)){
+                $item->image = $request->image;
+            }
+        }
+        if($request->type == 1){
+            $item->display_name = $request->display_name;
+            $item->menu_id = $request->menu_id;
+        }
+        $item->save();
+        $eventid = 1;
+        return redirect()->route('admin.content',['eventid' => $eventid]);
+
+    }
 }
