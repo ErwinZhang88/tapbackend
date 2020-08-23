@@ -60,7 +60,8 @@ class HomeController extends BaseController
                     'image' => $kontak->image
                 ),
                 'detailpress' => array(
-                    'button' => $detailpress->display_name
+                    'button' => $detailpress->display_name,
+                    'text' => $detailpress->value
                 )
             );
             return $this->sendResponse($item, 'Data successfully.');

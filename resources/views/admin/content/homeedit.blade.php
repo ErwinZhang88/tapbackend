@@ -116,6 +116,12 @@
                             @endforeach
                         </select>
                     </div>
+                    @elseif($item->type == 4)
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Value</label>
+                        <input type="text" class="form-control" name="value" id="exampleInputEmail1"
+                            value="{{ $item ? $item->value : '' }}" placeholder="Enter Value" required autocomplete="off">
+                    </div>
                     @endif
 
                 <!-- /.form-group -->

@@ -208,7 +208,7 @@ class ContentController extends Controller
         }
         
         $item->display_name = $request->display_name;
-        if($request->type == 3){
+        if($request->type == 3 || $request->type == 4){
             $item->value = $request->value;
             if(isset($request->image)){
                 $item->image = $request->image;
@@ -221,9 +221,6 @@ class ContentController extends Controller
         }
         if($request->type == 1){
             $item->menu_id = $request->menu_id;
-        }
-        if($request->type == 4){
-            $item->value = $request->display_name;
         }
         $item->save();
         $eventid = 1;
