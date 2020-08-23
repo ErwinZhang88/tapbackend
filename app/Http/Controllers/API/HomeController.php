@@ -37,7 +37,7 @@ class HomeController extends BaseController
                     ->where('setting_homes.type',1)->get();
                 $banner = Banner::select('id','name','nicename','banner','banner_mobile',
                     'link','type','order')->get();
-                $detailpress = SettingHome::where('type',4)->where('key','kontak.id')->first();
+                $detailpress = SettingHome::where('type',4)->where('key','detail.id')->first();
             }else{
                 $kontak = SettingHome::where('type',3)->where('key','kontak.en')->first();
                 $menus = SettingHome::leftJoin('menus','menus.id','=','setting_homes.menu_id')
@@ -46,7 +46,7 @@ class HomeController extends BaseController
                     ->where('setting_homes.type',1)->get();
                 $banner = Banner::select('id','nameEn as name','nicenameEn as nicename','banner','banner_mobile',
                     'link','type','order')->get();
-                $detailpress = SettingHome::where('type',4)->where('key','kontak.en')->first();
+                $detailpress = SettingHome::where('type',4)->where('key','detail.en')->first();
             }
             $item = array(
                 'banner' => $banner,
