@@ -135,6 +135,7 @@ class ContentController extends Controller
             $item_content_en->name = $request->titleEn;
             $item_content_en->nicename = $this->generateSlug('nicename',$request->titleEn);
             $item_content_en->description = $request->descEn;
+            $item_content_en->short_desc = $request->shortdescEn;
             $item_content_en->save();
         }
 
@@ -148,6 +149,7 @@ class ContentController extends Controller
             $item_content_id->name = $request->title;
             $item_content_id->nicename = $this->generateSlug('nicename',$request->title);
             $item_content_id->description = $request->desc;
+            $item_content_id->short_desc = $request->shortdesc;
             $item_content_id->save();
         }
         return redirect()->route('admin.content',['eventid' => $eventid]);

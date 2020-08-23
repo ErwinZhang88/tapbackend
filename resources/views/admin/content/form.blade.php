@@ -132,6 +132,11 @@
                                 <input type="text" class="form-control" name="title" id="exampleInputEmail1"
                                     value="{{ ($item && $item['translations']) ? $item['translations']->name : '' }}" placeholder="Masukkan Judul">
                             </div>
+                            <div class="form-group" id="shortdesc">
+                                <label for="exampleInputEmail1">Deskripsi Singkat(ID)</label>
+                                <textarea name="shortdesc" class="form-control">{{ ($item && $item['translations']) ? $item['translations']->short_desc : '' }}
+                                </textarea>
+                            </div>
                             <div class="form-group" id="desc">
                                 <label for="exampleInputEmail1">Deskripsi (ID)</label>
                                 <textarea name="desc" class="form-control">{{ ($item && $item['translations']) ? $item['translations']->description : '' }}
@@ -143,6 +148,11 @@
                                 <label for="exampleInputEmail1">Title (EN)</label>
                                 <input type="text" class="form-control" name="titleEn" id="exampleInputEmail1"
                                     value="{{ ($item && $item['translations_en']) ? $item['translations_en']->name : '' }}" placeholder="Enter Title">
+                            </div>
+                            <div class="form-group" id="shortdescEn">
+                                <label for="exampleInputEmail1">Deskripsi Singkat (EN)</label>
+                                <textarea name="shortdescEn" class="form-control">{{ ($item && $item['translations_en']) ? $item['translations_en']->short_desc : '' }}
+                                </textarea>
                             </div>
                             <div class="form-group" id="desc">
                                 <label for="exampleInputEmail1">Description (EN)</label>
@@ -234,6 +244,8 @@
 <script>
     var route_prefix = "{{ url('/filemanager') }}";
     var route_img = "{{ url('/') }}";
+    var show_details = "{{ $item && $item['content']->button ? $item['content']->button : 0 }}";
+    console.log(show_details);
     var editor_config = {
         directionality: document.dir,
         path_absolute: "{{ url('/') }}"+"/",
@@ -268,6 +280,40 @@
     };
 
     tinymce.init(editor_config);
+    var shorteditor_config = {
+        directionality: document.dir,
+        path_absolute: "{{ url('/') }}"+"/",
+        selector: "textarea[name=shortdesc]",
+        plugins: [
+        "code"
+        ],
+        relative_urls: false,
+        remove_script_host : false,
+        convert_urls : true,
+        height: 150,
+        file_browser_callback : function(field_name, url, type, win) {
+        var x = window.innerWidth || document.documentElement.clientWidth || document.getElementsByTagName('body')[0].clientWidth;
+        var y = window.innerHeight|| document.documentElement.clientHeight|| document.getElementsByTagName('body')[0].clientHeight;
+
+        var cmsURL = editor_config.path_absolute + 'laravel-filemanager?field_name=' + field_name;
+        if (type == 'image') {
+            cmsURL = cmsURL + "&type=Images";
+        } else {
+            cmsURL = cmsURL + "&type=Files";
+        }
+        
+        tinyMCE.activeEditor.windowManager.open({
+            file : cmsURL,
+            title : 'Filemanager',
+            width : x * 0.8,
+            height : y * 0.8,
+            resizable : "yes",
+            close_previous : "no",
+        });
+        }
+    };
+
+    tinymce.init(shorteditor_config);
 
     var editor_configEn = {
         directionality: document.dir,
@@ -303,6 +349,40 @@
     };
 
     tinymce.init(editor_configEn);
+    var shorteditor_configEn = {
+        directionality: document.dir,
+        path_absolute: "{{ url('/') }}"+"/",
+        selector: "textarea[name=shortdescEn]",
+        plugins: [
+        "code"
+        ],
+        relative_urls: false,
+        remove_script_host : false,
+        convert_urls : true,
+        height: 150,
+        file_browser_callback : function(field_name, url, type, win) {
+        var x = window.innerWidth || document.documentElement.clientWidth || document.getElementsByTagName('body')[0].clientWidth;
+        var y = window.innerHeight|| document.documentElement.clientHeight|| document.getElementsByTagName('body')[0].clientHeight;
+
+        var cmsURL = editor_config.path_absolute + 'laravel-filemanager?field_name=' + field_name;
+        if (type == 'image') {
+            cmsURL = cmsURL + "&type=Images";
+        } else {
+            cmsURL = cmsURL + "&type=Files";
+        }
+        
+        tinyMCE.activeEditor.windowManager.open({
+            file : cmsURL,
+            title : 'Filemanager',
+            width : x * 0.8,
+            height : y * 0.8,
+            resizable : "yes",
+            close_previous : "no",
+        });
+        }
+    };
+
+    tinymce.init(shorteditor_configEn);
     {!! \File::get(base_path('vendor/unisharp/laravel-filemanager/public/js/stand-alone-button.js')) !!}
     $('#lfm').filemanager('image', {prefix: "{{ url('/') }}"+"/laravel-filemanager"});
 
@@ -379,6 +459,12 @@
     $(function () {
         //Initialize Select2 Elements
         $('.select2').select2();
+        $("#shortdesc").hide();
+        $("#shortdescEn").hide();
+        if(show_details == 1){
+            $("#shortdesc").show();
+            $("#shortdescEn").show();
+        }
         var types = "{{ $item && $item['content']->type ? $item['content']->type : 1 }}";
         if(types == 1){
             $("#title").show();
@@ -396,6 +482,16 @@
         $("#format").change(function(){
             console.log('val->',$(this).val());
             $("img[name=image-swap]").attr("src",route_img + '/format/format_' + $(this).val() + '.png' );
+        });
+        $("#button").change(function(){
+            console.log('valbutton->',$(this).val());
+            if($(this).val() == 1){
+                $("#shortdesc").show();
+                $("#shortdescEn").show();
+            }else{
+                $("#shortdesc").hide();
+                $("#shortdescEn").hide();
+            }
         });
     })
     function checkType() {

@@ -75,7 +75,8 @@ class MenuController extends BaseController
                                 'createdAt' => $createdAt->format('Y F'),
                                 'title' => $contentData ? $contentData->name : '',
                                 'nicename' => $contentData ? $contentData->nicename : '',
-                                'desc' => $contentData ? $contentData->description : ''
+                                'desc' => $contentData ? $contentData->description : '',
+                                'short_desc' => $contentData ? $contentData->short_desc : ''
                             );
                         }
                         $row['content'] = $contentrow;
@@ -135,7 +136,7 @@ class MenuController extends BaseController
                 'title' => $contentData ? $contentData->name : '',
                 'nicename' => $contentData ? $contentData->nicename : '',
                 'desc' => $contentData ? $contentData->description : '',
-                'short_desc' => $contentData ? $contentData->description : ''
+                'short_desc' => $contentData ? $contentData->short_desc : ''
             );
             return $this->sendResponse($data, 'Data successfully.');
         }else{
