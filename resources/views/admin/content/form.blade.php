@@ -251,7 +251,7 @@
         path_absolute: "{{ url('/') }}"+"/",
         selector: "textarea[name=desc]",
         plugins: [
-        "link image code"
+        "link image code lists advlist"
         ],
         relative_urls: false,
         remove_script_host : false,
@@ -320,7 +320,7 @@
         path_absolute: "{{ url('/') }}"+"/",
         selector: "textarea[name=descEn]",
         plugins: [
-        "link image code"
+        "link image code lists advlist"
         ],
         relative_urls: false,
         remove_script_host : false,
