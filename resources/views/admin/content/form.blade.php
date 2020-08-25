@@ -2,8 +2,58 @@
 
 @section('style')
   <!-- Select2 -->
-  <link rel="stylesheet" href="{{ asset('admins/plugins/select2/css/select2.min.css') }}">
-  <link rel="stylesheet" href="{{ asset('admins/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('admins/plugins/select2/css/select2.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('admins/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
+    <style>
+        .color1{
+            background-color: #FFFFFF;
+        }
+        .color2{
+            background-color: #000000;
+        }
+        .color3{
+            background-color: #057249;
+        }
+        .color4{
+            background-color: #19AE4F;
+        }
+        .color5{
+            background-color: #649743;
+        }
+        .color6{
+            background-color: #6CCB3D;
+        }
+        .color7{
+            background-color: #929292;
+        }
+        .color8{
+            background-color: #AEAEAE;
+        }
+        .color9{
+            background-color: #C8D4B8;
+        }
+        .color10{
+            background-color: #D9DED2;
+        }
+        .color11{
+            background-color: #F0EDDC;
+        }
+        .color12{
+            background-color: #E9ECE5;
+        }
+        .color13{
+            background-color: #727272;
+        }
+        .color14{
+            background-color: #989898;
+        }
+        .color15{
+            background-color: #5A5A5A;
+        }
+        .color16{
+            background-color: #CB9F49;
+        }
+    </style>
 @endsection
 
 @section('content')
@@ -71,23 +121,22 @@
             <div class="form-group">
                 <label>Background Color</label>
                 <select class="form-control select2" name="bg_color" id="bg_color" style="width: 100%;">
-                    <option value="#FFFFFF" {{ $item && $item['content']->bg_color == '#FFFFFF' ? 'selected="selected"' : '' }}>#FFFFFF</option>
-                    <option value="#000000" {{ $item && $item['content']->bg_color == '#000000' ? 'selected="selected"' : '' }}>#000000</option>
-                    <option value="#057249" {{ $item && $item['content']->bg_color == '#057249' ? 'selected="selected"' : '' }}>#057249</option>
-                    <option value="#19AE4F" {{ $item && $item['content']->bg_color == '#19AE4F' ? 'selected="selected"' : '' }}>#19AE4F</option>
-                    <option value="#649743" {{ $item && $item['content']->bg_color == '#649743' ? 'selected="selected"' : '' }}>#649743</option>
-                    <option value="#6CCB3D" {{ $item && $item['content']->bg_color == '#6CCB3D' ? 'selected="selected"' : '' }}>#6CCB3D</option>
-                    <option value="#929292" {{ $item && $item['content']->bg_color == '#929292' ? 'selected="selected"' : '' }}>#929292</option>
-                    <option value="#AEAEAE" {{ $item && $item['content']->bg_color == '#AEAEAE' ? 'selected="selected"' : '' }}>#AEAEAE</option>
-                    <option value="#C8D4B8" {{ $item && $item['content']->bg_color == '#C8D4B8' ? 'selected="selected"' : '' }}>#C8D4B8</option>
-                    <option value="#D9DED2" {{ $item && $item['content']->bg_color == '#D9DED2' ? 'selected="selected"' : '' }}>#D9DED2</option>
-                    <option value="#F0EDDC" {{ $item && $item['content']->bg_color == '#F0EDDC' ? 'selected="selected"' : '' }}>#F0EDDC</option>
-                    <option value="#E9ECE5" {{ $item && $item['content']->bg_color == '#E9ECE5' ? 'selected="selected"' : '' }}>#E9ECE5</option>
-                    <option value="#727272" {{ $item && $item['content']->bg_color == '#727272' ? 'selected="selected"' : '' }}>#727272</option>
-                    <option value="#989898" {{ $item && $item['content']->bg_color == '#989898' ? 'selected="selected"' : '' }}>#989898</option>
-                    <option value="#5A5A5A" {{ $item && $item['content']->bg_color == '#5A5A5A' ? 'selected="selected"' : '' }}>#5A5A5A</option>
-                    <option value="#CB9F49" {{ $item && $item['content']->bg_color == '#CB9F49' ? 'selected="selected"' : '' }}>#CB9F49</option>
-                    <option value="#CB4949" {{ $item && $item['content']->bg_color == '#CB4949' ? 'selected="selected"' : '' }}>#CB4949</option>
+                    <option value="#FFFFFF" class="color1" {{ $item && $item['content']->bg_color == '#FFFFFF' ? 'selected="selected"' : '' }}>#FFFFFF</option>
+                    <option value="#000000" class="color2" {{ $item && $item['content']->bg_color == '#000000' ? 'selected="selected"' : '' }}>#000000</option>
+                    <option value="#057249" class="color3" {{ $item && $item['content']->bg_color == '#057249' ? 'selected="selected"' : '' }}>#057249</option>
+                    <option value="#19AE4F" class="color4" {{ $item && $item['content']->bg_color == '#19AE4F' ? 'selected="selected"' : '' }}>#19AE4F</option>
+                    <option value="#649743" class="color5" {{ $item && $item['content']->bg_color == '#649743' ? 'selected="selected"' : '' }}>#649743</option>
+                    <option value="#6CCB3D" class="color6" {{ $item && $item['content']->bg_color == '#6CCB3D' ? 'selected="selected"' : '' }}>#6CCB3D</option>
+                    <option value="#929292" class="color7" {{ $item && $item['content']->bg_color == '#929292' ? 'selected="selected"' : '' }}>#929292</option>
+                    <option value="#AEAEAE" class="color8" {{ $item && $item['content']->bg_color == '#AEAEAE' ? 'selected="selected"' : '' }}>#AEAEAE</option>
+                    <option value="#C8D4B8" class="color9" {{ $item && $item['content']->bg_color == '#C8D4B8' ? 'selected="selected"' : '' }}>#C8D4B8</option>
+                    <option value="#D9DED2" class="color10" {{ $item && $item['content']->bg_color == '#D9DED2' ? 'selected="selected"' : '' }}>#D9DED2</option>
+                    <option value="#F0EDDC" class="color11" {{ $item && $item['content']->bg_color == '#F0EDDC' ? 'selected="selected"' : '' }}>#F0EDDC</option>
+                    <option value="#E9ECE5" class="color12" {{ $item && $item['content']->bg_color == '#E9ECE5' ? 'selected="selected"' : '' }}>#E9ECE5</option>
+                    <option value="#727272" class="color13" {{ $item && $item['content']->bg_color == '#727272' ? 'selected="selected"' : '' }}>#727272</option>
+                    <option value="#989898" class="color14" {{ $item && $item['content']->bg_color == '#989898' ? 'selected="selected"' : '' }}>#989898</option>
+                    <option value="#5A5A5A" class="color15" {{ $item && $item['content']->bg_color == '#5A5A5A' ? 'selected="selected"' : '' }}>#5A5A5A</option>
+                    <option value="#CB9F49" class="color16" {{ $item && $item['content']->bg_color == '#CB9F49' ? 'selected="selected"' : '' }}>#CB9F49</option>
                 </select>
             </div>
             <div class="form-group">
@@ -154,7 +203,7 @@
                                 <textarea name="shortdescEn" class="form-control">{{ ($item && $item['translations_en']) ? $item['translations_en']->short_desc : '' }}
                                 </textarea>
                             </div>
-                            <div class="form-group" id="desc">
+                            <div class="form-group" id="descEn">
                                 <label for="exampleInputEmail1">Description (EN)</label>
                                 <textarea name="descEn" class="form-control">{{ ($item && $item['translations_en'])  ? $item['translations_en']->description : '' }}
                                 </textarea>
@@ -479,14 +528,17 @@
         if(types == 1){
             $("#title").show();
             $("#desc").show();
+            $("#descEn").show();
             $("#img").show();
         }else if(types == 2){
             $("#title").show();
             $("#desc").show();
+            $("#descEn").show();
             $("#img").hide();
         }else{
             $("#title").show();
             $("#desc").hide();
+            $("#descEn").hide();
             $("#img").show();
         }
         $("#format").change(function(){
@@ -509,10 +561,12 @@
         if(x == 1){
             $("#title").show();
             $("#desc").show();
+            $("#descEn").show();
             $("#img").show();
         }else if(x == 2){
             $("#title").show();
             $("#desc").show();
+            $("#descEn").show();
             $("#img").hide();
         }else{
             $("#title").show();
