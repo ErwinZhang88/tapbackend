@@ -300,9 +300,9 @@
         path_absolute: "{{ url('/') }}"+"/",
         selector: "textarea[name=desc]",
         plugins: [
-        "link image code lists advlist paste insertdatetime media table contextmenu"
+        "link image code lists advlist paste insertdatetime media table contextmenu textcolor"
         ],
-        toolbar: 'undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image code',
+        toolbar: 'undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image code | fontselect fontsizeselect | forecolor backcolor',
         powerpaste_allow_local_images: true,
         powerpaste_word_import: 'prompt',
         powerpaste_html_import: 'prompt',
@@ -339,8 +339,9 @@
         path_absolute: "{{ url('/') }}"+"/",
         selector: "textarea[name=shortdesc]",
         plugins: [
-        "code"
+        "link image code lists advlist paste insertdatetime media table contextmenu textcolor"
         ],
+        toolbar: 'undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image code | fontselect fontsizeselect | forecolor backcolor',
         relative_urls: false,
         remove_script_host : false,
         convert_urls : true,
@@ -374,9 +375,9 @@
         path_absolute: "{{ url('/') }}"+"/",
         selector: "textarea[name=descEn]",
         plugins: [
-        "link image code lists advlist paste insertdatetime media table contextmenu"
+        "link image code lists advlist paste insertdatetime media table contextmenu textcolor"
         ],
-        toolbar: 'undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image code',
+        toolbar: 'undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image code | fontselect fontsizeselect | forecolor backcolor',
         powerpaste_allow_local_images: true,
         powerpaste_word_import: 'prompt',
         powerpaste_html_import: 'prompt',
@@ -413,8 +414,9 @@
         path_absolute: "{{ url('/') }}"+"/",
         selector: "textarea[name=shortdescEn]",
         plugins: [
-        "code"
+        "link image code lists advlist paste insertdatetime media table contextmenu textcolor"
         ],
+        toolbar: 'undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image code | fontselect fontsizeselect | forecolor backcolor',
         relative_urls: false,
         remove_script_host : false,
         convert_urls : true,
