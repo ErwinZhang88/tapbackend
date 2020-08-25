@@ -146,8 +146,8 @@
                         <select class="form-control select2" name="status" style="width: 100%;">
                             <option value="0" {{ ($item && $item->status == 0) ? 'selected="selected"' : ''}}>Keluhan Baru</option>
                             <option value="1" {{ ($item && $item->status == 1) ? 'selected="selected"' : ''}}>Diproses</option>
-                            <option value="3" {{ ($item && $item->status == 2) ? 'selected="selected"' : ''}}>Selesai</option>
-                            <option value="4" {{ ($item && $item->status == 3) ? 'selected="selected"' : ''}}>Ditolak</option>
+                            <option value="2" {{ ($item && $item->status == 2) ? 'selected="selected"' : ''}}>Selesai</option>
+                            <option value="3" {{ ($item && $item->status == 3) ? 'selected="selected"' : ''}}>Ditolak</option>
                         </select>
                     </div>
                     <div class="form-group" id="img2">
