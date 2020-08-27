@@ -67,7 +67,6 @@ class HomeController extends BaseController
             );
             return $this->sendResponse($item, 'Data successfully.');
         } catch (\Throwable $th) {
-            dd($th);
             return $this->sendError('error', 'terjadi kesalahan pada sistem',400);
         }
     }
@@ -102,8 +101,21 @@ class HomeController extends BaseController
         $error = '';
         try {
             $item = array(
-                'contact' => Setting::where('group','site')->get(),
+                'contact' => Setting::where('group','site')->where('order','!=',8)->get(),
                 'sosmed' => Setting::where('group','sosmed')->orderBy('order','asc')->get()
+            );
+            return $this->sendResponse($item, 'Data successfully.');
+        } catch (\Throwable $th) {
+            return $this->sendError('error', 'terjadi kesalahan pada sistem',400);
+        }
+    }
+
+    public function karir(Request $request){
+        $errorMessages = array();
+        $error = '';
+        try {
+            $item = array(
+                'iframe' => Setting::where('group','site')->where('order',8)->select('value')->first()
             );
             return $this->sendResponse($item, 'Data successfully.');
         } catch (\Throwable $th) {

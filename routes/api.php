@@ -20,6 +20,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::get('/home', 'API\HomeController@index')->name('home');
 Route::get('/footer', 'API\HomeController@footer')->name('footer');
+Route::get('/karir', 'API\HomeController@karir')->name('karir');
 Route::get('/menu', 'API\MenuController@index')->name('menu');
 Route::post('/content', 'API\MenuController@content')->name('content');
 Route::get('/keluhan', 'API\ComplainController@listkeluhan')->name('keluhan');
