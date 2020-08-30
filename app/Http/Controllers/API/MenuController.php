@@ -47,13 +47,18 @@ class MenuController extends BaseController
         }
         // echo $nicename;die;
         if($lang == 'en'){
-            $menus = MenuEn::select('id','name','banner','banner_mobile')->where('nicenameEn',$nicename)->first();
+            $menus = MenuEn::select('id','nameEn as name','banner','banner_mobile')->where('nicenameEn',$nicename)->first();
         }else{
             $menus = MenuId::select('id','name','banner','banner_mobile')->where('nicename',$nicename)->first();
         }
         if($menus){
-            $category = Category::select('id','name','nicename','type','show_name','pagination','limitpage')
-                ->where('menu_id',$menus->id)->get();
+            if($lang == 'en'){
+                $category = Category::select('id','nameEn as name','nicename','type','show_name','pagination','limitpage')
+                    ->where('menu_id',$menus->id)->get();
+            }else{
+                $category = Category::select('id','name','nicename','type','show_name','pagination','limitpage')
+                    ->where('menu_id',$menus->id)->get();
+            }
             if($category){
                 foreach($category as $row){
                     $row['content'] = array();
