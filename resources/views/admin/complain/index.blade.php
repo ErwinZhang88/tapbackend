@@ -114,7 +114,7 @@
       console.log(dataValue);
       let message = "You won't be delete "+dataValue+" ?";
       let icon = 'error';
-      let hide = 'Yes, hide it!'
+      let hide = 'Yes, delete it!'
       DeleteItem(message,url,hide,icon);
   });
 

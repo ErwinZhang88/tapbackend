@@ -92,6 +92,13 @@
                         <input type="number" class="form-control" name="limitpage" id="limitpage"
                             value="{{ $item ? $item->limitpage : '' }}" placeholder="Enter Limit Page" required autocomplete="off">
                     </div>
+                    <div class="form-group">
+                        <label>Sort Content</label>
+                        <select class="form-control select2" name="is_sort" id="is_sort" style="width: 100%;">
+                            <option value="1" {{ $item && $item->is_sort == 1 ? 'selected="selected"' : '' }}>Asc</option>
+                            <option value="0" {{ $item && $item->is_sort == 0 ? 'selected="selected"' : '' }}>Desc</option>
+                        </select>
+                    </div>
 
                 <!-- /.form-group -->
                 </div>
@@ -102,7 +109,7 @@
         <!-- /.card-body -->
         <div class="card-footer">
             <div style="float:right;">
-                <a href="{{ route('admin.menu.index') }}" class="btn btn-danger">Cancel</a>
+                <a href="{{ route('admin.category.index') }}" class="btn btn-danger">Cancel</a>
                 <button type="submit" class="btn btn-primary">Submit</button>
             </div>
         </div>

@@ -88,15 +88,15 @@
                             <option value="1" {{ $item && $item->is_placeholder == 1 ? 'selected="selected"' : '' }}>Yes</option>
                         </select>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" id="placeholder">
                         <label for="exampleInputEmail1">Placeholder (ID)</label>
                         <input type="text" class="form-control" name="placeholder" id="exampleInputEmail1" 
-                            value="{{ $item ? $item->placeholder : '' }}" placeholder="Enter Name" required autocomplete="off">
+                            value="{{ $item ? $item->placeholder : '' }}" placeholder="Enter Name" autocomplete="off">
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" id="placeholderen">
                         <label for="exampleInputEmail1">Placeholder (EN)</label>
                         <input type="text" class="form-control" name="display_name" id="exampleInputEmail1" 
-                            value="{{ $item ? $item->placeholderEn : '' }}" placeholder="Enter Name" required autocomplete="off">
+                            value="{{ $item ? $item->placeholderEn : '' }}" placeholder="Enter Name" autocomplete="off">
                     </div>
 
                 <!-- /.form-group -->
@@ -133,6 +133,19 @@
         //Initialize Select2 Elements
         $('.select2').select2();
         bsCustomFileInput.init();
+        $("#placeholder").hide();
+        $("#placeholderen").hide();
+
+        $("#is_placeholder").change(function(){
+            console.log('valbutton->',$(this).val());
+            if($(this).val() == 1){
+                $("#placeholder").show();
+                $("#placeholderen").show();
+            }else{
+                $("#placeholder").hide();
+                $("#placeholderen").hide();
+            }
+        });
     })
 </script>
 @endsection

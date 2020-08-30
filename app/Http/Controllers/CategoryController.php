@@ -69,6 +69,7 @@ class CategoryController extends Controller
         $item->nameEn = $request->nameEn;
         $item->show_name = $request->show_name;
         $item->pagination = $request->pagination;
+        $item->is_sort = $request->is_sort;
         if(isset($request->limitpage)){
             $item->limitpage = $request->limitpage;
         }

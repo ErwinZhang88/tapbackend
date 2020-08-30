@@ -65,8 +65,10 @@ class SettingFormController extends Controller
         $item->value = $request->value;
         $item->valueEn = $request->valueEn;
         $item->is_placeholder = $request->is_placeholder;
-        $item->placeholder = $request->placeholder;
-        $item->placeholderEn = $request->placeholderEn;
+        if($request->is_placeholder == 1){
+            $item->placeholder = $request->placeholder;
+            $item->placeholderEn = $request->placeholderEn;
+        }
         $item->save();
         return redirect()->route('admin.settingform.index');
 
