@@ -38,7 +38,7 @@
         </div>
         </div>
         <!-- /.card-header -->
-        <form class="forms-sample" method="POST" action="{{ $item ? route('admin.setting.update',$item->id) : route('admin.setting.store') }}" enctype="multipart/form-data">
+        <form class="forms-sample" method="POST" action="{{ $item ? route('admin.settingform.update',$item->id) : route('admin.settingform.store') }}" enctype="multipart/form-data">
         {{ csrf_field() }}
         @if ($item)
             {{ method_field('PUT') }}
