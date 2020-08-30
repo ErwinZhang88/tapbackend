@@ -71,6 +71,20 @@ class HomeController extends BaseController
         }
     }
 
+    public function readmore(Request $request){
+        $lang = 'id';
+        if($request->header('lang') != ''){
+            $lang = $request->header('lang');
+        }
+        if($lang == 'id'){
+            $detailpress = SettingHome::where('type',4)->where('key','detail.id')->first();
+        }else{
+            $detailpress = SettingHome::where('type',4)->where('key','detail.en')->first();
+        }
+        $item = $detailpress->display_name;
+        return $this->sendResponse($item, 'Data successfully.');
+    }
+
     public function sendemail(Request $request){
         $errorMessages = array();
         $error = '';

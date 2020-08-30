@@ -19,6 +19,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::get('/home', 'API\HomeController@index')->name('home');
+Route::get('/readmore', 'API\HomeController@readmore')->name('readmore');
 Route::get('/footer', 'API\HomeController@footer')->name('footer');
 Route::get('/karir', 'API\HomeController@karir')->name('karir');
 Route::get('/menu', 'API\MenuController@index')->name('menu');
