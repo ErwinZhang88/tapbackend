@@ -126,12 +126,16 @@ class ComplainController extends BaseController
             $file = SettingForm::where('type',9)->select('value as name')->first();
             $body = SettingForm::where('type','<',7)->select('id','value as name','is_sort','type','is_required',
             'is_placeholder', 'data as additional','placeholder','nicename')->orderBy('is_sort','asc')->get();
+            $msg_required = SettingForm::where('type',10)->select('value as name')->first();
+            $msg_email = SettingForm::where('type',11)->select('value as name')->first();
         }else{
             $title = SettingForm::where('type',7)->select('valueEn as name')->first();
             $button = SettingForm::where('type',8)->select('valueEn as name')->first();
             $file = SettingForm::where('type',9)->select('valueEn as name')->first();
             $body = SettingForm::where('type','<',7)->select('id','valueEn as name','is_sort','type','is_required',
             'is_placeholder', 'dataEn as additional','placeholderEn','nicename')->orderBy('is_sort','asc')->get();
+            $msg_required = SettingForm::where('type',10)->select('valueEn as name')->first();
+            $msg_email = SettingForm::where('type',11)->select('valueEn as name')->first();
         }
         foreach($body as $row){
             $row->value = '';
@@ -145,7 +149,9 @@ class ComplainController extends BaseController
             'title' => $title->name,
             'body' => $body,
             'button' => $button->name,
-            'file' => $file->name
+            'file' => $file->name,
+            'msg_required' => $msg_required->name,
+            'msg_email' => $msg_email->name
         );
         return $this->sendResponse($data, 'Data successfully.');
     }
