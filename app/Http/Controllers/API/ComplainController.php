@@ -17,26 +17,26 @@ class ComplainController extends BaseController
     public function index(Request $request){
         $errorMessages = array();
         $error = '';
-        if($request->name == ''){
-            $error = 'error';
-            $errorMessages[] = 'nama tidak boleh kosong';
-        }
-        if($request->phone == ''){
-            $error = 'error';
-            $errorMessages[] = 'phone tidak boleh kosong';
-        }
-        if($request->email == ''){
-            $error = 'error';
-            $errorMessages[] = 'email tidak boleh kosong';
-        }
-        if($request->informasi_keluhan == ''){
-            $error = 'error';
-            $errorMessages[] = 'informasi keluhan tidak boleh kosong';
-        }
-        if($request->bukti == ''){
-            $error = 'error';
-            $errorMessages[] = 'bukti tidak boleh kosong';
-        }
+        // if($request->name == ''){
+        //     $error = 'error';
+        //     $errorMessages[] = 'nama tidak boleh kosong';
+        // }
+        // if($request->phone == ''){
+        //     $error = 'error';
+        //     $errorMessages[] = 'phone tidak boleh kosong';
+        // }
+        // if($request->email == ''){
+        //     $error = 'error';
+        //     $errorMessages[] = 'email tidak boleh kosong';
+        // }
+        // if($request->informasi_keluhan == ''){
+        //     $error = 'error';
+        //     $errorMessages[] = 'informasi keluhan tidak boleh kosong';
+        // }
+        // if($request->bukti == ''){
+        //     $error = 'error';
+        //     $errorMessages[] = 'bukti tidak boleh kosong';
+        // }
         if($error != ''){
             return $this->sendError($error, $errorMessages,400);
         }
@@ -95,6 +95,23 @@ class ComplainController extends BaseController
         $item = array();
         $item = Complain::whereIn('status', [1, 2])->get();
         return $this->sendResponse($item, 'Data successfully.');
+    }
+
+    public function tabelkeluhan(Request $request){
+        $lang = 'id';
+        if($request->header('lang') != ''){
+            $lang = $request->header('lang');
+        }
+        if($lang == 'id'){
+            $data = array(
+                'ID','Nama','Tanggal Input','Tanggal Selesai','Status','Detail'
+            );
+        }else{
+            $data = array(
+                'ID','Name','Date Filed','Date Closed','Status','Detail'
+            );
+        }
+        return $this->sendResponse($data, 'Data successfully.');
     }
     
     public function formkeluhan(Request $request){

@@ -25,6 +25,7 @@ Route::get('/karir', 'API\HomeController@karir')->name('karir');
 Route::get('/menu', 'API\MenuController@index')->name('menu');
 Route::post('/content', 'API\MenuController@content')->name('content');
 Route::get('/formkeluhan', 'API\ComplainController@formkeluhan')->name('formkeluhan');
+Route::get('/tabelkeluhan', 'API\ComplainController@tabelkeluhan')->name('tabelkeluhan');
 Route::get('/keluhan', 'API\ComplainController@listkeluhan')->name('keluhan');
 Route::post('/keluhankami', 'API\ComplainController@index')->name('keluhankami');
 Route::post('/uploadbukti', 'API\ComplainController@upload')->name('uploadbukti');
