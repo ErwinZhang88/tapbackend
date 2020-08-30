@@ -55,7 +55,7 @@
                             <option value="3" {{ $item && $item->type == 3 ? 'selected="selected"' : '' }}>TextArea</option>
                             <option value="4" {{ $item && $item->type == 4 ? 'selected="selected"' : '' }}>File</option>
                             <option value="5" {{ $item && $item->type == 5 ? 'selected="selected"' : '' }}>Radio Button</option>
-                            <option value="6" {{ $item && $item->type == 6 ? 'selected="selected"' : '' }}>CheckBox</option>
+                            <!-- <option value="6" {{ $item && $item->type == 6 ? 'selected="selected"' : '' }}>CheckBox</option> -->
                             <option value="7" {{ $item && $item->type == 7 ? 'selected="selected"' : '' }}>Title</option>
                             <option value="8" {{ $item && $item->type == 8 ? 'selected="selected"' : '' }}>Button</option>
                         </select>

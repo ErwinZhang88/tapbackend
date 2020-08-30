@@ -104,11 +104,11 @@ class ComplainController extends BaseController
         }
         if($lang == 'id'){
             $data = array(
-                'ID','Nama','Tanggal Input','Tanggal Selesai','Status','Detail'
+                'Keluhan','Tanggal Input','Tanggal Selesai','Status','Detail'
             );
         }else{
             $data = array(
-                'ID','Name','Date Filed','Date Closed','Status','Detail'
+                'Name','Date Filed','Date Closed','Status','Detail'
             );
         }
         return $this->sendResponse($data, 'Data successfully.');
@@ -119,21 +119,37 @@ class ComplainController extends BaseController
         if($request->header('lang') != ''){
             $lang = $request->header('lang');
         }
+        $bodys = array();
         if($lang == 'id'){
             $title = SettingForm::where('type',7)->select('value as name')->first();
             $button = SettingForm::where('type',8)->select('value as name')->first();
+            $file = SettingForm::where('type',9)->select('value as name')->first();
             $body = SettingForm::where('type','<',7)->select('id','value as name','is_sort','type','is_required',
-            'is_placeholder', 'data as additional','placeholder')->orderBy('is_sort','asc')->get();
+            'is_placeholder', 'data as additional','placeholder','nicename')->orderBy('is_sort','asc')->get();
+            foreach($body as $row){
+                if($row->type == 5){
+                    $row->additional = json_decode($row->additional);
+                }
+                $bodys[] = $row;
+            }
         }else{
             $title = SettingForm::where('type',7)->select('valueEn as name')->first();
             $button = SettingForm::where('type',8)->select('valueEn as name')->first();
+            $file = SettingForm::where('type',9)->select('valueEn as name')->first();
             $body = SettingForm::where('type','<',7)->select('id','valueEn as name','is_sort','type','is_required',
-            'is_placeholder', 'dataEn as additional','placeholderEn')->orderBy('is_sort','asc')->get();
+            'is_placeholder', 'dataEn as additional','placeholderEn','nicename')->orderBy('is_sort','asc')->get();
+            foreach($body as $row){
+                if($row->type == 5){
+                    $row->additional = json_decode($row->additional);
+                }
+                $bodys[] = $row;
+            }
         }
         $data = array(
             'title' => $title->name,
             'body' => $body,
-            'button' => $button->name
+            'button' => $button->name,
+            'file' => $file->name
         );
         return $this->sendResponse($data, 'Data successfully.');
     }
