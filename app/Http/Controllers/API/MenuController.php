@@ -53,15 +53,16 @@ class MenuController extends BaseController
         }
         if($menus){
             if($lang == 'en'){
-                $category = Category::select('id','nameEn as name','nicename','type','show_name','pagination','limitpage')
+                $category = Category::select('id','nameEn as name','nicename','type','show_name','pagination','limitpage','is_sort')
                     ->where('menu_id',$menus->id)->get();
             }else{
-                $category = Category::select('id','name','nicename','type','show_name','pagination','limitpage')
+                $category = Category::select('id','name','nicename','type','show_name','pagination','limitpage','is_sort')
                     ->where('menu_id',$menus->id)->get();
             }
             if($category){
                 foreach($category as $row){
                     $row['content'] = array();
+                    $order = $row->is_sort == 1 ? 'asc' : 'desc';
                     if($row->pagination == 1){
                         $content = ContentPost::where('category_id',$row->id)->OrderBy('id',$order)->paginate($row->limitpage);
                         $row->contentTotal	= $content->count();
