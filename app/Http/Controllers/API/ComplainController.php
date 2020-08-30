@@ -91,10 +91,25 @@ class ComplainController extends BaseController
         return $this->sendResponse($item, 'Data successfully.');
     }
     
-    public function listkeluhan(){
+    public function listkeluhan(Request $request){
+        $lang = 'id';
+        if($request->header('lang') != ''){
+            $lang = $request->header('lang');
+        }
+
+        if($lang == 'id'){
+            $column = SettingForm::where('type',12)->select('value as label','nicename as value')->get();
+        }else{
+            $column = SettingForm::where('type',12)->select('valueEn as label','nicename as value')->get();
+        }
+
         $item = array();
         $item = Complain::whereIn('status', [1, 2])->get();
-        return $this->sendResponse($item, 'Data successfully.');
+        $data = array(
+            'list_data' => $item,
+            'column' => $column
+        );
+        return $this->sendResponse($data, 'Data successfully.');
     }
 
     public function tabelkeluhan(Request $request){

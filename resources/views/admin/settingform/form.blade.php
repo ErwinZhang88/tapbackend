@@ -61,6 +61,7 @@
                             <option value="9" {{ $item && $item->type == 9 ? 'selected="selected"' : '' }}>Button File</option>
                             <option value="10" {{ $item && $item->type == 10 ? 'selected="selected"' : '' }}>Message Error</option>
                             <option value="11" {{ $item && $item->type == 11 ? 'selected="selected"' : '' }}>Email Error</option>
+                            <option value="11" {{ $item && $item->type == 12 ? 'selected="selected"' : '' }}>Label Table</option>
                         </select>
                     </div>
                     <div class="form-group">
