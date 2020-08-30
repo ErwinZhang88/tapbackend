@@ -51,7 +51,14 @@
             </p>
         </a>
         </li>
-        
+        <li class="nav-item {{ isset($page) && $page == 'settingform' ? 'menu-open' : ''}}">
+        <a href="{{ route('admin.settingform.index') }}" class="nav-link">
+            <i class="nav-icon fas fa-th"></i>
+            <p>
+            Setting Form Keluhan
+            </p>
+        </a>
+        </li>
         @foreach(\App\Menu::orderBy('id', 'asc')
         ->where('parent_id', 0)->get() as $menu)
         <li class="nav-item {{ isset($page) && $page == $menu->nicename ? 'menu-open' : ''}}">

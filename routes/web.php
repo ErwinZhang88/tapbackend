@@ -29,6 +29,7 @@ Route::prefix('admin')->middleware('auth:web')->group(function () {
     Route::resource('complaint', 'ComplaintController', ['as' => 'admin']);
     Route::resource('setting', 'SettingController', ['as' => 'admin']);
     Route::resource('sosmed', 'SosmedController', ['as' => 'admin']);
+    Route::resource('settingform', 'SettingFormController', ['as' => 'admin']);
     //export excel complain
     Route::get('/complaint/export/data', 'ComplaintController@export')->name('admin.complaint.export');
     //end

@@ -94,7 +94,7 @@
         <!-- /.card-body -->
         <div class="card-footer">
             <div style="float:right;">
-                <a href="{{ route('admin.banner.index') }}" class="btn btn-danger">Cancel</a>
+                <a href="{{ route('admin.setting.index') }}" class="btn btn-danger">Cancel</a>
                 <button type="submit" class="btn btn-primary">Submit</button>
             </div>
         </div>

@@ -6,6 +6,7 @@ use App\Http\Controllers\API\BaseController as BaseController;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Complain;
+use App\SettingForm;
 use Illuminate\Support\Str;
 
 class ComplainController extends BaseController
@@ -94,6 +95,30 @@ class ComplainController extends BaseController
         $item = array();
         $item = Complain::whereIn('status', [1, 2])->get();
         return $this->sendResponse($item, 'Data successfully.');
+    }
+    
+    public function formkeluhan(Request $request){
+        $lang = 'id';
+        if($request->header('lang') != ''){
+            $lang = $request->header('lang');
+        }
+        if($lang == 'id'){
+            $title = SettingForm::where('type',7)->select('value as name')->first();
+            $button = SettingForm::where('type',8)->select('value as name')->first();
+            $body = SettingForm::where('type','<',7)->select('id','value as name','is_sort','type','is_required',
+            'is_placeholder', 'data as additional','placeholder')->orderBy('is_sort','asc')->get();
+        }else{
+            $title = SettingForm::where('type',7)->select('valueEn as name')->first();
+            $button = SettingForm::where('type',8)->select('valueEn as name')->first();
+            $body = SettingForm::where('type','<',7)->select('id','valueEn as name','is_sort','type','is_required',
+            'is_placeholder', 'dataEn as additional','placeholderEn')->orderBy('is_sort','asc')->get();
+        }
+        $data = array(
+            'title' => $title->name,
+            'body' => $body,
+            'button' => $button->name
+        );
+        return $this->sendResponse($data, 'Data successfully.');
     }
 
 	function generateSlug($type,$name) {
