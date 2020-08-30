@@ -126,24 +126,19 @@ class ComplainController extends BaseController
             $file = SettingForm::where('type',9)->select('value as name')->first();
             $body = SettingForm::where('type','<',7)->select('id','value as name','is_sort','type','is_required',
             'is_placeholder', 'data as additional','placeholder','nicename')->orderBy('is_sort','asc')->get();
-            foreach($body as $row){
-                if($row->type == 5){
-                    $row->additional = json_decode($row->additional);
-                }
-                $bodys[] = $row;
-            }
         }else{
             $title = SettingForm::where('type',7)->select('valueEn as name')->first();
             $button = SettingForm::where('type',8)->select('valueEn as name')->first();
             $file = SettingForm::where('type',9)->select('valueEn as name')->first();
             $body = SettingForm::where('type','<',7)->select('id','valueEn as name','is_sort','type','is_required',
             'is_placeholder', 'dataEn as additional','placeholderEn','nicename')->orderBy('is_sort','asc')->get();
-            foreach($body as $row){
-                if($row->type == 5){
-                    $row->additional = json_decode($row->additional);
-                }
-                $bodys[] = $row;
+        }
+        foreach($body as $row){
+            if($row->type == 5){
+                $row->additional = json_decode($row->additional);
             }
+            $row->value = '';
+            $bodys[] = $row;
         }
         $data = array(
             'title' => $title->name,
