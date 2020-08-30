@@ -134,10 +134,11 @@ class ComplainController extends BaseController
             'is_placeholder', 'dataEn as additional','placeholderEn','nicename')->orderBy('is_sort','asc')->get();
         }
         foreach($body as $row){
+            $row->value = '';
             if($row->type == 5){
                 $row->additional = json_decode($row->additional);
+                $row->value = 0;
             }
-            $row->value = '';
             $bodys[] = $row;
         }
         $data = array(
