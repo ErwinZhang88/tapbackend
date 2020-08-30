@@ -137,7 +137,7 @@ class ComplainController extends BaseController
             $row->value = '';
             if($row->type == 5){
                 $row->additional = json_decode($row->additional);
-                $row->value = 0;
+                $row->value = "0";
             }
             $bodys[] = $row;
         }
