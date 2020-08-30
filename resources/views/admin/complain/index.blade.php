@@ -112,7 +112,7 @@
       var url = '{{ route("admin.menu.destroy", ":slug") }}';
       url = url.replace(':slug', dataId);
       console.log(dataValue);
-      let message = "You won't be hide "+dataValue+" ?";
+      let message = "You won't be delete "+dataValue+" ?";
       let icon = 'error';
       let hide = 'Yes, hide it!'
       DeleteItem(message,url,hide,icon);

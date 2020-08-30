@@ -37,9 +37,13 @@ class MenuController extends BaseController
     public function content(Request $request){
         $nicename = $request->input('nicename');
         $lang = 'id';
+        $order = 'asc';
         $content_category = array();
         if($request->header('lang') != ''){
             $lang = $request->header('lang');
+        }
+        if($request->header('order') != ''){
+            $order = $request->header('order');
         }
         // echo $nicename;die;
         if($lang == 'en'){
@@ -48,17 +52,18 @@ class MenuController extends BaseController
             $menus = MenuId::select('id','name','banner','banner_mobile')->where('nicename',$nicename)->first();
         }
         if($menus){
-            $category = Category::select('id','name','nicename','type','show_name','pagination','limitpage')->where('menu_id',$menus->id)->get();
+            $category = Category::select('id','name','nicename','type','show_name','pagination','limitpage')
+                ->where('menu_id',$menus->id)->get();
             if($category){
                 foreach($category as $row){
                     $row['content'] = array();
                     if($row->pagination == 1){
-                        $content = ContentPost::where('category_id',$row->id)->paginate($row->limitpage);
+                        $content = ContentPost::where('category_id',$row->id)->OrderBy('id',$order)->paginate($row->limitpage);
                         $row->contentTotal	= $content->count();
                         $row->current_page 	= $content->currentPage();
                         $row->lastPage 	    = $content->lastPage();
                     }else{
-                        $content = ContentPost::where('category_id',$row->id)->get();
+                        $content = ContentPost::where('category_id',$row->id)->OrderBy('id',$order)->get();
                         $row->contentTotal = 0;
                         $row->current_page = 0;
                         $row->lastPage = 0;
