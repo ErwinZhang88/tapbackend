@@ -89,6 +89,7 @@ class MenuController extends BaseController
                                 'title' => $rowcontent->name,
                                 'show_title' => $rowcontent->show_title,
                                 'image' => $rowcontent->images,
+                                'image_mobile' => $rowcontent->image_mobile,
                                 'icon' => $rowcontent->icon,
                                 'files' => $rowcontent->files,
                                 'video' => $rowcontent->video,

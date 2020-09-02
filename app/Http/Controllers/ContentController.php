@@ -115,6 +115,9 @@ class ContentController extends Controller
         if(isset($request->filepath)){
             $item->images = $request->filepath;
         }
+        if(isset($request->image_mobile)){
+            $item->image_mobile = $request->image_mobile;
+        }
         if(isset($request->icon)){
             $item->icon = $request->icon;
         }
