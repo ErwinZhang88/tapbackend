@@ -89,7 +89,7 @@ class ComplaintController extends Controller
         if($item->status != 0){
             $item->date_closed = date('Y-m-d H:i:s');
         }
-        if($item->file_download != ''){
+        if($request->file_download != ''){
             $item->file_download = $request->file_download;
         }
         $item->save();
