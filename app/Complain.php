@@ -34,7 +34,7 @@ class Complain extends Model
     }
 
     public function getUrlFileAttribute(){
-        return $this->attributes['bukti'];
+        return $this->attributes['file_download'];
     }
 
     public function getStatusComplainAttribute(){

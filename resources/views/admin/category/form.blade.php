@@ -52,7 +52,7 @@
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail1">Name (EN)</label>
-                        <input type="text" class="form-control" name="nameEn" id="exampleInputEmail1"
+                        <input type="text" class="form-control" name="nameEn" id="exampleInputEmail"
                             value="{{ $item ? $item->nameEn : '' }}" placeholder="Enter Name (EN)" required autocomplete="off">
                     </div>
                     <div class="form-group">
@@ -89,8 +89,8 @@
                     </div>
                     <div class="form-group" id="limitpage">
                         <label for="exampleInputEmail1">Limit Per Page</label>
-                        <input type="number" class="form-control" name="limitpage" id="limitpage"
-                            value="{{ $item ? $item->limitpage : '' }}" placeholder="Enter Limit Page" required autocomplete="off">
+                        <input type="number" class="form-control" name="limitpage" id="limitpages"
+                            value="{{ $item ? $item->limitpage : 0 }}" placeholder="Enter Limit Page" autocomplete="off">
                     </div>
                     <div class="form-group">
                         <label>Sort Content</label>
