@@ -127,6 +127,7 @@
 <!-- TinyMCE init -->
 <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
 <script>
+    var showplaceholder = "{{ $item && $item->is_placeholder == 1 ? 1 : 0}}";
     {!! \File::get(base_path('vendor/unisharp/laravel-filemanager/public/js/stand-alone-button.js')) !!}
     $('#lfm').filemanager('image', {prefix: "{{ url('/') }}"+"/laravel-filemanager"});
     $(function () {
@@ -135,7 +136,10 @@
         bsCustomFileInput.init();
         $("#placeholder").hide();
         $("#placeholderen").hide();
-
+        if(showplaceholder == 1){
+                $("#placeholder").show();
+                $("#placeholderen").show();
+        }
         $("#is_placeholder").change(function(){
             console.log('valbutton->',$(this).val());
             if($(this).val() == 1){
