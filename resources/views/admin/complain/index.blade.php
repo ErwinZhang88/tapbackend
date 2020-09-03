@@ -109,7 +109,7 @@
   $(document).on('click', '.delete_item', function() {
       var dataValue = $(this).attr('data-value');
       var dataId = $(this).attr('data-id');
-      var url = '{{ route("admin.menu.destroy", ":slug") }}';
+      var url = '{{ route("admin.complaint.destroy", ":slug") }}';
       url = url.replace(':slug', dataId);
       console.log(dataValue);
       let message = "You won't be delete "+dataValue+" ?";
