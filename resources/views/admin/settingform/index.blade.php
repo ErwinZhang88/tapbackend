@@ -38,6 +38,7 @@
                   <thead>
                   <tr>
                     <th>No</th>
+                    <th>Type</th>
                     <th>Name(ID)</th>
                     <th>Name(EN)</th>
                     <th>Action</th>
@@ -47,6 +48,7 @@
                   @foreach($banner as $row)
                   <tr>
                     <td>{{ $row->is_sort }}</td>
+                    <td>{{ $row->type_name }}</td>
                     <td>{{ $row->value }}</td>
                     <td>{{ $row->valueEn }}</td>
                     <td>
