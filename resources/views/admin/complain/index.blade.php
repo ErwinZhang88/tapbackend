@@ -41,7 +41,8 @@
                 <table id="example2" class="table table-bordered table-hover">
                   <thead>
                   <tr>
-                    <th>Nam</th>
+                    <th>ID</th>
+                    <th>Name</th>
                     <th>Phone</th>
                     <th>Email</th>
                     <th>Information</th>
@@ -52,6 +53,7 @@
                   <tbody>
                   @foreach($menu as $row)
                   <tr>
+                    <td>{{ $row->id }}</td>
                     <td>{{ $row->name }}</td>
                     <td>{{ $row->phone }}</td>
                     <td>{{ $row->email }}</td>
