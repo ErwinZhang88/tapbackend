@@ -61,6 +61,7 @@ class ComplainController extends BaseController
             $item->metode_masalah = $request->metode_masalah;
             $item->hasil_keluhan = $request->hasil_keluhan;
             $item->status = 0;
+            $item->file_download = null;
             $item->date_closed = null;
             $item->save();
             return $this->sendResponse($item, 'Data successfully.');
@@ -172,7 +173,7 @@ class ComplainController extends BaseController
     }
 
 	function generateSlug($type,$name) {
-		$index = 0;
+        $index = 1;
 		do {
 			$current_slug = Str::slug($name) . ($index !== 0 ? "-$index" : '');
 			if (Complain::where($type, $current_slug)->first() !== null) {
