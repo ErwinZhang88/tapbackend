@@ -196,7 +196,7 @@ class ContentController extends Controller
     
     public function edithome($id){
         $subpage = 'create';
-        $menu = Menu::select('id','name')->where('parent_id',0)->get();
+        $menu = Menu::select('id','name')->get();
         $item = SettingHome::find($id);
         $eventid = 1;
         return view('admin.content.homeedit',compact('subpage','menu','item','id','eventid'));
