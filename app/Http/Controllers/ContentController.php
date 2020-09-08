@@ -224,6 +224,7 @@ class ContentController extends Controller
         }
         if($request->type == 1){
             $item->menu_id = $request->menu_id;
+            $item->value = $request->value;
         }
         $item->save();
         $eventid = 1;

@@ -53,11 +53,27 @@
                         <input type="text" class="form-control" name="key" id="exampleInputEmail1" 
                             value="{{ $item ? $item->key : '' }}" placeholder="Enter key" disabled autocomplete="off">
                     </div>
+                    @php
+                        $datamenu = array(1,2,3,4);
+                    @endphp
+                    @if(in_array($item->id,$datamenu))
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Name (ID)</label>
+                        <input type="text" class="form-control" name="display_name" id="exampleInputEmail1" 
+                            value="{{ $item ? $item->display_name : '' }}" placeholder="Enter Name (ID)" required autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Name (EN)</label>
+                        <input type="text" class="form-control" name="value" id="exampleInputEmail1" 
+                            value="{{ $item ? $item->value : '' }}" placeholder="Enter Name (EN)" required autocomplete="off">
+                    </div>
+                    @else
                     <div class="form-group">
                         <label for="exampleInputEmail1">Name</label>
                         <input type="text" class="form-control" name="display_name" id="exampleInputEmail1" 
                             value="{{ $item ? $item->display_name : '' }}" placeholder="Enter Name" required autocomplete="off">
                     </div>
+                    @endif
                     @if($item->type == 3)
                     <div class="form-group">
                         <label for="exampleInputEmail1">Value</label>
