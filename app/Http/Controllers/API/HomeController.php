@@ -52,7 +52,7 @@ class HomeController extends BaseController
                 'banner' => $banner,
                 'press' => ContentPostTranslation::join('content_posts','content_posts.id','=','content_post_translations.content_post_id')
                     ->where('content_posts.category_id',32)->where('content_post_translations.locale',$lang)
-                    ->select('content_post_translations.*','content_posts.id')->limit(3)->get(),
+                    ->select('content_post_translations.*','content_posts.id')->OrderBy('content_posts.id','desc')->limit(3)->get(),
                 'menu' => $menus,
                 'video' => SettingHome::where('type',2)->first(),
                 'kontak_kami' => array(
