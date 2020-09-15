@@ -32,7 +32,7 @@ class HomeController extends BaseController
             if($lang == 'id'){
                 $kontak = SettingHome::where('type',3)->where('key','kontak.id')->first();
                 $menus = SettingHome::leftJoin('menus','menus.id','=','setting_homes.menu_id')
-                    ->select('menus.id','setting_homes.value as name','menus.nicename','menus.banner','menus.banner_mobile',
+                    ->select('menus.id','setting_homes.display_name as name','menus.nicename','menus.banner','menus.banner_mobile',
                     'menus.icon','menus.parent_id','menus.type','menus.status','menus.comp_name','menus.path','menus.left','menus.right','menus.center')
                     ->where('setting_homes.type',1)->get();
                 $banner = Banner::select('id','name','nicename','banner','banner_mobile',

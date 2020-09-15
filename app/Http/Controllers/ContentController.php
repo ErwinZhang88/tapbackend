@@ -209,7 +209,6 @@ class ContentController extends Controller
         }else{
             $item = new SettingHome;
         }
-        
         $item->display_name = $request->display_name;
         if($request->type == 3 || $request->type == 4){
             $item->value = $request->value;
@@ -218,6 +217,7 @@ class ContentController extends Controller
             }
         }
         if($request->type == 2){
+            $item->value = $request->display_name;
             if(isset($request->image)){
                 $item->image = $request->image;
             }
