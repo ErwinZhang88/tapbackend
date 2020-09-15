@@ -16,7 +16,7 @@ class Complain extends Model
         'name','nicename','group','country','address','phone','email','fax',
         'keluhan_kepada','nama_responden','lokasi_keluhan','informasi_keluhan',
         'hal_kebijakan','bukti','tindakan','langkah_kebijakan','metode_masalah',
-        'hasil_keluhan','status','date_closed','file_download'
+        'hasil_keluhan','status','date_closed','file_download','is_download'
     ];
 
     protected $appends = ['status_complain','date_filed','url_file','date_closed'];

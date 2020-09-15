@@ -162,6 +162,14 @@
                         </div>
                         <div id="holder2" style="margin-top:15px;max-height:100px;"></div>
                     </div>
+                    <div class="form-group">
+                        <label>Status File Download</label>
+                        <select class="form-control select2" name="is_download" style="width: 100%;">
+                            <option value="0" {{ ($item && $item->is_download == 0) ? 'selected="selected"' : ''}}>Tanpa File</option>
+                            <option value="1" {{ ($item && $item->is_download == 1) ? 'selected="selected"' : ''}}>Boleh Diunduh</option>
+                            <option value="2" {{ ($item && $item->is_download == 2) ? 'selected="selected"' : ''}}>View File</option>
+                        </select>
+                    </div>
 
                 <!-- /.form-group -->
                 </div>

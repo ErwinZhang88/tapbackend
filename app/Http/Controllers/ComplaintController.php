@@ -86,6 +86,7 @@ class ComplaintController extends Controller
         $item->metode_masalah = $request->metode_masalah;
         $item->hasil_keluhan = $request->hasil_keluhan;
         $item->status = $request->status;
+        $item->is_download = $request->is_download;
         if($item->status != 0){
             $item->date_closed = date('Y-m-d H:i:s');
         }
