@@ -292,8 +292,8 @@
             <div class="form-group">
                 <label>Status File Download</label>
                 <select class="form-control select2" name="is_download" style="width: 100%;">
-                    <option value="0" {{ ($item && $item->is_download == 1) ? 'selected="selected"' : ''}}>Download</option>
-                    <option value="2" {{ ($item && $item->is_download == 2) ? 'selected="selected"' : ''}}>View File</option>
+                    <option value="0" {{ ($item && $item['content']->is_download == 1) ? 'selected="selected"' : ''}}>Download</option>
+                    <option value="2" {{ ($item && $item['content']->is_download == 2) ? 'selected="selected"' : ''}}>View File</option>
                 </select>
             </div>
         <!-- /.row -->
