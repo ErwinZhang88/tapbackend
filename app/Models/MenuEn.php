@@ -60,12 +60,12 @@ class MenuEn extends Model
         $submenu = array();
         if($this->parent_id == 0 && $this->right == 1){
             $datamenu = MenuEn::select('id','nameEn as name','nicenameEn as nicename','status','comp_name','path')
-                ->where('right',1)->where('parent_id',$this->id)->get();
+                ->where('right',1)->where('parent_id',$this->id)->OrderBy('is_order','asc')->get();
             if($datamenu){
                 foreach($datamenu as $row){
                     if($row->status == 2){
                         $datamenu_child = MenuEn::select('nameEn as name','nicenameEn as nicename','comp_name','path')
-                            ->where('right',1)->where('parent_id',$row->id)->get();
+                            ->where('right',1)->where('parent_id',$row->id)->OrderBy('is_order','asc')->get();
                         $row->item = $datamenu_child;
                     }
                 }
