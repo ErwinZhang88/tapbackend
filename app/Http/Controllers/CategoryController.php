@@ -103,7 +103,7 @@ class CategoryController extends Controller
 		$index = 0;
 		do {
 			$current_slug = Str::slug($name) . ($index !== 0 ? "-$index" : '');
-			if (Category::where($type, $current_slug)->first() !== null) {
+			if (Category::where($type, $current_slug)->withTrashed()->first() !== null) {
 				$found = true;
 				$index++;
 			} else {
