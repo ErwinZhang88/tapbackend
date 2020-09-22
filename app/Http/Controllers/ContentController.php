@@ -184,7 +184,7 @@ class ContentController extends Controller
 		$index = 0;
 		do {
 			$current_slug = Str::slug($name) . ($index !== 0 ? "-$index" : '');
-			if (ContentPostTranslation::where($type, $current_slug)->withTrashed()->first() !== null) {
+			if (ContentPostTranslation::where($type, $current_slug)->first() !== null) {
 				$found = true;
 				$index++;
 			} else {
